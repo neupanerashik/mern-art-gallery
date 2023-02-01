@@ -1,0 +1,8 @@
+.heroContainer{
+    height: calc(100vh - var(--nav-height) - 2rem);
+    /* height: 70vh; */
+    width: 100%;
+    display: grid;
+    place-content: center;
+    border: 1px solid black;
+}

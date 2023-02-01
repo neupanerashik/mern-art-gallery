@@ -1,0 +1,75 @@
+.carouselContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/******************** Carousel Slide ********************/
+
+.carouselContainer > .carouselSlide{
+    height: 80%;
+    width: 100%;
+    position: relative;
+}
+
+.carouselContainer > .carouselSlide > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.carouselContainer > .carouselSlide > img.active{
+    opacity: 1;
+}
+
+.carouselContainer > .carouselSlide > .actions > i{
+    height: 100%;
+    padding: 1.5rem;
+    position: absolute;
+    font-size: 1.75rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.carouselContainer > .carouselSlide > .actions > i:first-child{
+    left: 0;
+    top: 0;
+}
+
+.carouselContainer > .carouselSlide > .actions > i:last-child{
+    right: 0;
+    top: 0;
+}
+
+.carouselContainer > .carouselSlide > .actions > i:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease-in-out;
+}
+
+/******************** Carousel Thumb ********************/
+
+.carouselContainer > .carouselThumb{
+    height: calc(20% - 0.25rem);
+    width: 100%;
+    display: flex;
+    gap: 0.25rem;
+    overflow: hidden;
+}
+
+.carouselContainer > .carouselThumb > img{
+    height: 100%;
+    width: 15rem;
+    max-width: 15rem;
+    object-fit: cover;
+    cursor: pointer;
+    position: relative;
+}
+
+.carouselContainer > .carouselThumb > img.active{
+    padding: 0.5rem;
+    transition: padding 0.2s ease-in-out;
+}

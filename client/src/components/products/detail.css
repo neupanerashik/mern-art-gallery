@@ -1,0 +1,173 @@
+.productDetailContainer{
+    padding: 2rem var(--site-padding);
+}
+
+/******************* First Row *******************/
+.productDetailContainer > .firstRow{
+    height: calc(100vh - var(--nav-height) - 4rem);
+    margin-bottom: 5rem;
+    display: flex;
+    padding: 0.5rem;
+    border: 1px solid #ededed;
+}
+
+/******************* Carousel Container *******************/
+
+
+
+/******************* Info Container *******************/
+
+.productDetailContainer > .firstRow > .infoContainer{
+    height: 100%;
+    width: 70rem;
+    padding: 2rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #ededed; */
+    /* background-color: rgba(0, 0, 0, 0.05); */
+}
+
+.productDetailContainer > .firstRow > .infoContainer > h2{
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > a{
+    font-size: 1.25rem;
+    color: blue;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .rating{
+    margin: 1rem 0;
+    display: flex;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .rating > div{
+    margin-right: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #b2beb5;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .rating > div > i{
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .description{
+    margin: 2.5rem 0;
+    font-size: 1.25rem;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .price{
+    height: 4rem;
+    margin-bottom: 2rem;
+    line-height: 4rem;
+    font-size: 2.5rem;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .buttons > button{
+    height: 4rem;
+    width: 4rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .buttons > button:hover{
+    background-color: #b2beb5;
+    transition: all 0.2s ease-in-out;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .buttons > button.buyNowBtn{
+    height: 4rem;
+    width: auto;
+    padding: 0 2rem;
+    margin-right: 1rem;
+    border-radius: 50rem;
+ }
+
+/******************* Second Row *******************/
+.productDetailContainer > .secondRow{
+    width: 100%;
+}
+
+.productDetailContainer > .secondRow > .reviews > h2{
+    margin: 5rem 0;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review{
+    margin-bottom: 1rem;
+    display: flex;
+    border: 1px solid #ededed;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer{
+    padding: 0.5rem;
+    display: flex;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer > img{
+    height: 8rem;
+    max-width: 8rem;
+    margin-right: 0.5rem;
+    object-fit: cover;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer > div{
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-right: 1px solid #ededed;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer > div > .name{
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer > div > .rating{
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .reviewer > div > .rating > i:not(:last-child){
+    margin-right: 0.25rem;
+}
+
+.productDetailContainer > .secondRow > .reviews > .review > .comment{
+    padding: 0.5rem;
+    font-size: 1.5rem;
+}
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+   
+}
+
+/* small tablet screen */
+@media (max-width: 768px) {
+   
+}
+
+/* large mobile screen */
+@media (max-width: 576px) {
+ 
+}
+
+/* small mobile screen */
+@media (max-width: 480px) {
+ 
+}
+
+/* extra small mobile screen */
+@media (max-width: 360px) {
+ 
+}
