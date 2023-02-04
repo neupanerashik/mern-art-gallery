@@ -8,14 +8,14 @@
 
 .registerContainer > .registerForm{
     height: 100%;
-    width: 50rem;
+    width: 45rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
 }
 
-.registerContainer > .registerForm > div{
+.registerContainer > .registerForm > label{
     width: 100%;
     margin-bottom: 2.5rem;
     display: flex;
@@ -23,72 +23,58 @@
     justify-content: center;
 }
 
-.registerContainer > .registerForm > div:has(input[type='checkbox']){
+.registerContainer > .registerForm > label:has(input[type='checkbox']){
     justify-content: flex-start;
     margin-bottom: 3rem;
     font-size: 1.25rem;
 }
-.registerContainer > .registerForm > div > input[type='checkbox']{
+.registerContainer > .registerForm > label > input[type='checkbox']{
     height: 1.5rem;
     width: 1.5rem;
     margin-right: 1rem;
     cursor: pointer;
 }
 
-.registerContainer > .registerForm > div:last-child{
+.registerContainer > .registerForm > label:last-child{
     margin-bottom: 0;
 }
 
-.registerContainer > .registerForm > div > h2{
+.registerContainer > .registerForm > label > h2{
     width: 100%;
     margin-bottom: 1rem;
     font-size: 2.5rem;
     text-align: center;
 }
 
-.registerContainer > .registerForm > div > input{
+.registerContainer > .registerForm > label > input{
     width: 100%;
     padding: 1rem;
     text-align: center;
     border-bottom: 1px solid #b2beb5;
 }
 
-.registerContainer > .registerForm > div > input:focus::placeholder{
+.registerContainer > .registerForm > label > input:focus::placeholder{
     opacity: 0;
     transition: all 0.2s ease-in-out;
 }
 
-.registerContainer > .registerForm > div > button{
-    padding: 1rem 4rem;
+.registerContainer > .registerForm > label > p{
+    font-size: 1.25rem;
+    font-weight: 100;
+}
+
+.registerContainer > .registerForm > label > select{
+    margin-left: auto;
+    padding: 0.5rem;
+}
+
+.registerContainer > .registerForm > label > button{
+    height: 4rem;
+    width: 10rem;
     cursor: pointer;
     border-radius: 5rem;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
     background-color: #f4fae8;
-}
-
-.registerContainer > .registerForm > div.links{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.registerContainer > .registerForm > div.links > p{
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-}
-
-.registerContainer > .registerForm > div.links > div > a{
-    width: 8rem;
-    padding: 0.75rem;
-    display: inline-block;
-    border: 1px solid blue; 
-    border-radius: 5rem;   
-    color: blue;
-} 
-
-.registerContainer > .registerForm > div.links > div > a:first-child{
-    margin-right: 1rem;
 }
 
 /******************** Media Query ********************/

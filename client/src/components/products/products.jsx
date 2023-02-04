@@ -5,9 +5,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import './products.css'
 
 // dev imports
-import images from '../../data/images.js'
+import images from '../../assets/images/images.js'
 
-const categories = ['Paintings', "Photography", "Sculpture", "Drawing", "Digital"]
+// 
+var categories = ['Paintig', "Drawing", "Sculpture"]
 
 const Products = () => {
   const navigate = useNavigate();

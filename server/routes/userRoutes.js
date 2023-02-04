@@ -12,7 +12,7 @@ import {
     addToLikes,
     removeFromLikes,
     subscribe,
-    unsubscribe
+    unsubscribe,
 } from '../controllers/userControllers.js'
 
 const router = express.Router()

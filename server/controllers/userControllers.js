@@ -1,14 +1,19 @@
 import catchAsyncError from '../utility/catchAsyncError.js'
 import ErrorHandler from '../utility/errorHandler.js'
 import sendEmail from '../utility/sendEmail.js';
-import { User } from '../models/userModel.js'
+import cloudinary from "cloudinary"
 import crypto from "crypto"
+import { User } from '../models/userModel.js'
+import { Product } from '../models/productModel.js';
+
 
 // register user
 export const registerUser = catchAsyncError(async (req, res, next) => {
-    const {name, email, password, confirmPassword, role} = req.body
+    const {name, email, password, confirmPassword, role} = req.body;
     if(password !== confirmPassword) return next(new ErrorHandler('Password do not match.', 400));
     if(name === '' || email === '' || password === '' || confirmPassword === '') return next(new ErrorHandler('The fields cannot be empty', 409)); 
+    const isEmailUsed = await User.findOne({email});
+    if (isEmailUsed) return next(new ErrorHandler("Email is already used!", 400));
     const user = await User.create({name, email, password, confirmPassword, role});
     const token = await user.createJwtToken();
 	
@@ -25,7 +30,7 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
 export const loginUser = catchAsyncError(async (req, res, next) => {
     const {email, password, remember} = req.body 
     const expiresIn = remember ? '30d': "7d";
-    if(email === '' || password === '') return next(new ErrorHandler('The fields cannot be empty', 409)); 
+    if(!email|| !password) return next(new ErrorHandler('The fields cannot be empty!', 409)); 
     const user = await User.findOne({email}).select('+password').select('+confirmPassword');
     if(!user) return next(new ErrorHandler("Invalid email or password!", 400));
     const passwordMatch = await user.comparePassword(password);
@@ -51,11 +56,10 @@ export const logoutUser = catchAsyncError(async (req, res) => {
 });
 
 
-// profile controllers
 // get profile
 export const getProfile = catchAsyncError(async (req, res, next) => {
-    const user = req.user;
-    
+    const user = await User.findById(req.user._id);
+
     res.status(200).json({
         success: true,
         user
@@ -65,15 +69,14 @@ export const getProfile = catchAsyncError(async (req, res, next) => {
 
 // update password
 export const updatePassword = catchAsyncError(async (req, res, next) => {
-	const {oldPassword, newPassword, confirmNewPassword} = req.body;
-    if(!oldPassword || !newPassword || !confirmNewPassword) return next(new ErrorHandler("Please, enter all the fields!", 400));
-    if(newPassword !== confirmNewPassword) return next(new ErrorHandler('New passwords do not match.', 400));
+	const {oldPassword, newPassword} = req.body;
+    if(!oldPassword || !newPassword) return next(new ErrorHandler("Please, enter all the fields!", 400));
     const user = await User.findById(req.user.id).select('+password').select('+confirmPassword');
     const passwordMatch = await user.comparePassword(oldPassword);
     if(!passwordMatch) return next(new ErrorHandler('Old password is incorrect.', 400))
    
     user.password = newPassword;
-    user.confirmPassword = confirmNewPassword; 
+    user.confirmPassword = newPassword; 
     await user.save();
 
     res.status(200).json({
@@ -124,11 +127,14 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 
 // update profile
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    const {name, email} = req.body
+    const {name, email, avatar} = req.body
     const user = await User.findById(req.user.id);
     
     if(name) user.name = name;
     if(email) user.email = email;
+    if (avatar) {
+        const result = await cloudinary.uploader.upload('/VisArt/Avatar', options);
+    }
     await user.save();
 
     res.status(200).json({
@@ -141,10 +147,10 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 // add to likes
 export const addToLikes = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
-    // const product = await Product.findById(req.body.id);
-    // if(!product) return next(new ErrorHandler("Product not found!", 404));
-    // const isLiked = user.likes.find(like => like.id.toString() === req.body.id.toString());
-    // if(isLiked) return next(new ErrorHandler("Already liked!", 409));
+    const product = await Product.findById(req.body.id);
+    if(!product) return next(new ErrorHandler("Product not found!", 404));
+    const isLiked = user.likes.find(like => like.productId.toString() === req.body.id.toString());
+    if(isLiked) return next(new ErrorHandler("Already liked!", 409));
     user.likes.push({id: req.body.id})
     await user.save();
 
@@ -158,10 +164,10 @@ export const addToLikes = catchAsyncError(async (req, res, next) => {
 // remove from likes
 export const removeFromLikes = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
-    // const product = await Product.findById(req.body.id);
-    // if(!product) return next(new ErrorHandler("Product not found!", 404));
-    // const newLikes = user.likes.filter(like => like.id.toString() !== req.body.id.toString());
-    // user.likes = newLikes;
+    const product = await Product.findById(req.body.id);
+    if(!product) return next(new ErrorHandler("Product not found!", 404));
+    const newLikes = user.likes.filter(like => like.productId.toString() !== req.body.id.toString());
+    user.likes = newLikes;
     await user.save();
 
     res.status(201).json({

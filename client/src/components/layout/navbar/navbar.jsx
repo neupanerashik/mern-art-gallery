@@ -1,8 +1,12 @@
 import {useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {Link, NavLink} from 'react-router-dom'
+import { toast } from 'react-toastify';
+import { logoutUser } from '../../../redux/userSlice';
 
-// import css
+// import css and components
 import './navbar.css'
+import Bubbles from '../../utility/bubbles/bubbles';
 
 // menu
 const menu = [
@@ -13,12 +17,19 @@ const menu = [
   {mainMenu: 'products', subMenu: ['painting', 'photography', 'sculpture', 'drawing', 'digital art']},
 ];
 
-const Navbar = () => {
-  const [profileSpeedDial, setProfileSpeedDial] = useState(false);
+const Navbar = ({user, isAuthenticated}) => {
+  const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.user);
   const [sidebar, setSidebar] = useState(false);
+  const [profileSpeedDial, setProfileSpeedDial] = useState(false);
 
   let activeStyle = {
     fontWeight: "bolder",
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    toast.success("Logged out successfully!");
   };
 
   return (
@@ -68,11 +79,11 @@ const Navbar = () => {
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
             
             <div className={profileSpeedDial ? "active" : ""}>
-              <Link to='/profile'>Account</Link>
-              <Link to='/login'>Login</Link>
-              <Link to='/register'>Register</Link>
-              <Link to='/admin'>Admin Panel</Link>
-              <button>Logout</button>
+              {isAuthenticated && <Link to='/profile'>{user?.name || "Account"}</Link>}
+              {isAuthenticated && user?.role === "admin" && <Link to='/admin'>Admin Panel</Link>} 
+              {!isAuthenticated && <Link to='/login'>Login</Link>}
+              {!isAuthenticated && <Link to='/register'>Register</Link>}
+              {isAuthenticated && <button onClick={handleLogout}>{isLoading ? <Bubbles /> : "Log Out"}</button>}
             </div>
           </div>	
 
