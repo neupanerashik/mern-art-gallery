@@ -79,7 +79,7 @@ const Navbar = ({user, isAuthenticated}) => {
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
             
             <div className={profileSpeedDial ? "active" : ""}>
-              {isAuthenticated && <Link to='/profile'>{user?.name || "Account"}</Link>}
+              {isAuthenticated && <Link to='/profile'>My Profile</Link>}
               {isAuthenticated && user?.role === "admin" && <Link to='/admin'>Admin Panel</Link>} 
               {!isAuthenticated && <Link to='/login'>Login</Link>}
               {!isAuthenticated && <Link to='/register'>Register</Link>}

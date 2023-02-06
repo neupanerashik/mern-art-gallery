@@ -24,6 +24,11 @@
   to {margin-top: 0rem; opacity: 1;}
 }
 
+.facebook{ color: #3B5998; }
+.instagram{ color: #E4405F; }
+.twitter{ color: #1DA1F2; }
+.messanger { color: #0084FF; }
+
 /********************Global Styles********************/
 * {
   margin: 0;
@@ -42,7 +47,7 @@ a{
 }
 
 input, button{
-  border:none;
+  border: none;
   outline: none;
 }
 

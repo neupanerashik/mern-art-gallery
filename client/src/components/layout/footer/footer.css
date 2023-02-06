@@ -83,23 +83,6 @@
     font-size: 2.25rem;
 }
 
-.footerContainer > .footerBottom > .footerSocial > ul > li > a > i.facebook{
-    color: #3B5998;
-}
-
-.footerContainer > .footerBottom > .footerSocial > ul > li > a > i.instagram{
-    color: #E4405F;
-}
-
-.footerContainer > .footerBottom > .footerSocial > ul > li > a > i.twitter{
-    color: #1DA1F2;
-}
-
-.footerContainer > .footerBottom > .footerSocial > ul > li > a > i.messanger{
-    color: #0084FF;
-}
-
-
 /******************** Media Query ********************/
 
 /* large tablet screen */

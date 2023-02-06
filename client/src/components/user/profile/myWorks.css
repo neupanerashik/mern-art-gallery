@@ -1,0 +1,30 @@
+.worksContainer > .myWorks{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+.worksContainer > .noWorks{
+    height: 10rem;
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+/******************** Media Query ********************/
+
+/* large mobile screen */
+@media (max-width: 768px) {
+    .worksContainer > .myWorks{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 480px) {
+    .worksContainer > .myWorks{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

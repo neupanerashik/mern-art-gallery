@@ -1,0 +1,83 @@
+.profileDetailContainer > header{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileDetailContainer > header > div > h2{
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.profileDetailContainer > header > div > p{
+    font-size: 1.25rem;
+}
+
+.profileDetailContainer > header > div > button{
+    height: 3.5rem;
+    width: 7.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.profileDetailContainer > header > div > button:last-child{
+    margin-left: 1rem;
+    background-color: #24252a;
+    color: white;
+}
+
+/******************** Information ********************/
+
+.profileDetailContainer > .information{
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileDetailContainer > .information > div{
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ededed;
+}
+
+.profileDetailContainer > .information > div > span{
+    width: 100%;
+    margin-right: auto;
+    font-weight: bolder;
+    font-size: 1.25rem;
+    display: inline-flex;
+}
+
+.profileDetailContainer > .information > div > label{
+    width: 75rem;
+    display: flex;
+}
+
+.profileDetailContainer > .information > div > label > input{
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ededed;
+    background-color: aliceblue;
+}
+
+.profileDetailContainer > .information > div > label > input[disabled]{
+    cursor: not-allowed;
+}
+
+.profileDetailContainer > .information > div > label > img{
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
+    margin-right: 0.5rem;
+}
+
+/******************** Media Query ********************/
+
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .profileDetailContainer > header > div > p{
+        display: none;
+    }
+}

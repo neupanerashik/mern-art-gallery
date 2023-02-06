@@ -1,26 +1,119 @@
+.profileSection > .profileCard {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid #b2beb5; */
+}
+
+/******************** avatar ********************/
+.profileSection > .profileCard > .avatar > img{
+    height:15rem;
+    width:15rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/******************** Name ********************/
+
+.profileSection > .profileCard > .name{
+    margin-top: 1rem;
+}
+
+.profileSection > .profileCard > .name > h2{
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.profileSection > .profileCard > .name > p{
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+/******************** Social ********************/
+
+.profileSection > .profileCard > .social{
+    margin-top: 2rem;
+}
+
+.profileSection > .profileCard > .social > a:not(:last-child){
+    margin-right: 1.5rem;
+}
+
+.profileSection > .profileCard > .social > a > i{
+    font-size: 3rem;
+}
+
+/******************** buttons ********************/
+
+.profileSection > .profileCard > .buttons{
+    margin-top: 2rem;
+}
+
+.profileSection > .profileCard > .buttons > button{
+    height: 4rem;
+    width: 8rem;
+    cursor: pointer;
+    background-color: aliceblue;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 5px 0.25px rgba(0, 0, 0, 0.25);
+}
+
+.profileSection > .profileCard > .buttons > button:last-child{
+    margin-left: 1rem;
+}
+
+.profileSection > .profileCard > .buttons > button:hover{
+    background-color: #24252a;
+    color: aliceblue;
+    transition: all 0.25s ease-in-out;
+}
+
+/******************** Profile Options ********************/
+.profileSection > .profileOptions{
+    border: 1px solid #ededed;
+    margin-top: 2.5rem;
+    padding: 2.5rem;
+}
+
+.profileSection > .profileOptions > ul{
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #ededed;
+}
+
+.profileSection > .profileOptions > ul > li{
+    padding-bottom: 1rem;
+    margin-right: 4.5rem;
+    cursor: pointer;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    transition: all 0.2s ease-in-out;
+}
+
+.profileSection > .profileOptions > ul > li:last-child{
+    margin-right: 0;
+}
+
+
 /******************** Media Query ********************/
-
-/* large tablet screen */
-@media (max-width: 992px) {
-   
-}
-
-/* small tablet screen */
-@media (max-width: 768px) {
-   
-}
-
 /* large mobile screen */
 @media (max-width: 576px) {
- 
-}
+    .profileSection > .profileOptions{
+        padding: 1.5rem;
+    }
 
-/* small mobile screen */
-@media (max-width: 480px) {
- 
+    .profileSection > .profileOptions > ul > li{
+        font-size: 1.75rem;
+    }
 }
 
 /* extra small mobile screen */
 @media (max-width: 360px) {
- 
+    .profileSection > .profileOptions > ul > li{
+        font-size: 1.35rem;
+        text-align: center;
+    }
 }

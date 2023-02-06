@@ -16,6 +16,7 @@ import Products from './components/products/products.jsx'
 import ForgetPassword from './components/user/password/forgetPassword';
 import ResetPassword from './components/user/password/resetPassword';
 import UpdatePassword from './components/user/password/updatePassword';
+import Profile from './components/user/profile/profile';
 
 // redux store
 import store from './reduxStore';
@@ -45,6 +46,7 @@ function App() {
         <Route exact path='/password/forget' element={<ForgetPassword />} />
         <Route exact path='/password/reset/:token' element={<ResetPassword />} />
         <Route exact path='/password/update' element={<UpdatePassword />} />
+        <Route exact path='/profile' element={<Profile />} />
       </Routes>
       
       <Footer />
