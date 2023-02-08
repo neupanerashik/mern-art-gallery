@@ -3,18 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link, NavLink} from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { logoutUser } from '../../../redux/userSlice';
+import Drawer from '@mui/material/Drawer';
 
 // import css and components
 import './navbar.css'
 import Bubbles from '../../utility/bubbles/bubbles';
+import Cart from '../../cart/cart';
 
 // menu
-const menu = [
-  {mainMenu: 'home'},
-  {mainMenu: 'about'},
-  {mainMenu: 'contact'},
-  {mainMenu: 'auction'},
-  {mainMenu: 'products', subMenu: ['painting', 'photography', 'sculpture', 'drawing', 'digital art']},
+const menus = [
+  {title: 'home'},
+  {title: 'about'},
+  {title: 'contact'},
+  {title: 'auction'},
+  {title: 'arts', subMenu: ['painting', 'photography', 'sculpture', 'drawing']},
 ];
 
 const Navbar = ({user, isAuthenticated}) => {
@@ -22,9 +24,21 @@ const Navbar = ({user, isAuthenticated}) => {
   const {isLoading} = useSelector(state => state.user);
   const [sidebar, setSidebar] = useState(false);
   const [profileSpeedDial, setProfileSpeedDial] = useState(false);
-
+  const [toggleCart, setToggleCart] = useState({ right: false });
+  
   let activeStyle = {
-    fontWeight: "bolder",
+    fontWeight: "bolder"
+  };
+
+  const handleLink = (menu) => (event) => {
+    if (menu.title === 'arts') {
+      event.preventDefault();
+    }
+  };
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {return}
+    setToggleCart({ ...toggleCart, [anchor]: open });
   };
 
   const handleLogout = () => {
@@ -41,22 +55,26 @@ const Navbar = ({user, isAuthenticated}) => {
         
         <ul className={!sidebar ? "navMenu" : "navMenu active" }>
           {
-            menu.map((mm, index) => {
+            menus.map((menu, index) => {
               return(
                 <li key={index}>
-                  <NavLink exact="true" to={mm.mainMenu === 'home' ? '/' : mm.mainMenu} style={({ isActive }) => isActive ? activeStyle : undefined }>
-                    <span>{mm.mainMenu}</span>
-                    {mm.subMenu && <i className="fa-solid fa-chevron-down"></i>}
+                  <NavLink exact="true"
+                    to={`${menu.title}`} 
+                    style={({ isActive }) => isActive ? activeStyle : undefined}
+                    onClick={handleLink(menu)}
+                  >
+                    <span>{menu.title}</span>
+                    {menu.subMenu && <i className="fa-solid fa-chevron-down"></i>}
                   </NavLink>
 
                     {
-                      mm.subMenu && 
+                      menu.subMenu && 
                       <ul className='subMenu'>
                         {
-                          mm.subMenu.map((sm, index) => {
+                          menu.subMenu.map((sm, index) => {
                             return(
                               <li key={index}>
-                                <NavLink exact="true" to={sm ==='digital art' ? mm.mainMenu+'/digital' : mm.mainMenu+'/'+sm}>{sm}</NavLink>
+                                <NavLink exact="true" to={sm ==='digital art' ? menu.title+'/digital' : menu.title+'/'+sm}>{sm}</NavLink>
                               </li>
                             )
                           })
@@ -70,10 +88,10 @@ const Navbar = ({user, isAuthenticated}) => {
         </ul>
         
         <div className='navIcons'>
-          <div className='searchIcon'>
+          {/* <div className='searchIcon'>
             <input type="text" placeholder="Search" autoComplete="off" required/>
             <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
+          </div> */}
         
           <div className="profileIcon" onClick={() => setProfileSpeedDial(!profileSpeedDial)}>
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
@@ -87,7 +105,7 @@ const Navbar = ({user, isAuthenticated}) => {
             </div>
           </div>	
 
-          <div className="cartIcon">
+          <div className="cartIcon" onClick={toggleDrawer('right', true)}>
             <i className="fa-solid fa-cart-shopping"></i>
             <span className="nav-total-quantity">8</span>
           </div>
@@ -96,6 +114,10 @@ const Navbar = ({user, isAuthenticated}) => {
             {!sidebar ? <i className="fa-solid fa-bars"></i> : <i className="fa-solid fa-xmark"></i>}
           </div>	
         </div>  
+
+        <Drawer anchor={'right'} open={toggleCart['right']} onClose={toggleDrawer('right', false)}>
+          <Cart toggleDrawer={toggleDrawer} />
+        </Drawer>
       </nav>
     </>
   )

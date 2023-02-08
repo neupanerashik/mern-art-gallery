@@ -35,10 +35,10 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    display: none;
+    /* display: none; */
 }
 
-.cardContainer:hover > .itemInfo{
+/* .cardContainer:hover > .itemInfo{
     position: absolute;
     bottom: 0;
     right: 0;
@@ -46,7 +46,8 @@
     animation: var(--appear-animation) 0.4s ease-in-out;
     animation-fill-mode: forwards;
     background-color: rgba(255, 255, 255, 0.5);
-}
+    transition: position 0.3s ease-in-out;
+} */
 
 .cardContainer > .itemInfo > p{
     font-size: 1.25rem;

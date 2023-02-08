@@ -1,0 +1,69 @@
+.artsContainer{
+    padding-top: 2.5rem;
+}
+
+.artsContainer > header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.artsContainer > header > .breadcrumb{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.artsContainer > header > .filter{
+    display: flex;
+}
+
+.artsContainer > header > .filter > div {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: #ededed;
+    margin-left: 1rem;
+    border-radius: 5rem;
+}
+
+.artsContainer > header > .filter > div:hover{
+    background-color: #ededed;
+    transition: all 0.2s ease-in-out;
+}
+
+.artsContainer > header > .filter > div > span{
+    margin-right: 1rem;
+    font-size: 1.25rem;
+}
+
+/******************** Arts ********************/
+
+.artsContainer > .arts {
+    margin-top: 2rem;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.5rem;
+}
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .artsContainer > .arts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .artsContainer > .arts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .artsContainer > .arts {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -1,0 +1,119 @@
+.cartContainer{
+    height: 100vh;
+    width: 40rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cartContainer > header{
+    padding-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ededed;
+}
+
+.cartContainer > header > h2{
+    font-size: 2.25rem;
+    margin-right: 1rem;
+}
+
+.cartContainer > header > i{
+    margin-left: auto;
+    font-size:3rem;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+}
+
+.cartContainer > header > i:hover{
+    transform: rotate(90deg);
+}
+
+/******************** Cart List - Ul ********************/
+.cartContainer > ul{
+    height: 70%;
+    overflow-y: auto;
+}
+
+.cartContainer > ul > li{
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    /* border-bottom: 1px solid #ededed; */
+}
+
+.cartContainer > ul > li:last-child{
+    border-bottom: none;
+}
+
+.cartContainer > ul > li > img{
+    height: 6rem;
+    width: 10rem;
+    margin-right: 1rem;
+    object-fit: cover;
+
+}
+
+.cartContainer > ul > li > div > p{
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.cartContainer > ul > li > div > p:last-child{
+    margin-bottom: 0;
+}
+
+.cartContainer > ul > li > i{
+    margin-right: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.cartContainer > ul > li > i:hover{
+    animation-name: var(--trash-animation);
+	animation-duration: 0.3s;
+	animation-iteration-count: infinite;
+}
+
+/******************** Cart Footer ********************/
+.cartContainer > .cartFooter{
+    border-top: 1px solid #ededed;
+}
+
+.cartContainer > .cartFooter > div{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartContainer > .cartFooter > div > p,
+.cartContainer > .cartFooter > div > strong{
+    font-size: 1.5rem;
+}
+
+.cartContainer > .cartFooter > a{
+    margin-top: 2rem;
+    color: white;
+    background-color: #2D3448;
+    display: block;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5rem;
+    font-size: 1.5rem;
+    transition: all 0.15s ease-in-out;
+}
+
+.cartContainer > .cartFooter > a:hover{
+    background-color: red;
+}
+.cartContainer > .cartFooter > p{
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    text-align: center;
+}

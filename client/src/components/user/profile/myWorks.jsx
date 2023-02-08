@@ -19,7 +19,7 @@ const MyWorks = () => {
                         {
                             images.map((item, index) => {
                                 return(
-                                    <Card key={index} data={item} style={{height: '25rem'}} />
+                                    <Card key={index} data={item} style={{height: '30rem'}} />
                                 )
                             })
                         } 

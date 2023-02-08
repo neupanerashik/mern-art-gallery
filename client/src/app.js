@@ -11,15 +11,15 @@ import Footer from './components/layout/footer/footer.jsx';
 import Home from './components/layout/home/home.jsx'
 import Login from './components/user/login/login.jsx'
 import Register from './components/user/register/register.jsx'
-import Detail from './components/products/detail.jsx';
-import Products from './components/products/products.jsx'
+import Detail from './components/arts/detail.jsx';
+import Arts from './components/arts/arts.jsx'
 import ForgetPassword from './components/user/password/forgetPassword';
 import ResetPassword from './components/user/password/resetPassword';
 import UpdatePassword from './components/user/password/updatePassword';
 import Profile from './components/user/profile/profile';
 
 // redux store
-import store from './reduxStore';
+import store from './store.js';
 
 // react toastify
 import { ToastContainer } from 'react-toastify';
@@ -41,8 +41,9 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
+        {/* <Route exact path='/auction' element={<Arts />} /> */}
         <Route exact path='/product/:id' element={<Detail />} />
-        <Route exact path='/products/:type' element={<Products />} />
+        <Route exact path='/arts/:category' element={<Arts />} />
         <Route exact path='/password/forget' element={<ForgetPassword />} />
         <Route exact path='/password/reset/:token' element={<ResetPassword />} />
         <Route exact path='/password/update' element={<UpdatePassword />} />

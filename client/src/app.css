@@ -12,6 +12,7 @@
   /* animations */
   --appear-animation: appear;
   --hover-appear-animation: hoverAppear;
+  --trash-animation: trash;
 }
 
 @keyframes appear {
@@ -22,6 +23,24 @@
 @keyframes hoverAppear {
   from {margin-top: 1rem; opacity: 0;}
   to {margin-top: 0rem; opacity: 1;}
+}
+
+@keyframes trash{
+	0%{
+		transform: rotateZ(0deg);
+	}
+	25%{
+		transform: rotateZ(20deg);
+	}
+	50%{
+		transform: rotateZ(0deg);
+	}
+	75%{
+		transform: rotateZ(-20deg);	
+	}
+	100%{
+		transform: rotateZ(0deg);
+	}
 }
 
 .facebook{ color: #3B5998; }
