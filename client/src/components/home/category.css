@@ -1,0 +1,90 @@
+.categorySection{
+    width: 100%;
+    margin-top: 3rem;
+    text-align: center;
+    border-bottom: 1px solid #ededed;
+}
+
+.categorySection > h2{
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.categorySection > .categories{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.categorySection > .categories > .category{
+    height: 10rem;
+    width: 20%;
+    position: relative;
+    overflow: hidden;
+}
+
+.categorySection > .categories > .category > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.categorySection > .categories > .category:hover > img{
+    transform: scale(1.2);
+    transition: all 0.5s;
+}
+
+.categorySection > .categories > .category > p{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    transform: rotate(0deg);
+    transform-origin: center;
+    color: white;
+    font-size: 2rem;
+    text-shadow: 2px 2px 5px #000;
+    white-space: nowrap;
+}
+
+.categorySection > .categories > .category> a{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+/******************** Media Query ********************/
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .categorySection > .categories{
+       gap: 1rem;
+    }
+
+    .categorySection > .categories > .category{
+        flex: 1 0;
+        height: 25rem;
+        transition: flex 0.5s ease;
+    }
+
+    .categorySection > .categories > .category:hover{
+        flex: 4 0;
+    }
+
+    .categorySection > .categories > .category > p{
+        transform: rotate(90deg);
+    }
+
+    .categorySection > .categories > .category:hover > p{
+        transform: rotate(0deg);
+        transition: rotate 0.5s ease;
+    }
+
+}

@@ -1,0 +1,36 @@
+.artworksContainer > .arts{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+.artworksContainer > .noArts{
+    height: 10rem;
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+/******************** Media Query ********************/
+
+@media (max-width: 992px) {
+    .artworksContainer > .arts{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* large mobile screen */
+@media (max-width: 768px) {
+    .artworksContainer > .arts{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 480px) {
+    .artworksContainer > .arts{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

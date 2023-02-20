@@ -2,9 +2,9 @@ import axios from "axios"
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit'
 
 // register user
-export const registerUser = createAsyncThunk('registerUser', async (userData, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk('registerUser', async (registerData, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.post('/api/v1/register', userData, {headers: {'Content-Type': 'application/json'}});
+        const { data, status } = await axios.post('/api/v1/register', registerData, {headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -12,21 +12,35 @@ export const registerUser = createAsyncThunk('registerUser', async (userData, { 
     }
 });
 
-// get user profile data
-export const getProfile = createAsyncThunk('getProfile', async (_, { rejectWithValue }) => {
+
+// get my profile
+export const getMyProfile = createAsyncThunk('getMyProfile', async (_, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.get('/api/v1/profile', {withCredentials: true});
+        const { data, status } = await axios.get('/api/v1/profile/me', {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
         return rejectWithValue(err.response.data);
     }
 });
+
+
+// get user profile
+export const getUserProfile = createAsyncThunk('getProfile', async (id, { rejectWithValue }) => {
+    try {
+        const { data, status } = await axios.get(`/api/v1/user/${id}`, {withCredentials: true});
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+});
+
 
 // login user
-export const loginUser = createAsyncThunk('loginUser', async (userData, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk('loginUser', async (loginData, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.post('/api/v1/login', userData, {headers: {'Content-Type': 'application/json'}});
+        const { data, status } = await axios.post('/api/v1/login', loginData, {headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -45,17 +59,20 @@ export const logoutUser = createAsyncThunk('logoutUser', async (_, { rejectWithV
     }
 });
 
-
-
 export const userSlice = createSlice({
   name: 'user',
   
   initialState: {
-    user: {},
+    userData: {},
+    myData: {},
     isAuthenticated: false
   },
   
   reducers: {
+    updateMyData: (state, action) => {
+        state.myData = action.payload;
+    },
+
     clearError: (state) => {
         state.error = null;
     },
@@ -66,18 +83,32 @@ export const userSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // get profile data
-    builder.addCase(getProfile.pending, (state) => {
+    // get my profile
+    builder.addCase(getMyProfile.pending, (state) => {
         state.isLoading = true;
         state.isAuthenticated = false;
-    }).addCase(getProfile.fulfilled, (state, action) => {
+    }).addCase(getMyProfile.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
-    }).addCase(getProfile.rejected, (state, action) => {
+        state.myData = action.payload.user;
+    }).addCase(getMyProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
-        // state.error = action.payload.message;
+        state.myData = null;
+    })
+
+    // get user profile
+    builder.addCase(getUserProfile.pending, (state) => {
+        state.isLoading = true;
+        state.isAuthenticated = false;
+    }).addCase(getUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.userData = action.payload.user;
+    }).addCase(getUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.userData = null;
     })
 
     // logout user
@@ -85,35 +116,32 @@ export const userSlice = createSlice({
         state.isLoading = true;
         state.isAuthenticated = true;
     }).addCase(logoutUser.fulfilled, (state, action) => {
-        state.user = null;
+        state.myData = null;
         state.isLoading = false;
         state.isAuthenticated = false;
-        // state.message = action.payload.message;
     }).addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        // state.error = action.payload.message;
     })
 
+    // register user, login user
     builder.addMatcher(isAnyOf(registerUser.pending, loginUser.pending), (state) => {
         state.isLoading = true;
         state.isAuthenticated = false;
     }).addMatcher(isAnyOf(registerUser.fulfilled, loginUser.fulfilled), (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.myData = action.payload.user;
         state.message = action.payload.message;
     }).addMatcher(isAnyOf(registerUser.rejected, loginUser.rejected), (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.error = action.payload.message;
     })
-
-   
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { clearError, clearMessage } = userSlice.actions
+export const { updateMyData, clearError, clearMessage } = userSlice.actions
 
 export default userSlice.reducer

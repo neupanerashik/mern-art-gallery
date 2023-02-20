@@ -33,14 +33,17 @@
 /******************** Cart List - Ul ********************/
 .cartContainer > ul{
     height: 70%;
+    margin: 2rem 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .cartContainer > ul > li{
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     display: flex;
-    /* border-bottom: 1px solid #ededed; */
+    align-items: center;
+    border-bottom: 1px solid #ededed;
 }
 
 .cartContainer > ul > li:last-child{
@@ -65,10 +68,7 @@
 }
 
 .cartContainer > ul > li > i{
-    margin-right: 1rem;
     padding: 1rem;
-    display: flex;
-    align-items: center;
     margin-left: auto;
     font-size: 1.5rem;
     cursor: pointer;
@@ -77,7 +77,11 @@
 .cartContainer > ul > li > i:hover{
     animation-name: var(--trash-animation);
 	animation-duration: 0.3s;
-	animation-iteration-count: infinite;
+	animation-iteration-count: 6.5;
+}
+
+.cartContainer > ul > .noCartItem{
+    font-size: 1.25rem;
 }
 
 /******************** Cart Footer ********************/

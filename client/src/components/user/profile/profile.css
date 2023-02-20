@@ -7,10 +7,42 @@
 }
 
 /******************** avatar ********************/
-.profileSection > .profileCard > .avatar > img{
-    height:15rem;
-    width:15rem;
+.profileSection > .profileCard > .avatar{
+    height: 15rem;
+    width: 15rem;
+    padding: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b2beb5;
+    position: relative;
+}
+
+.profileSection > .profileCard > .avatar > label{
+    position: absolute;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 50%;
+    bottom: -1rem;
+    right: -1rem;
+    border: 1px solid #b2beb5;
+    display: grid;
+    place-items: center;
+    background-color: white;
+    cursor: pointer;
+}
+
+.profileSection > .profileCard > .avatar > label > input{
+    display: none;
+}
+
+.profileSection > .profileCard > .avatar > p{
+    font-size: 5rem;
+}
+
+.profileSection > .profileCard > .avatar > img{
+    height:100%;
+    width:100%;
     object-fit: cover;
 }
 
@@ -60,13 +92,13 @@
     box-shadow: 0 0 5px 0.25px rgba(0, 0, 0, 0.25);
 }
 
-.profileSection > .profileCard > .buttons > button:last-child{
-    margin-left: 1rem;
+.profileSection > .profileCard > .buttons > button:not(:last-child){
+    margin-right: 1.5rem;
 }
 
 .profileSection > .profileCard > .buttons > button:hover{
-    background-color: #24252a;
-    color: aliceblue;
+    color: white;
+    background-color: #2D3448;
     transition: all 0.25s ease-in-out;
 }
 

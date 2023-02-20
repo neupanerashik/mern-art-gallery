@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -11,17 +11,17 @@ const useFetch = (url) => {
         const response = await fetch(url);
         const data = await response.json();
         setData(data);
-        setLoading(false);
+        setIsLoading(false);
       } catch (error) {
         setError(error.message);
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     
     fetchData();
   }, [url]);
 
-  return { data, error, loading };
+  return { data, error, isLoading };
 };
 
 export default useFetch;

@@ -1,0 +1,68 @@
+/******************** Table********************/
+
+.likesContainer > table{
+    width: 100%;
+    border-spacing: 0rem 0.25rem;
+}
+
+.likesContainer > table > thead > tr > th{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 1.25rem;
+    background-color: #ededed;
+}
+
+.likesContainer > table > tbody > tr > td{
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ededed;
+}
+
+.likesContainer > table > tbody > tr > td:not(:first-child){
+    padding: 1rem;
+}
+
+.likesContainer > table > tbody > tr > td > img{
+    height: 8rem;
+    width: 12.5rem;
+    min-width: 12.5rem;
+}
+
+.likesContainer > table > tbody > tr > td > i{
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: red;
+}
+
+.likesContainer > table > tbody > tr > td > i:hover{
+	animation-name: var(--trash-animation);
+	animation-duration: 0.3s;
+	animation-iteration-count: 3;
+}
+
+/******************** No Likes********************/
+
+.likesContainer > .noLikes{
+    height: 25rem;
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+/******************** Media Query ********************/
+
+/* large mobile screen */
+@media (max-width: 768px) {
+    .likesContainer > .myLikes{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 480px) {
+    .likesContainer > .myLikes{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

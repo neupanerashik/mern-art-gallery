@@ -1,0 +1,99 @@
+.aboutContainer > .aboutBanner {
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.aboutContainer > .aboutBanner > p {
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.75;
+}
+
+/******************** Missions ********************/
+.aboutContainer > .missions {
+    margin: 5rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.aboutContainer > .missions > p {
+    font-size: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+/******************** Services ********************/
+
+.aboutContainer > .services > h1 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.aboutContainer > .services > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutContainer > .services > div > div {
+    width: 24%;
+    padding: 5rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f6;
+}
+
+.aboutContainer > .services > div > div > i {
+    font-size: 2rem;
+}
+
+.aboutContainer > .services > div > div > h1 {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.aboutContainer > .services > div > div > p {
+    margin-top: 1.25rem;
+    font-size: 1.25rem;
+}
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .aboutContainer > .services > div > div {
+        padding: 3rem 1rem;
+    }
+}
+
+/* small tablet screen */
+@media (max-width: 768px) {
+    .aboutContainer > .missions {
+        width: 100%;
+        padding: 3rem;
+    }
+
+    .aboutContainer > .services > div {
+        flex-direction: column;
+    }
+
+    .aboutContainer > .services > div > div {
+        width: 100%;
+    }
+}
+
+/* large mobile screen */
+@media (max-width: 576px) {
+    .aboutContainer > .missions {
+        margin: 2rem 0;
+    }
+}
+
+/* small mobile screen */
+@media (max-width: 480px) {
+    
+}

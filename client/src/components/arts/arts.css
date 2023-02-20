@@ -1,48 +1,96 @@
 .artsContainer{
-    padding-top: 2.5rem;
+    padding-top: 1rem;
 }
 
-.artsContainer > header {
+.artsContainer > header > .filtersHeader{
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
-.artsContainer > header > .breadcrumb{
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-}
+.artsContainer > header > .filtersHeader > p{
+    font-size: 1.25rem;
+} 
 
-.artsContainer > header > .filter{
-    display: flex;
-}
-
-.artsContainer > header > .filter > div {
+.artsContainer > header > .filtersHeader > button{
     padding: 1rem 2rem;
     cursor: pointer;
-    background-color: #ededed;
-    margin-left: 1rem;
-    border-radius: 5rem;
+    /* border-radius: 5rem; */
 }
 
-.artsContainer > header > .filter > div:hover{
+.artsContainer > header > .filtersHeader > button > i{
+    margin-left: 0.5rem;
+}
+
+.artsContainer > header > .filtersHeader > button:hover{
     background-color: #ededed;
     transition: all 0.2s ease-in-out;
 }
 
-.artsContainer > header > .filter > div > span{
-    margin-right: 1rem;
+/******************** Filters ********************/
+.artsContainer > header > .filters {
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: height 0.2s ease;
+}
+
+.artsContainer > header > .filters.open {
+    height: 5rem;
+    margin-top: 1rem;
+    overflow: visible;
+}
+
+.artsContainer > header > .filters.closed {
+    height: 0;
+}
+
+.artsContainer > header > .filters > select{
+    padding: 1rem;
+    border: none;
+}
+
+.artsContainer > header > .filters > .priceFields > label{
     font-size: 1.25rem;
+}
+
+.artsContainer > header > .filters > .priceFields > input[type='number']{
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width: 10rem;
+    margin: 0 2rem 0 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #b2beb5;
+}
+
+.artsContainer > header > .filters > .priceFields > input:last-child{
+    margin-right: 0;
+}
+
+.artsContainer > header > .filters > .priceFields > button{
+    padding: 1rem 2rem;
+    cursor: pointer;
 }
 
 /******************** Arts ********************/
 
 .artsContainer > .arts {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: grid;
     place-items: center;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 0.5rem;
+    grid-gap: 1rem;
+}
+
+/******************** NoArt ********************/
+.artsContainer > .noArt{
+    margin-top: 2rem;
+    padding: 20rem 0;
+    text-align: center;
+    font-size: 1.25rem;
+    background-color: #ededed;
 }
 
 /******************** Media Query ********************/

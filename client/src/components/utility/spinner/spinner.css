@@ -14,8 +14,8 @@
 	top: calc(50% - 2rem);
 	left: calc(50% - 2rem);
 	border-radius: 50%;
-	border-bottom: 0.4rem solid #24252a;
-	animation: spinner .6s linear infinite;
+	border-bottom: 0.15rem solid black;
+	animation: spinner 0.75s linear infinite;
 }
 
 @keyframes spinner {

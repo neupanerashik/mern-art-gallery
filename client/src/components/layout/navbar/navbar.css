@@ -161,13 +161,6 @@
     background-color: #ededed;
 }
 
-.navbar > .navIcons > .profileIcon > div > button{
-    padding: 0.75rem;
-    font-size: 1.25rem;
-    margin-top: 0.25rem;
-    cursor: pointer;
-}
-
 /******************** Cart Icon ********************/
 .navbar > .navIcons > .cartIcon > span{
     height: 1.25rem;

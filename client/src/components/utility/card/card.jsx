@@ -1,36 +1,114 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToLikes } from '../../../redux/artSlice';
+import { addToCart } from '../../../redux/cartSlice';
+import { deleteArt, clearError as clearProfileError, clearMessage as clearProfileMessage } from '../../../redux/profileSlice';
 
-// import css
+// import css and components
 import './card.css'
 
-const Card = ({data, style}) => {
+const Card = ({art, title, style}) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [hasLiked, setHasLiked] = useState(false);
+  const {cartItems} = useSelector(state => state.cart);
+  const {isAuthenticated, myData} = useSelector(state => state.user);
+  const {error: profileError, message: profileMessage} = useSelector(state => state.profile);
+
+
+  // handle delete art
+  const handleArtDelete = (artId) => {dispatch(deleteArt(artId))}
+
+  // handle add to cart
+  const handleAddToCart = (art) => {dispatch(addToCart({id: art._id, name: art.name, price: art.price, category: art.category, image: art.images[0].url}))}
+
+  // handle add to likes
+  const handleAddToLikes = () => {
+    if(!isAuthenticated) {
+      toast.warn("Please, log in first to like the arts!")
+      return navigate('/login')
+    }
+
+    if(hasLiked) {toast.warn("Already Liked!")}
+		dispatch(addToLikes({artId: art._id, artName: art.name, artPrice: art.price, artCategory: art.category, artImage: art.images[0].url}));
+	}
+
+  // useEffect
+  useEffect(() => {
+    if (myData && myData.likes) {
+      const foundLike = myData.likes.find(item => item.artId.toString() === art._id.toString());
+      setHasLiked(foundLike !== undefined);
+    }
+  }, [myData, art._id]);
+
+  // useEffect
+  useEffect(() => {
+    if(profileMessage){
+      toast.success(profileMessage);
+      clearProfileMessage();
+    }
+
+    if(profileError){
+      toast.error(profileError);
+      clearProfileError();
+    }
+  }, [profileError, profileMessage])
 
   return (
     <div className="cardContainer" style={style}>
       <div className='itemImage'>
-        <img src={data.imgLink} alt='itemPic' />
+        <img src={art.images[0].url} alt='itemPic' />
       </div>
 
       <div className='itemInfo'>
-        <p>Name of the item</p>
-        <p>Rs 1212</p>
+        <p>{art.name}</p>
+        <p>Rs {art.price} {title === "Special Offers" && <span>(-{art.discount}%)</span>}</p>
       </div>
 
       <div className="itemButtons">
-        <button type="button">
-          <i className="fa-solid fa-plus"></i>
-          <span>Add To Cart</span>
-        </button>
-        <button type="button" onClick={() => navigate(`/product/${data.id}`)}>
+
+        {
+          myData?._id !== art.creator && (
+            <button disabled={myData?._id === art.creator} onClick={() => handleAddToCart(art)}>
+              <i className={cartItems.find(item => item.id === art._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
+              <span>{cartItems.find(item => item.id === art._id) ? "Added To Cart" : "Add To Cart"}</span>
+            </button>
+          )
+        }
+
+        <button onClick={() => navigate(`/art/${art._id}`)}>
           <i className="fa-regular fa-eye"></i>
           <span>View</span>
         </button>
-        <button>
-          <i className="fa-regular fa-heart"></i>
-          <span>Like</span>
-        </button>
+
+        {
+          myData?._id !== art.creator && (
+            <button disabled={myData?._id === art.creator} onClick={handleAddToLikes} className={hasLiked ? "liked" : ""}>
+              <i className={hasLiked ? "fa-solid fa-check" : "fa-regular fa-heart"}></i>
+              <span>{hasLiked ? "Liked" : "Like"}</span>
+            </button>
+          )
+        }
+
+        {
+          myData?._id === art.creator && (
+            <button disabled={myData?._id !== art.creator}>
+              <i className="fa-solid fa-pen"></i>
+              <span>Edit</span>
+            </button>
+          )
+        }
+
+        {
+          myData?._id === art.creator && (
+            <button disabled={myData?._id !== art.creator} onClick={() => handleArtDelete(art._id)}>
+              <i className="fa-regular fa-trash-can"></i>
+              <span>Delete</span>
+            </button>
+          )
+        }
       </div>
     </div>
   )

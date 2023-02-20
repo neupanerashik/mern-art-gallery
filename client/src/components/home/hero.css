@@ -1,0 +1,51 @@
+.heroContainer{
+    height: 65vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/images/paint.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heroContainer > h2{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.heroContainer > form{
+    margin-top: 2rem;
+    padding: 0.25rem;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: white;
+}
+
+.heroContainer > form > input{
+    width: 100%;
+    padding: 1rem 1.5rem;
+}
+
+.heroContainer > form > button {
+    height: 100%;
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #ededed;
+    transition: background-color 0.2s ease;
+}
+
+.heroContainer > form > button:hover{
+    background-color: #b2beb5;
+}

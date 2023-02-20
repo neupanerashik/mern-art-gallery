@@ -4,14 +4,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 /******************** Carousel Slide ********************/
 
 .carouselContainer > .carouselSlide{
-    height: 80%;
+    height: 100%;
     width: 100%;
-    position: relative;
 }
 
 .carouselContainer > .carouselSlide > img{
@@ -20,56 +20,55 @@
     object-fit: cover;
 }
 
-.carouselContainer > .carouselSlide > img.active{
-    opacity: 1;
-}
 
-.carouselContainer > .carouselSlide > .actions > i{
-    height: 100%;
-    padding: 1.5rem;
+/******************** Carousel Actions ********************/
+
+.carouselContainer > .actions{
     position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.carouselContainer > .actions > i{
+    height: 100%;
+    padding: 0 1.5rem;
+    display: grid;
+    place-items: center;
     font-size: 1.75rem;
     color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
 }
 
-.carouselContainer > .carouselSlide > .actions > i:first-child{
-    left: 0;
-    top: 0;
-}
-
-.carouselContainer > .carouselSlide > .actions > i:last-child{
-    right: 0;
-    top: 0;
-}
-
-.carouselContainer > .carouselSlide > .actions > i:hover{
+.carouselContainer > .actions > i:hover{
     background-color: rgba(255, 255, 255, 0.5);
     transition: all 0.2s ease-in-out;
 }
 
-/******************** Carousel Thumb ********************/
+/******************** Carousel Indicators ********************/
 
-.carouselContainer > .carouselThumb{
-    height: calc(20% - 0.25rem);
-    width: 100%;
+.carouselContainer > .carouselIndicators{
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 0.25rem;
-    overflow: hidden;
 }
 
-.carouselContainer > .carouselThumb > img{
-    height: 100%;
-    width: 15rem;
-    max-width: 15rem;
-    object-fit: cover;
-    cursor: pointer;
-    position: relative;
+.carouselContainer > .carouselIndicators > div{
+   height: 1rem;
+   width: 1rem;
+   border: 1px solid white;
+   border-radius: 50%;
+   cursor: pointer;
 }
 
-.carouselContainer > .carouselThumb > img.active{
-    padding: 0.5rem;
-    transition: padding 0.2s ease-in-out;
+.carouselContainer > .carouselIndicators > div.active{
+    background-color: white;
+}
+
+.carouselContainer > .carouselIndicators > div:not(:last-child){
+    margin-right: 1rem;
 }

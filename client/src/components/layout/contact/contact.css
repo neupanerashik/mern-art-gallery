@@ -1,0 +1,162 @@
+.contactContainer{
+    padding: 4rem 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contactContainer > .heading{
+    width: 100%;
+    text-align: center;
+}
+
+.contactContainer > .heading > h2 {
+    font-size: 3rem;
+    font-weight: bolder;
+}
+
+.contactContainer > .heading > p {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2;
+}
+
+/******************** Content *********************/
+.contactContainer > .content{
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-evenly;
+}
+
+.contactContainer > .content > .info {
+    width: 50%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f6f6f6;
+}
+
+.contactContainer > .content > .info > i {
+    height: 4rem;
+    width: 4rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.contactContainer > .content > .info > h4 {
+    font-size: 1.3rem;
+    line-height: 2.5;
+}
+
+.contactContainer > .content > .info > p {
+    font-size: 1.3rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+/******************** Form *********************/
+.contactContainer > form{
+    margin-top: 4.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.contactContainer > form > div{
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.contactContainer > form > div:nth-child(1),
+.contactContainer > form > div:nth-child(2){
+    width: 49%;
+}
+
+.contactContainer > form > div > label{
+    font-size: 1.5rem;
+}
+
+.contactContainer > form > div > input {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 1px solid #e0e0e0;
+
+    border-radius: 5rem;
+}
+
+.contactContainer > form > div > input:focus{
+    border: 1px solid #b2beb5;
+}
+
+.contactContainer > form > div > input:focus::placeholder{
+    opacity: 0;
+    transform: all 0.2s ease;
+}
+
+.contactContainer > form > div > textarea{
+    height: 20rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    resize: vertical;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid #e0e0e0;
+}
+
+.contactContainer > form > div > textarea:focus{
+    border: 1px solid #b2beb5;
+}
+
+.contactContainer > form > button{
+    margin: 0 auto;
+    padding: 1.25rem 3rem;
+    color: white;
+    background-color: #2d3448;
+    border-radius: 5rem;
+    cursor: pointer;
+}
+
+.contactContainer > form > button:hover{
+    background-color: black;
+    transition: all 0.25s ease;
+}
+
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .contactContainer{
+        padding: 4rem 15%;
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .contactContainer{
+        padding: 3rem 5%;
+    }
+
+    .contactContainer > form > div:nth-child(1),
+    .contactContainer > form > div:nth-child(2){
+        width: 100%;
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .contactContainer{
+        padding: 2rem 2.5%;
+    }
+}

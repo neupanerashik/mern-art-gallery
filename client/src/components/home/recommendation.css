@@ -1,0 +1,83 @@
+.recommendationSection{
+    width: 100%;
+    padding: 5rem 0;
+    border-bottom: 1px solid #ededed;
+}
+
+/******************** items Menu ********************/
+.recommendationSection > .recommendations{
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.recommendationSection > .recommendations > ul{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommendationSection > .recommendations > ul > li{
+    text-align: center;
+    color: #b2beb5;
+    font-size: 3rem;
+    font-weight: bolder;
+    cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.recommendationSection > .recommendations > ul > li:not(:last-child){
+    margin-right: 3rem;
+}
+
+.recommendationSection > .recommendations > ul > li:hover{
+    color: black;
+    transition: all 0.1s ease-in-out;
+}
+
+/********************Loading and Items ********************/
+.recommendationSection > .loading{
+    height: 25rem;
+    background-color: #ededed;
+}
+
+.recommendationSection > .items{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .recommendationSection > .items{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .recommendationSection > .recommendations > ul > li{
+        font-size: 2.5rem;
+    }
+
+    .recommendationSection > .items{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+
+    .recommendationSection > .recommendations > ul > li{
+        font-size: 1.75rem;
+    }
+
+    .recommendationSection > .items{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -1,0 +1,98 @@
+.profileDetailContainer > header{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileDetailContainer > header > div > h2{
+    font-size: 1.8rem;
+}
+
+.profileDetailContainer > header > div > p{
+    font-size: 1.25rem;
+}
+
+/******************** Information ********************/
+
+.profileDetailContainer > .information{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileDetailContainer > .information > h1{
+    margin-top: 3rem;
+}
+
+.profileDetailContainer > .information > div{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileDetailContainer > .information > div > a{
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.profileDetailContainer > .information > div > span{
+    width: 100%;
+    margin-right: auto;
+    font-size: 1.25rem;
+    display: inline-flex;
+}
+
+.profileDetailContainer > .information > div > label{
+    width: 75rem;
+    display: flex;
+}
+
+.profileDetailContainer > .information > div > label > input{
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #b2beb5;
+    text-align: left;
+}
+
+.profileDetailContainer > .information > div > label > input[disabled]{
+    cursor: not-allowed;
+    background-color: aliceblue;
+}
+
+.profileDetailContainer > .information > div > label > input[type="button"]{
+   cursor: pointer;
+}
+
+.profileDetailContainer > .information > div > label > img{
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
+    margin-right: 0.5rem;
+}
+
+.profileDetailContainer > .information > button{
+    height: 3.5rem;
+    width: 7.5rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    border-radius: 0.5rem;
+    background-color: #2D3448;
+    color: white;
+    cursor: pointer;
+}
+
+.profileDetailContainer > .information > div > label > img{
+    border: 1px solid #ededed;
+    padding: 0.25rem;
+    object-fit: cover;
+}
+
+/******************** Media Query ********************/
+
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .profileDetailContainer > header > div > p{
+        display: none;
+    }
+}

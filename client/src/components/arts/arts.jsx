@@ -1,51 +1,69 @@
 import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { getAllArts } from '../../redux/artSlice'
 
 // import css and components
 import './arts.css'
 import Card from '../utility/card/card'
-import { useParams } from 'react-router-dom'
-
-// dev imports
-import images from '../../assets/images/images.js'
 
 const Arts = () => {
-    const [arts, setArts] = useState(images);
-    const [lowFirst, setLowFirst] = useState(false);
-
+    const dispatch = useDispatch();
     const {category} = useParams();
+    const {keyword} = useParams();
+    const {allArts} = useSelector(state => state.art);
 
-    const handlePriceFilter = () => {
-        if(lowFirst){ setArts(arts.sort((a, b) => a.id > b.id ? -1 : a.id > b.id ? 1 : 0))}
-        if(!lowFirst){ setArts(arts.sort((a, b) => a.id > b.id ? 1 : a.id > b.id ? -1 : 0))}
-        setLowFirst(!lowFirst);
-    }
+    const [minPrice, handleMinPrice] = useState(0);
+    const [maxPrice, handleMaxPrice] = useState(20000);
+    const [sortByPrice, setSortByPrice] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
 
-    useEffect(() => {
-        
-    }, [lowFirst])
+    const toggleFilters = () => {setShowFilters(!showFilters)}
+    
+    useEffect(() => { 
+        if (category) {dispatch(getAllArts({ category, maxPrice, minPrice, sortByPrice }))} 
+        else if (keyword) {dispatch(getAllArts({ keyword, maxPrice, minPrice, sortByPrice }))}
+    }, [dispatch, keyword, category, maxPrice, minPrice, sortByPrice]);
 
     return (
         <div className='artsContainer'>
             <header>
-                <div className="breadcrumb">{`arts / ${category}`}</div>
-                
-                <div className="filter">
-                    <div onClick={() => {
-                        handlePriceFilter();
-                    }}>
-                        <span>Price</span>
-                        <i className={lowFirst ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"}></i>
+                <div className='filtersHeader'>
+                    {keyword && <p>{`arts / ${keyword}`}</p>}
+                    {category && <p>{`arts / ${category}`}</p>}
+                    <button disabled={!allArts[0]} onClick={toggleFilters}>Filters<i className={showFilters ? "fa-solid fa-caret-up" : "fa-solid fa-caret-down"}></i></button>
+                </div>
+
+                <div className={`filters ${showFilters ? 'open' : 'closed'}`}>
+                    <select value={sortByPrice} onChange={e => setSortByPrice(e.target.value)}>
+                        <option value='' disabled>Sort By Price</option>
+                        <option value='priceHighToLow'>Price High To Low</option>
+                        <option value='priceLowToHigh'>Price Low To High</option>
+                    </select>
+
+                    <div className='priceFields'>
+                        <label>Min Price</label>
+                        <input type='number' placeholder="Min" onChange={e => handleMinPrice(e.target.value)} />
+                        <label>Max Price</label>
+                        <input type='number' placeholder="Max" onChange={e => handleMaxPrice(e.target.value)} />
                     </div>
                 </div>
             </header>
 
-            <div className="arts">
-                {arts.map((art, index) => {
-                    return(
-                        <Card data={art} style={{height: "30rem"}} key={index} />
-                    )
-                })}
-            </div>
+            {
+                allArts[0] && (
+                    <div className="arts">
+                        {allArts[0] && allArts.map((art, index) => {
+                            return(
+                                <Card art={art} style={{height: "30rem"}} key={index} />
+                            )
+                        })}
+                    </div>
+                )
+            }
+
+            {!allArts[0] && <p className='noArt'>No {category} art has been posted yet!</p>}
+
         </div>
     )
 }

@@ -4,7 +4,8 @@ import sendEmail from '../utility/sendEmail.js';
 import cloudinary from "cloudinary"
 import crypto from "crypto"
 import { User } from '../models/userModel.js'
-import { Product } from '../models/productModel.js';
+import { Art } from '../models/artModel.js';
+import { getDataUri } from '../utility/getDataUri.js';
 
 
 // register user
@@ -56,9 +57,19 @@ export const logoutUser = catchAsyncError(async (req, res) => {
 });
 
 
-// get profile
-export const getProfile = catchAsyncError(async (req, res, next) => {
+// get my profile
+export const getMyProfile = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user._id);
+
+    res.status(200).json({
+        success: true,
+        user
+    });
+});
+
+// get user profile
+export const getUserProfile = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id)
 
     res.status(200).json({
         success: true,
@@ -127,54 +138,51 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 
 // update profile
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    const {name, email, avatar} = req.body
+    const {name, email, facebook, instagram, twitter} = req.body
     const user = await User.findById(req.user.id);
-    
-    if(name) user.name = name;
-    if(email) user.email = email;
-    if (avatar) {
-        const result = await cloudinary.uploader.upload('/VisArt/Avatar', options);
-    }
+    if(!name || !email) return next(new ErrorHandler("Name and email cannot be empty!", 400));
+
+    user.name = name;
+    user.email = email;
+    user.socials.facebook = facebook;
+    user.socials.instagram = instagram;
+    user.socials.twitter = twitter;
+
     await user.save();
 
     res.status(200).json({
         success: true,
         message: 'Profile updated successfully',
+        user
     });
 });
 
 
-// add to likes
-export const addToLikes = catchAsyncError(async (req, res, next) => {
+// update avatar
+export const updateAvatar = catchAsyncError(async (req, res, next) => {
+    const {avatar} = req.body
     const user = await User.findById(req.user.id);
-    const product = await Product.findById(req.body.id);
-    if(!product) return next(new ErrorHandler("Product not found!", 404));
-    const isLiked = user.likes.find(like => like.productId.toString() === req.body.id.toString());
-    if(isLiked) return next(new ErrorHandler("Already liked!", 409));
-    user.likes.push({id: req.body.id})
+ 
+    if(!user.avatar.public_id && !user.avatar.url){
+        const {public_id, secure_url} = await cloudinary.v2.uploader.upload(avatar, {folder: 'VisArt/Avatars'});
+        user.avatar.public_id = public_id;
+        user.avatar.url = secure_url;
+    }else{
+        await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+        const {public_id, secure_url} = await cloudinary.v2.uploader.upload(avatar, {folder: 'VisArt/Avatars'});       
+        user.avatar.public_id = public_id;
+        user.avatar.url = secure_url;
+    }    
+
     await user.save();
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
-        message: 'Product added to likes.'
+        message: 'Profile picture updated successfully',
+        user
     });
 });
 
-
-// remove from likes
-export const removeFromLikes = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.user.id);
-    const product = await Product.findById(req.body.id);
-    if(!product) return next(new ErrorHandler("Product not found!", 404));
-    const newLikes = user.likes.filter(like => like.productId.toString() !== req.body.id.toString());
-    user.likes = newLikes;
-    await user.save();
-
-    res.status(201).json({
-        success: true,
-        message: 'Product added to likes.'
-    });
-});
 
 //subscriber
 export const subscribe = catchAsyncError(async (req, res, next) => {

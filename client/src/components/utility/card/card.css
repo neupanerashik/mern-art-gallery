@@ -58,6 +58,10 @@
     font-weight: bolder;
 }
 
+.cardContainer > .itemInfo > p > span {
+    margin-left: 0.5rem;
+}
+
 /******************** Card Buttons ********************/
 .cardContainer > .itemButtons{
     position: absolute;
@@ -78,7 +82,6 @@
     border-radius: 50%;
     cursor: pointer;
     position: relative;
-    opacity: 0;
 }
 
 .cardContainer > .itemButtons > button:hover{
@@ -106,6 +109,15 @@
     animation-fill-mode: forwards;
 }
 
+.cardContainer > .itemButtons > button.liked{
+    background-color: rgb(127, 199, 127);
+    color:white;
+}
+
+.cardContainer > .itemButtons > button.liked > span{
+    color:black;
+}
+
 .cardContainer > .itemButtons > button > span{
     position: absolute;
     top: 50%;
@@ -117,8 +129,9 @@
 
 .cardContainer > .itemButtons > button:hover > span{
     display: block;
-    width: 10rem;
+    width: 12rem;
     padding: 0.75rem;
+    opacity: 0.75;
     font-size: 1.25rem;
     background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);

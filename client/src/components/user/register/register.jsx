@@ -70,7 +70,6 @@ const Register = () => {
                 <option value='drawer'>Drawer</option>
                 <option value='sculptor'>Sculptor</option>
                 <option value='photographer'>Photographer</option>
-                <option value='digital artist'>Digital Artist</option>
               </select>
           </label>
 

@@ -16,13 +16,14 @@ const menus = [
   {title: 'about'},
   {title: 'contact'},
   {title: 'auction'},
-  {title: 'arts', subMenu: ['painting', 'photography', 'sculpture', 'drawing']},
+  {title: 'arts', subMenu: ['painting', 'photography', 'sculpture', 'drawing', 'digital']},
 ];
 
 const Navbar = ({user, isAuthenticated}) => {
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state => state.user);
   const [sidebar, setSidebar] = useState(false);
+  const {cartItems} = useSelector(state => state.cart);
+  const {myData, isLoading} = useSelector(state => state.user);
   const [profileSpeedDial, setProfileSpeedDial] = useState(false);
   const [toggleCart, setToggleCart] = useState({ right: false });
   
@@ -41,7 +42,8 @@ const Navbar = ({user, isAuthenticated}) => {
     setToggleCart({ ...toggleCart, [anchor]: open });
   };
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     dispatch(logoutUser());
     toast.success("Logged out successfully!");
   };
@@ -59,7 +61,7 @@ const Navbar = ({user, isAuthenticated}) => {
               return(
                 <li key={index}>
                   <NavLink exact="true"
-                    to={`${menu.title}`} 
+                    to={menu.title === 'home' ? '/' : `${menu.title}`} 
                     style={({ isActive }) => isActive ? activeStyle : undefined}
                     onClick={handleLink(menu)}
                   >
@@ -67,20 +69,20 @@ const Navbar = ({user, isAuthenticated}) => {
                     {menu.subMenu && <i className="fa-solid fa-chevron-down"></i>}
                   </NavLink>
 
-                    {
-                      menu.subMenu && 
-                      <ul className='subMenu'>
-                        {
-                          menu.subMenu.map((sm, index) => {
-                            return(
-                              <li key={index}>
-                                <NavLink exact="true" to={sm ==='digital art' ? menu.title+'/digital' : menu.title+'/'+sm}>{sm}</NavLink>
-                              </li>
-                            )
-                          })
-                        }
-                      </ul>
-                    }
+                  {
+                    menu.subMenu && 
+                    <ul className='subMenu'>
+                      {
+                        menu.subMenu.map((sm, index) => {
+                          return(
+                            <li key={index}>
+                              <NavLink exact="true" to={sm ==='digital art' ? menu.title+'/digital' : menu.title+'/'+sm}>{sm}</NavLink>
+                            </li>
+                          )
+                        })
+                      }
+                    </ul>
+                  }
                 </li>
               )
             })
@@ -97,17 +99,17 @@ const Navbar = ({user, isAuthenticated}) => {
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
             
             <div className={profileSpeedDial ? "active" : ""}>
-              {isAuthenticated && <Link to='/profile'>My Profile</Link>}
+              {isAuthenticated && <Link to={`/profile/${myData?._id}`}>My Profile</Link>}
               {isAuthenticated && user?.role === "admin" && <Link to='/admin'>Admin Panel</Link>} 
               {!isAuthenticated && <Link to='/login'>Login</Link>}
               {!isAuthenticated && <Link to='/register'>Register</Link>}
-              {isAuthenticated && <button onClick={handleLogout}>{isLoading ? <Bubbles /> : "Log Out"}</button>}
+              {isAuthenticated && <Link to='#' onClick={handleLogout} style={{backgroundColor: "#ededed"}}>{isLoading ? <Bubbles /> : "Log Out"}</Link>}
             </div>
           </div>	
 
           <div className="cartIcon" onClick={toggleDrawer('right', true)}>
             <i className="fa-solid fa-cart-shopping"></i>
-            <span className="nav-total-quantity">8</span>
+            <span className="nav-total-quantity">{cartItems.length}</span>
           </div>
 
           <div className="barsIcon" onClick={() => setSidebar(!sidebar)}>

@@ -1,16 +1,16 @@
 import {useRef} from 'react'
 
-// import css
+// import css and components
 import './slider.css'
-
-// import components
 import Card from '../../utility/card/card.jsx'
+
+// import swiper components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required swiper modules
 import { Pagination } from "swiper";
 
-// Import Swiper styles
+// import Swiper styles
 import "swiper/css";
 import 'swiper/css/pagination';
 
@@ -29,7 +29,7 @@ const Slider = ({title, data}) => {
                     className="mySwiper"
                     modules={[Pagination]}
                     slidesPerView={1}
-                    spaceBetween={10}
+                    spaceBetween={9}
                     pagination={{clickable: true}}
                     onSwiper={(swiper) => {swiperRef.current = swiper}}
                     breakpoints={{
@@ -42,7 +42,7 @@ const Slider = ({title, data}) => {
                         data.map((slide, index) => {
                             return(
                                 <SwiperSlide key={index}>
-                                    <Card  data={slide} style={{height: '30rem'}} />
+                                    <Card art={slide} title={title} style={{height: '30rem'}} />
                                 </SwiperSlide>
                             )
                         })
