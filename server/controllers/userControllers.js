@@ -38,7 +38,7 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
     if(!passwordMatch) return next(new ErrorHandler("Invalid email or password!", 400));
     const token = await user.createJwtToken(expiresIn);
 	
-    res.cookie('jwt', token, {maxAge: remember ? 7*24*60*60*1000 : 7*24*60*60*1000, httpOnly: true, sameSite: true}); //{secure: true}
+    res.cookie('jwt', token, {maxAge: remember ? 30*24*60*60*1000 : 7*24*60*60*1000, httpOnly: true, sameSite: true}); //{secure: true}
     res.status(200).json({
         success: true,
         message: 'Successfully logged in!',
@@ -59,7 +59,7 @@ export const logoutUser = catchAsyncError(async (req, res) => {
 
 // get my profile
 export const getMyProfile = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById({_id: req.user.id});
 
     res.status(200).json({
         success: true,
@@ -69,7 +69,7 @@ export const getMyProfile = catchAsyncError(async (req, res, next) => {
 
 // get user profile
 export const getUserProfile = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.params.id)
+    const user = await User.findById({_id: req.params.id})
 
     res.status(200).json({
         success: true,

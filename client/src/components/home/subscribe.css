@@ -87,8 +87,7 @@
     }
 
     .subscribeSection > .subscribeContainer > div:first-child{
-        margin-bottom: 0.75rem;
-        margin-right: 0;
+        display: none;
     }
 
     .subscribeSection > .subscribeContainer > div{

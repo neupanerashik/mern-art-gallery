@@ -14,7 +14,7 @@ const Card = ({art, title, style}) => {
   const dispatch = useDispatch();
   const [hasLiked, setHasLiked] = useState(false);
   const {cartItems} = useSelector(state => state.cart);
-  const {isAuthenticated, myData} = useSelector(state => state.user);
+  const {myData, isAuthenticated} = useSelector(state => state.user);
   const {error: profileError, message: profileMessage} = useSelector(state => state.profile);
 
 

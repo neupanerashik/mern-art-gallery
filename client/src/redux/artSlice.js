@@ -1,6 +1,6 @@
 import axios from "axios";
 import { updateMyData } from './userSlice.js';
-import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // get arts
 export const getAllArts = createAsyncThunk('getAllArts', async ({keyword='', category='', maxPrice, minPrice, sortByPrice}, {rejectWithValue}) => { 

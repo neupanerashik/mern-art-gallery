@@ -10,17 +10,17 @@ import Seo from '../../seo/seo';
 const Likes = () => {
   const dispatch = useDispatch()
   const [likes, setLikes] = useState([]);
-  const {myData} = useSelector(state => state.user);
+  const {userData} = useSelector(state => state.profile);
 
   const handleRemoveFromLikes = (artId) => {
     dispatch(removeFromLikes(artId))
   }
 
   useEffect(() => {
-    if (myData && myData.likes) {
-     setLikes(myData.likes);
+    if (userData && userData.likes) {
+     setLikes(userData.likes);
     }
-  }, [myData]);
+  }, [userData]);
 
   return (
     <>

@@ -68,7 +68,7 @@ const About = () => {
                     </div>
 
                     <div>
-                        <i class="fa-solid fa-file-shield"></i>
+                        <i className="fa-solid fa-file-shield"></i>
                         <h1>Secure Payment</h1>
                         <p>fast & safe checkout</p>
                     </div>

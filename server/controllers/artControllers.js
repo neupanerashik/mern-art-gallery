@@ -185,13 +185,13 @@ export const deleteReview = catchAsyncError(async (req, res, next) => {
 
 
 // get my products
-export const getMyArtworks = catchAsyncError(async (req, res, next) => {
-    const myArtworks = await Art.find({creator: req.user.id});
+export const getUserArtworks = catchAsyncError(async (req, res, next) => {
+    const userArtworks = await Art.find({creator: req.params.id});
     
     res.status(200).json({
         success: true,
         message: "Read all my products!",
-        myArtworks
+        userArtworks
     })
 })
 

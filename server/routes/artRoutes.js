@@ -9,7 +9,7 @@ import {
     readArt,
     updateArt,
     createArt,
-    getMyArtworks,
+    getUserArtworks,
     getRecommendations,
     addToLikes,
     removeFromLikes,
@@ -24,6 +24,7 @@ router.route('/arts').get(readArts)
 router.route('/art/:id').get(readArt)
 router.route('/arts/recommendations').get(getRecommendations)
 router.route('/art/review/:id').get(getReviews)
+router.route('/artworks/:id').get(getUserArtworks)
 
 // registered users route
 router.route('/likes/add').post(isAuthenticated, addToLikes)
@@ -35,7 +36,6 @@ router.route('/arts/review/delete/:id').delete(isAuthenticated, deleteReview)
 router.route('/art/upload').post(isAuthenticated, isCreator(creatorRoles), uploadMultiple.array('artImages', 6), createArt)
 router.route('/art/delete/:id').delete(isAuthenticated, isCreator(creatorRoles), deleteArt)
 router.route('/art/update/:id').put(isAuthenticated, isCreator(creatorRoles), updateArt)
-router.route('/artworks/me').get(isAuthenticated, isCreator(creatorRoles), getMyArtworks)
 
 
 // admin route

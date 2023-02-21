@@ -69,7 +69,7 @@ const Detail = () => {
           <div className="infoContainer">
             <h2>{artwork.name}</h2>
            
-            <Link to={`/profile/${artwork.creator}`}>Creator Profile</Link>
+            <Link to={`/user/${artwork.creator}`}>Creator Profile</Link>
            
             <div className='rating'>
               <div>

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { logoutUser } from '../../../redux/userSlice';
 import Drawer from '@mui/material/Drawer';
@@ -20,6 +20,7 @@ const menus = [
 ];
 
 const Navbar = ({user, isAuthenticated}) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
   const {cartItems} = useSelector(state => state.cart);
@@ -45,6 +46,7 @@ const Navbar = ({user, isAuthenticated}) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logoutUser());
+    navigate('/');
     toast.success("Logged out successfully!");
   };
 
@@ -99,7 +101,7 @@ const Navbar = ({user, isAuthenticated}) => {
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
             
             <div className={profileSpeedDial ? "active" : ""}>
-              {isAuthenticated && <Link to={`/profile/${myData?._id}`}>My Profile</Link>}
+              {isAuthenticated && <Link to={`/user/${myData?._id}`}>My Profile</Link>}
               {isAuthenticated && user?.role === "admin" && <Link to='/admin'>Admin Panel</Link>} 
               {!isAuthenticated && <Link to='/login'>Login</Link>}
               {!isAuthenticated && <Link to='/register'>Register</Link>}

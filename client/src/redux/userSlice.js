@@ -25,18 +25,6 @@ export const getMyProfile = createAsyncThunk('getMyProfile', async (_, { rejectW
 });
 
 
-// get user profile
-export const getUserProfile = createAsyncThunk('getProfile', async (id, { rejectWithValue }) => {
-    try {
-        const { data, status } = await axios.get(`/api/v1/user/${id}`, {withCredentials: true});
-        if (status >= 300) {return rejectWithValue(data)};
-        return data;
-    } catch (err) {
-        return rejectWithValue(err.response.data);
-    }
-});
-
-
 // login user
 export const loginUser = createAsyncThunk('loginUser', async (loginData, { rejectWithValue }) => {
     try {
@@ -63,7 +51,6 @@ export const userSlice = createSlice({
   name: 'user',
   
   initialState: {
-    userData: {},
     myData: {},
     isAuthenticated: false
   },
@@ -97,19 +84,6 @@ export const userSlice = createSlice({
         state.myData = null;
     })
 
-    // get user profile
-    builder.addCase(getUserProfile.pending, (state) => {
-        state.isLoading = true;
-        state.isAuthenticated = false;
-    }).addCase(getUserProfile.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = true;
-        state.userData = action.payload.user;
-    }).addCase(getUserProfile.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = false;
-        state.userData = null;
-    })
 
     // logout user
     builder.addCase(logoutUser.pending, (state, action) => {

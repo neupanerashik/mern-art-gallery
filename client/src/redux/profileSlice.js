@@ -2,11 +2,22 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit'
 import { updateMyData } from './userSlice.js';
 
+// get user profile
+export const getUserProfile = createAsyncThunk('getProfile', async (id, { rejectWithValue }) => {
+    try {
+        const { data, status } = await axios.get(`/api/v1/user/${id}`, {withCredentials: true});
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+});
+
 
 // get my works
-export const getMyArtworks = createAsyncThunk('getMyWorks', async(_, {rejectWithValue}) => {
+export const getUserArtworks = createAsyncThunk('getUserArtworks', async(id, {rejectWithValue}) => {
     try {
-        const { data, status } = await axios.get('/api/v1/artworks/me', {withCredentials: true});
+        const { data, status } = await axios.get(`/api/v1/artworks/${id}`, {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -80,7 +91,8 @@ const profileSlice = createSlice({
 	name: 'profile',
 
 	initialState: {
-        myArtworks: [],
+        userArtworks: [],
+        userData: {}
     },
 
 	reducers: {
@@ -95,15 +107,29 @@ const profileSlice = createSlice({
 
 	extraReducers: (builder) => {
 
-        // get my artworks
-        builder.addCase(getMyArtworks.pending, (state, action) => {
+        // get user profile
+        builder.addCase(getUserProfile.pending, (state) => {
             state.isLoading = true;
-        }).addCase(getMyArtworks.fulfilled, (state, action) => {
+            state.isAuthenticated = false;
+        }).addCase(getUserProfile.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.myArtworks = action.payload.myArtworks;
-        }).addCase(getMyArtworks.rejected, (state, action) => {
+            state.isAuthenticated = true;
+            state.userData = action.payload.user;
+        }).addCase(getUserProfile.rejected, (state, action) => {
             state.isLoading = false;
-            state.myArtworks = [];
+            state.isAuthenticated = false;
+            state.userData = null;
+        })
+
+        // get my artworks
+        builder.addCase(getUserArtworks.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(getUserArtworks.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.userArtworks = action.payload.userArtworks;
+        }).addCase(getUserArtworks.rejected, (state, action) => {
+            state.isLoading = false;
+            state.userArtworks = [];
         })
 
 

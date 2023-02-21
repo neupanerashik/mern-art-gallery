@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector}  from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 // import css and components
 import './profile.css'
@@ -12,7 +12,7 @@ import Upload from './upload'
 import Spinner from '../../utility/spinner/spinner'
 import { toast } from 'react-toastify'
 import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSlice'
-import { getUserProfile } from '../../../redux/userSlice'
+import { getUserProfile } from '../../../redux/profileSlice'
 
 const allMenu = ["Artworks", "Likes", "Detail", "Upload"] 
 
@@ -20,11 +20,11 @@ const Profile = () => {
     const {id} = useParams()
     const menuRef = useRef(null)
     const dispatch = useDispatch();
+    const {userData = {}, message, error, isLoading} = useSelector(state => state.profile);
     const {myData} = useSelector(state => state.user);
-    const {message, error, isLoading} = useSelector(state => state.profile);
 
     const [menu, setMenu] = useState(allMenu[0]);
-    const [avatar, setAvatar] = useState(myData?.avatar?.url || "");
+    const [avatar, setAvatar] = useState(userData?.avatar?.url || "");
 
     // scroll to products
     const handleScroll = (mnu) => {
@@ -35,7 +35,7 @@ const Profile = () => {
     const handleAvatarChange = async (e) => {
         e.preventDefault();
         const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
+        reader.readAsuserDataURL(e.target.files[0]);
         reader.onload = async () => {
             if(reader.DONE) {
                 setAvatar(reader.result);
@@ -45,7 +45,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        dispatch(getUserProfile(id));
+        dispatch(getUserProfile(id))
 
         if(message){
             toast.success(message);
@@ -61,59 +61,67 @@ const Profile = () => {
 
     return (
         <>
-            <Seo title={`Profile of ${myData.name}`} description="Profile page of user." />
+            <Seo title={`Profile of ${userData?.name}`} description="Profile page of user." />
 
             <section className='profileSection'>
                 <div className="profileCard">
                     <div className="avatar">
-                        <label htmlFor='avatar'>
-                            {isLoading ? <Spinner /> : (
-                                <>
-                                    <i className="fa-solid fa-plus"></i>
-                                    <input id="avatar" type="file" name='avatar' accept='image/*' onChange={handleAvatarChange}/>
-                                </>
-                            )}
-                        </label>
+                        {myData && userData._id === myData._id && 
+                            <label htmlFor='avatar'>
+                                {isLoading ? <Spinner /> : (
+                                    <>
+                                        <i className="fa-solid fa-plus"></i>
+                                        <input id="avatar" type="file" name='avatar' accept='image/*' onChange={handleAvatarChange}/>
+                                    </>
+                                )}
+                            </label>
+                        }
                         {avatar!== "" && <img src={avatar} alt='avatar' />}
-                        {avatar === "" && <p>{myData.name[0]}</p>}
+                        {avatar === "" && userData.name && <p>{userData.name[0]}</p>}
                     </div>
+
                     <div className="name">
-                        <h2>{myData?.name}</h2>
-                        <p>{myData?.role}</p>
-                        <p>{myData?.email}</p>
+                        {userData && (
+                            <>
+                                <h2>{userData.name}</h2>
+                                <p>{userData.role}</p>
+                                <p>{userData.email}</p>
+                            </>
+                        )}
                     </div>
-                    {myData.socials && 
+
+                    {userData.socials && 
                         <div className="social">
-                            {myData.socials.facebook !== '' &&
-                                <a href={`https://facebook.com/${myData.socials.facebook}`} target='_blank' rel="noopener noreferrer">
+                            {userData.socials.facebook !== '' &&
+                                <a href={`https://facebook.com/${userData.socials.facebook}`} target='_blank' rel="noopener noreferrer">
                                     <i className="fa-brands fa-facebook facebook"></i>
                                 </a>
                             }
 
-                            {myData.socials.instagram !== '' &&
-                                <a href={`https://instagram.com/${myData.socials.instagram}`} target='_blank' rel="noopener noreferrer">
+                            {userData.socials.instagram !== '' &&
+                                <a href={`https://instagram.com/${userData.socials.instagram}`} target='_blank' rel="noopener noreferrer">
                                     <i className="fa-brands fa-instagram instagram"></i>
                                 </a>
                             }
 
-                            {myData.socials.twitter !== '' &&
-                                <a href={`https://twitter.com/${myData.socials.twitter}`} target='_blank' rel="noopener noreferrer">
+                            {userData.socials.twitter !== '' &&
+                                <a href={`https://twitter.com/${userData.socials.twitter}`} target='_blank' rel="noopener noreferrer">
                                     <i className="fa-brands fa-twitter twitter"></i>
                                 </a>
                             }
                         </div>
                     }
+
                     <div className="buttons">
-                        <button>Hire</button>
-                        <button>Donate</button>
-                        {/* <button onClick={handleAvatarSave}>Save</button> */}
+                        {userData._id !== myData?._id && <button>Hire</button>}
+                        {userData._id !== myData?._id && <button>Donate</button>}
                     </div>
                 </div>
                 <div className="profileOptions" ref={menuRef}>
                     <ul>
-                        {
-                        allMenu.map((mn, index) => {
-                            if ((mn === 'Upload' || 'Artworks') && myData.role === 'user') { return null }
+                        {allMenu.map((mn, index) => {
+                            if ((mn === 'Artwork' || mn === 'Upload') && userData.role === 'user') { return null }
+                            if ((mn === 'Likes' || mn === 'Detail' || mn === "Upload") && (myData === null || userData._id !== myData._id)) { return null }                           
 
                             return (
                                 <li key={index} onClick={() => handleScroll(mn)} style={{ borderBottom: mn === menu ? "1px solid black" : "" }}>
@@ -125,9 +133,9 @@ const Profile = () => {
                     
                     <div className="options">
                         {menu === "Artworks" && <Artworks />}
-                        {menu === "Likes" && < MyLikes />}
-                        {menu === "Detail" && <Detail />}
-                        {menu === "Upload" && <Upload />}
+                        {myData && userData._id === myData._id && menu === "Likes" && <MyLikes />}
+                        {myData && userData._id === myData._id && menu === "Detail" && <Detail />}
+                        {myData && userData._id === myData._id && menu === "Upload" && <Upload />}
                     </div>
                 </div>
                 
