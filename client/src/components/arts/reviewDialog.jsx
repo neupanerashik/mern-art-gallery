@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, clearMessage, createReview } from '../../redux/artSlice';
+import Dialog from '@mui/material/Dialog';
 
 // import css
 import './reviewDialog.css'
-
-// mui imports
-import Dialog from '@mui/material/Dialog';
-import { useParams } from 'react-router-dom';
 
 export default function ReviewDialog() {
     const {id} = useParams();

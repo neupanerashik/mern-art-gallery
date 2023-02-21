@@ -14,26 +14,21 @@ const Contact = () => {
         <>
             <div className="contactContainer">
                 <div className="heading">
-                    <h2>Contact Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    <br/>incididunt ut labore et dolore magna aliqua.</p>
+                    <h2>Get in touch with us</h2>
+                    <p>For more information about our product & Services. please feel free to drop us an
+                    <br/>email. our staff always be there to help you out. do not hesitate!</p>
                 </div>
 
                 <div className="content">
                     <div className="info">
                         <i className="fas fa-mobile-alt"></i>
                         <h4>PHONE </h4>
-                        <p>+12457836913 , +12457836913</p>
+                        <p>061-208924 , 061-462953</p>
                     </div>
-                    {/* <div className="info">
-                        <i className="far fa-envelope"></i>
-                        <h4>EMAIL</h4>
-                        <p>6743 last street , Abcd, Xyz</p>
-                    </div> */}
                     <div className="info">
                         <i className="fas fa-map-marker-alt"></i> 
                         <h4>ADDRESS </h4>
-                        <p>6743 last street , Abcd, Xyz</p>
+                        <p>8th Street, Baidam-6, Pokhara</p>
                     </div>
                 </div>
 

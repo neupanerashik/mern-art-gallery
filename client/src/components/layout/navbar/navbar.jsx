@@ -9,6 +9,7 @@ import Drawer from '@mui/material/Drawer';
 import './navbar.css'
 import Bubbles from '../../utility/bubbles/bubbles';
 import Cart from '../../cart/cart';
+import ChatDialog from '../../chat/chatDialog';
 
 // menu
 const menus = [
@@ -92,10 +93,7 @@ const Navbar = ({user, isAuthenticated}) => {
         </ul>
         
         <div className='navIcons'>
-          {/* <div className='searchIcon'>
-            <input type="text" placeholder="Search" autoComplete="off" required/>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div> */}
+          <ChatDialog />
         
           <div className="profileIcon" onClick={() => setProfileSpeedDial(!profileSpeedDial)}>
             {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}

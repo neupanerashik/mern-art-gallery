@@ -89,26 +89,14 @@
     margin-left: 2.5rem;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .navbar > .navIcons > div {
     margin-left: 1rem;
 }
 
-.navbar > .navIcons > .searchIcon{
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 1.5rem;
-    border: 1px solid #b2beb5;
-    border-radius: 5rem;
-}
-
-.navbar > .navIcons > .searchIcon > input{
-    width: 15rem;
-}
-
-.navbar > .navIcons > .searchIcon > i,
+.navbar > .navIcons > button > i,
 .navbar > .navIcons > .profileIcon > i,
 .navbar > .navIcons > .cartIcon > i,
 .navbar > .navIcons > .barsIcon > i{
@@ -117,11 +105,12 @@
 }
 
 /******************** Profile Icon ********************/
+.navbar > .navIcons > button,
 .navbar > .navIcons > .profileIcon,
 .navbar > .navIcons > .cartIcon,
 .navbar > .navIcons > .barsIcon {
     position: relative;
-    border: 1px solid #b2beb5;
+    border: 1px solid #d8d8d8;
     height: 3.5rem;
     width: 3.5rem;
     display: flex;
@@ -129,6 +118,7 @@
     align-items: center;
     border-radius: 5rem;
     cursor: pointer;
+    background-color: white;
 }
 
 .navbar > .navIcons > .profileIcon > div{
