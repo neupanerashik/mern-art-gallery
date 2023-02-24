@@ -1,48 +1,30 @@
-.message{
-	margin-bottom: 1rem;
-	width: 100%;
-	display: flex;
-}
-
 .message.out{
+	width: 100%;
 	display: flex;
 	flex-direction: row-reverse;
 }
 
 .message.in{
+	width: 100%;
 	display: flex;
 }
 
-.message.in > .messageContent,
-.message.out > .messageContent{
+/******************** Message content ********************/
+.message > .messageContent{
 	display: flex;
 	flex-direction: column;
 }
 
-.message.in > .messageContent > p:first-child{
+.message.in > .messageContent > p.text,
+.message.out > .messageContent > p.text{
+	margin: 0.25rem 0;
 	padding: 1rem;
-	font-size: 1.25rem;
 	background-color: #ededed;
 	border-radius: 0 1rem 1rem 1rem;
 }
 
-.message.out > .messageContent > p:first-child{
-	padding: 1rem;
+.message.out > .messageContent > p.text{
 	color: white;
 	background-color: #2d3448;
 	border-radius: 1rem 0 1rem 1rem;
-}
-
-.message.in > .messageContent > p:last-child{
-	margin: 0.25rem 0;
-	display: flex;
-	justify-content: flex-start;
-	font-size: 1rem;
-}
-
-.message.out > .messageContent > p:last-child{
-	margin: 0.25rem 0;
-	display: flex;
-	justify-content: flex-end;
-	font-size: 1rem;
 }

@@ -10,10 +10,9 @@ import Category from './category'
 import Recommendation from './recommendation'
 import Subscribe from './subscribe'
 import Slider from '../utility/slider/slider'
-import ChatDialog from '../chat/chatDialog'
 
 const Home = () => {
-  const { data } = useFetch('/api/v1/arts/recommendations');
+  const { data } = useFetch('/arts/recommendations');
 
   const [specialOffers, setSpecialOffers] = useState([]);
 

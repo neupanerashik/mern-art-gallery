@@ -9,8 +9,7 @@ import Card from '../utility/card/card'
 
 const Arts = () => {
     const dispatch = useDispatch();
-    const {category} = useParams();
-    const {keyword} = useParams();
+    const {category, keyword} = useParams();
     const {allArts} = useSelector(state => state.art);
 
     const [minPrice, handleMinPrice] = useState(0);

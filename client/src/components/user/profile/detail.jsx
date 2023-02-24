@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import './detail.css'
 import Bubbles from '../../utility/bubbles/bubbles';
 import { clearError, clearMessage, updateProfile } from '../../../redux/profileSlice';
+import { deleteAccount } from '../../../redux/userSlice';
+
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -29,6 +31,13 @@ const Detail = () => {
     myForm.append('instagram', instagram);
     myForm.append('twitter', twitter);
     dispatch(updateProfile(myForm));
+  }
+
+  const handleDeleteAccount = (e) => {
+    e.preventDefault();
+    dispatch(deleteAccount(myData._id));
+    toast.success("Account deleted successfully!");
+    navigate('/');
   }
 
   useEffect(() => {
@@ -109,6 +118,14 @@ const Detail = () => {
           <span>Twitter Id</span>
           <label>
             <input type="text" value={twitter} onChange={(e) => setTwitter(e.target.value)} />
+          </label>
+        </div>
+
+        <h1>Account</h1>
+        <div>
+          <span>Delete Account</span>
+          <label>
+            <input type="button" value="Delete Account"  onClick={handleDeleteAccount}/>
           </label>
         </div>
 

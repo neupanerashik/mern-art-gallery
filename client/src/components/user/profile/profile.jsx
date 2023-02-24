@@ -35,7 +35,7 @@ const Profile = () => {
     const handleAvatarChange = async (e) => {
         e.preventDefault();
         const reader = new FileReader();
-        reader.readAsuserDataURL(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
         reader.onload = async () => {
             if(reader.DONE) {
                 setAvatar(reader.result);

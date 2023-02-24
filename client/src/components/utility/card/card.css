@@ -36,6 +36,7 @@
     flex-direction: column;
     text-align: center;
     /* display: none; */
+    background-color: #f6f6f6;
 }
 
 /* .cardContainer:hover > .itemInfo{
@@ -46,7 +47,7 @@
     animation: var(--appear-animation) 0.4s ease-in-out;
     animation-fill-mode: forwards;
     background-color: rgba(255, 255, 255, 0.5);
-    transition: position 0.3s ease-in-out;
+    transition: position 0.3s ease;
 } */
 
 .cardContainer > .itemInfo > p{

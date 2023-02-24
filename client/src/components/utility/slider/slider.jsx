@@ -39,7 +39,7 @@ const Slider = ({title, data}) => {
                     }}
                 >
                     {
-                        data.map((slide, index) => {
+                        data.slice(0, 7).map((slide, index) => {
                             return(
                                 <SwiperSlide key={index}>
                                     <Card art={slide} title={title} style={{height: '30rem'}} />

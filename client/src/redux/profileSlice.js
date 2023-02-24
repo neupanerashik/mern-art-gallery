@@ -42,6 +42,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (profileDat
 });
 
 
+
 // update profile
 export const updateAvatar = createAsyncThunk('updateAvatar', async (avatar, { rejectWithValue, dispatch }) => {
     try {
@@ -78,7 +79,7 @@ export const deleteArt = createAsyncThunk('deleteArt', async (artId, {rejectWith
     try{
         const {data, status} = await axios.delete(`/api/v1/art/delete/${artId}`, {withCredentials: true});
         if(status >= 300) {return rejectWithValue(data)};
-        // dispatch(updateMyData(data.user));
+        dispatch(updateMyData({}));
         return data;
     }catch(err){
         return rejectWithValue(err.response.data);
@@ -113,11 +114,9 @@ const profileSlice = createSlice({
             state.isAuthenticated = false;
         }).addCase(getUserProfile.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.isAuthenticated = true;
             state.userData = action.payload.user;
         }).addCase(getUserProfile.rejected, (state, action) => {
             state.isLoading = false;
-            state.isAuthenticated = false;
             state.userData = null;
         })
 
@@ -155,6 +154,7 @@ const profileSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload.message;
         })
+
 
         // update profile and avatar
          .addMatcher(isAnyOf(updateProfile.pending, updateAvatar.pending), (state, action) => {

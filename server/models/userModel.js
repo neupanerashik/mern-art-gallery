@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: [true, 'Please enter the password!'], minLength: [6, "Password should be at least six characters long!"], select: false},
     confirmPassword: {type: String, required: [true, "Please, enter the password again"], select: false},
     avatar: {public_id: {type: String}, url: {type: String}},
-    role: {type: String, default: 'user'},
+    role: {type: String},
     joinedAt: {type: Date, default: Date.now},
     socials: {facebook: {type: String, default: ""}, instagram: {type: String, default: ""}, twitter: {type: String, default: ""}},
     subscribed: {type: Boolean, default: false},

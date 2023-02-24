@@ -23,7 +23,7 @@ const Reviews = () => {
     const {myData} = useSelector(state => state.user);
 
     // get request
-    const {data} = useFetch(`/api/v1/art/review/${id}`);
+    const {data} = useFetch(`/art/review/${id}`);
 
     const ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const ratingPercentages = { 1: "0%", 2: "0%", 3: "0%", 4: "0%", 5: "0%" };

@@ -5,19 +5,24 @@ import cloudinary from "cloudinary"
 import crypto from "crypto"
 import { User } from '../models/userModel.js'
 import { Art } from '../models/artModel.js';
-import { getDataUri } from '../utility/getDataUri.js';
+import { Chat } from '../models/chatModel.js';
 
 
 // register user
 export const registerUser = catchAsyncError(async (req, res, next) => {
     const {name, email, password, confirmPassword, role} = req.body;
+    const normalizedRole = role || "user";
     if(password !== confirmPassword) return next(new ErrorHandler('Password do not match.', 400));
     if(name === '' || email === '' || password === '' || confirmPassword === '') return next(new ErrorHandler('The fields cannot be empty', 409)); 
     const isEmailUsed = await User.findOne({email});
     if (isEmailUsed) return next(new ErrorHandler("Email is already used!", 400));
-    const user = await User.create({name, email, password, confirmPassword, role});
+    const user = await User.create({name, email, password, confirmPassword, role: normalizedRole});
     const token = await user.createJwtToken();
-	
+    
+     // create chat
+    const customerServiceRep = await User.find({role: 'csr'});
+    await Chat.create({participants: [customerServiceRep[0]._id.toString(), user._id.toString()]});
+
     res.cookie('jwt', token, {maxAge: 7*24*60*60*1000, httpOnly: true, sameSite: true}); //{secure: true}
     res.status(201).json({
         success: true,
@@ -107,7 +112,7 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
     // const passwordResetUrl = `${req.protocol}://${req.get('host')}/password/reset/${token}`;
     const passwordResetUrl = `http://localhost:3000/password/reset/${token}`;
     const message = `Click on the given link to reset password: ${passwordResetUrl}`;
-    sendEmail({email: user.email, subject: "Password Reset", message});
+    sendEmail({sender: process.env.EMAIL_ADDRESS, receiver: user.email, subject: "Password Reset", message});
     
     res.status(200).json({
         success: true,
@@ -184,6 +189,31 @@ export const updateAvatar = catchAsyncError(async (req, res, next) => {
 });
 
 
+// delete account
+export const deleteAccount = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id)
+    const arts = await Art.find({creator: req.params.id})
+    console.log("User", user);
+    console.log("Arts", arts)
+
+    // delete profile image if present
+    if(user.avatar.public_id && user.avatar.url){await cloudinary.v2.uploader.destroy(user.avatar.public_id);}
+    
+    // image delete logic
+    arts.forEach(async (art) => {
+        for(let i = 0; i < art.images.length; i++) {await cloudinary.v2.uploader.destroy(art.images[i].public_id)}
+    })
+
+    await user.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: 'Account deleted successfully.',
+        user: {}
+    });
+});
+
+
 //subscriber
 export const subscribe = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
@@ -211,5 +241,17 @@ export const unsubscribe = catchAsyncError(async (req, res, next) => {
     });
 });
 
-	
+
+// send mail from contact
+export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
+    const {name, email, subject, message} = req.body;
+    console
+
+    sendEmail({sender: email, receiver: process.env.EMAIL_ADDRESS, name, subject, message});
+
+    res.status(200).json({
+        success: true,
+        message: `Email sent.`
+    })
+});
 

@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from "cors"
 import cookieParser from 'cookie-parser'
+import { configSocket } from './configuration/socket.js'
 import { connectDatabase } from './configuration/database.js'
 import { configCloudinary } from './configuration/cloudinary.js'
 
@@ -11,6 +12,7 @@ import ErrorMiddleware from './middleware/errorMiddleware.js'
 // import routes
 import userRoutes from './routes/userRoutes.js'
 import artRoutes from './routes/artRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
 
 // dot env
 dotenv.config({path: './config.env'});
@@ -25,6 +27,7 @@ app.use(cors());
 // configutation of database, cloudinary
 connectDatabase();
 configCloudinary();
+configSocket();
 
 // port
 const PORT = process.env.PORT;
@@ -35,6 +38,7 @@ app.listen(PORT, () => console.log(`Listening in port ${PORT}`));
 // routes
 app.use("/api/v1", userRoutes)
 app.use("/api/v1", artRoutes)
+app.use("/api/v1", chatRoutes)
 
 // error middleware
 app.use(ErrorMiddleware);

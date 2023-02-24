@@ -3,6 +3,7 @@ import profileReducer from "./redux/profileSlice";
 import userReducer from './redux/userSlice'
 import artReducer from './redux/artSlice'
 import cartReducer from './redux/cartSlice'
+import chatReducer from './redux/chatSlice'
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         user: userReducer,
         profile: profileReducer,
         art: artReducer,
-        cart: cartReducer
+        cart: cartReducer,
+        chat: chatReducer,
     }
 })
 

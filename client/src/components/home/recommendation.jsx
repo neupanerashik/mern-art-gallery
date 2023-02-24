@@ -15,7 +15,7 @@ const Recommendation = () => {
   const [highestRated, setHighestRated] = useState([]);
   const [recommendation, setRecommendation] = useState(recommendations[0]);
 
-  const { data, isLoading, error } = useFetch('/api/v1/arts/recommendations');
+  const { data, isLoading, error } = useFetch('/arts/recommendations');
 
   // scroll to recomendations
   const handleScroll = (recom) => {
