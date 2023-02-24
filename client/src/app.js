@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { getMyProfile } from './redux/userSlice';
 
-
 // import css and components
 import './app.css';
 import Navbar from './components/layout/navbar/navbar';
@@ -18,6 +17,8 @@ import ResetPassword from './components/user/password/resetPassword';
 import ChangePassword from './components/user/password/changePassword';
 import Profile from './components/user/profile/profile';
 import Contact from './components/layout/contact/contact';
+import About from './components/layout/about/about';
+import Error from './components/layout/error/error';
 
 // redux store
 import store from './store.js';
@@ -25,7 +26,6 @@ import store from './store.js';
 // react toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import About from './components/layout/about/about';
 
 function App() {
   // const dispatch = useDispatch();
@@ -52,6 +52,8 @@ function App() {
         <Route exact path='/password/reset/:token' element={<ResetPassword />} />
         <Route exact path='/password/change' element={<ChangePassword />} />
         <Route exact path='/user/:id' element={<Profile />} />
+        <Route path='*' element={<Error />} />
+        
       </Routes>
       
       <Footer />

@@ -20,11 +20,10 @@ const Profile = () => {
     const {id} = useParams()
     const menuRef = useRef(null)
     const dispatch = useDispatch();
-    const {userData = {}, message, error, isLoading} = useSelector(state => state.profile);
     const {myData} = useSelector(state => state.user);
+    const {userData, message, error, isLoading} = useSelector(state => state.profile);
 
     const [menu, setMenu] = useState(allMenu[0]);
-    const [avatar, setAvatar] = useState(userData?.avatar?.url || "");
 
     // scroll to products
     const handleScroll = (mnu) => {
@@ -37,8 +36,7 @@ const Profile = () => {
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = async () => {
-            if(reader.DONE) {
-                setAvatar(reader.result);
+            if(reader.readyState === 2) {
                 dispatch(updateAvatar({ avatar: reader.result }));
             }
         }
@@ -76,8 +74,9 @@ const Profile = () => {
                                 )}
                             </label>
                         }
-                        {avatar!== "" && <img src={avatar} alt='avatar' />}
-                        {avatar === "" && userData.name && <p>{userData.name[0]}</p>}
+                        {userData && userData.avatar && userData.avatar.url !== "" && <img src={userData.avatar.url} alt='avatar' />}
+                        {userData && !userData.avatar && userData.name && Object.keys(userData).length !== 0 && <p>{userData.name[0]}</p>}
+
                     </div>
 
                     <div className="name">

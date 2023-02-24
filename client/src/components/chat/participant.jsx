@@ -29,7 +29,7 @@ const Participant = ({chat, currentChat, onlineUsers}) => {
             <div className={(currentChat !== null && chat._id.toString() === currentChat._id.toString()) ? "avatar active" : "avatar"}>
                 {data?.user?.avatar ? <img src={data.user.avatar.url} alt='user' /> : <i className="fa-solid fa-user"></i>}
             </div>
-            <div className={data?.user?.role === 'csr' ? "name csr" : "name"}>{isLoading ? 'Loading...' : (data.user.role === "csr") ? "Customer Service" : data.user.name}</div>
+            <div className={data?.user?.role === 'csr' ? "name csr" : "name"}>{isLoading ? 'Loading...' : (data?.user?.role === "csr") ? "Customer Service" : data?.user?.name}</div>
             <div className={online ? "status online" : "status"}></div>
         </div>
     )

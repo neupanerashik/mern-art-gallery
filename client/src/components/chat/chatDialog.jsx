@@ -22,7 +22,7 @@ export default function ChatDialog() {
 
     const [openReviewDialog, setOpenReviewDialog] = useState(false);
 
-	const {myData, chats} = useSelector(state => state.user);
+	const {myData, chats, isAuthenticated} = useSelector(state => state.user);
 	const {chatMessages} = useSelector(state => state.chat);
 
     const handleClickOpen = () => {setOpenReviewDialog(true)};
@@ -101,24 +101,34 @@ export default function ChatDialog() {
 						<i className="fa-solid fa-xmark" onClick={() => handleClose()}></i>
 					</div>
 
-					<div className='participants'> 
-						{chats && chats.map((chat, index) => {
-							return (
-								<div onClick={() => setCurrentChat(chat)} key={index} className='participantContainer'>
-									<Participant chat={chat} currentChat={currentChat} onlineUsers={onlineUsers}  />	
-								</div>
-							)
-						})}
-					</div>
+					{!isAuthenticated && 
+						<div className='loginFirst'>
+							Please log in first to access <br /> chat feature.
+						</div>
+					}
+					
+					{isAuthenticated && 
+						<div className='participants'> 
+							{chats && chats.map((chat, index) => {
+								return (
+									<div onClick={() => setCurrentChat(chat)} key={index} className='participantContainer'>
+										<Participant chat={chat} currentChat={currentChat} onlineUsers={onlineUsers}  />	
+									</div>
+								)
+							})}
+						</div>
+					}
 
-					<div className='chatFeed' id='chatFeed'>
-						{(currentChat === null) && <div className='noChat'>Please click on one of the chats <br />to send message.</div>}
-						{(currentChat !== null) && !currentChatMessages.length && <div className='noMessage'>No messages yet. <br />Please start typing your message.</div>}
-						{currentChatMessages.map((message, index) => {
+					{isAuthenticated && 
+						<div className='chatFeed' id='chatFeed'>
+							{(currentChat === null) && <div className='noChat'>Please click on one of the chats <br />to send message.</div>}
+							{(currentChat !== null) && !currentChatMessages.length && <div className='noMessage'>No messages yet. <br />Please start typing your message.</div>}
+							{currentChatMessages.map((message, index) => {
 								return <Message key={index} message={message} />
 							})
-						}
-					</div>
+							}
+						</div>
+					}
 
 					<div className='chatInput'>
 						<input type='text' placeholder='Message...' value={newText} onChange={(e) => setNewText(e.target.value)} />

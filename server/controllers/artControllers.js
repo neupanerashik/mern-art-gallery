@@ -219,13 +219,12 @@ export const addToLikes = catchAsyncError(async (req, res, next) => {
 export const removeFromLikes = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
     const art = await Art.findById(req.body.artId);
-    console.log("body", req.body);
     if(!art) return next(new ErrorHandler("Artwork not founddddd!", 404));
     const newLikes = user.likes.filter(like => like.artId.toString() !== req.body.artId.toString());
     user.likes = newLikes;
     await user.save();
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         message: 'Art removed from likes.',
         user

@@ -6,6 +6,7 @@ import crypto from "crypto"
 import { User } from '../models/userModel.js'
 import { Art } from '../models/artModel.js';
 import { Chat } from '../models/chatModel.js';
+import { Message } from '../models/messageModel.js';
 
 
 // register user
@@ -193,16 +194,24 @@ export const updateAvatar = catchAsyncError(async (req, res, next) => {
 export const deleteAccount = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id)
     const arts = await Art.find({creator: req.params.id})
-    console.log("User", user);
-    console.log("Arts", arts)
+    const chats = await Chat.find({ participants: req.params.id })
 
-    // delete profile image if present
+    // delete avatar
     if(user.avatar.public_id && user.avatar.url){await cloudinary.v2.uploader.destroy(user.avatar.public_id);}
     
-    // image delete logic
+    // image arts images
     arts.forEach(async (art) => {
         for(let i = 0; i < art.images.length; i++) {await cloudinary.v2.uploader.destroy(art.images[i].public_id)}
     })
+
+    // delete chat and message
+    chats.forEach(async (chat) => {
+        await Chat.findOneAndDelete({ _id: chat._id })
+        await Message.deleteMany({chatId: chat._id})
+    })
+
+    // delete messages
+    
 
     await user.deleteOne();
 
