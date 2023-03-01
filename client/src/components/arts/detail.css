@@ -1,40 +1,40 @@
-.productDetailContainer{
-    padding-top: 1rem;
-}
-
-/******************* First Row *******************/
 .productDetailContainer > .firstRow{
-    height: calc(100vh - var(--nav-height) - 4rem);
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
     display: flex;
-    padding: 0.5rem;
-    border: 1px solid #ededed;
 }
 
+/******************* Carousel *******************/
+
+.productDetailContainer > .firstRow > .carousel{
+    height: calc(100vh - var(--nav-height) - 5rem);
+    width: 100%;
+}
+    
 /******************* Info Container *******************/
 
 .productDetailContainer > .firstRow > .infoContainer{
-    height: 100%;
+    min-height: calc(100vh - var(--nav-height) - 5rem);
     width: 60rem;
-    padding: 2rem;
     margin-left: 0.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #f9f9f9;
 }
 
 .productDetailContainer > .firstRow > .infoContainer > h2{
-    margin-bottom: 1rem;
     font-size: 2.5rem;
 }
 
 .productDetailContainer > .firstRow > .infoContainer > a{
+    width: fit-content;
+    margin-top: 1rem;
     font-size: 1.25rem;
     color: blue;
 }
 
 .productDetailContainer > .firstRow > .infoContainer > .rating{
-    margin: 1rem 0;
+    margin-top: 1rem;
     display: flex;
 }
 
@@ -54,24 +54,29 @@
 }
 
 .productDetailContainer > .firstRow > .infoContainer > .description{
-    margin: 2.5rem 0;
+    margin-top: 2rem;
     font-size: 1.25rem;
+    line-height: 1.5;
 }
 
-.productDetailContainer > .firstRow > .infoContainer > .price{
-    height: 4rem;
-    margin-bottom: 2rem;
-    line-height: 4rem;
-    font-size: 2.5rem;
+.productDetailContainer > .firstRow > .infoContainer > .buttons {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.productDetailContainer > .firstRow > .infoContainer > .buttons > .price{
+    font-size: 2rem;
+    margin-right: auto;
 }
 
 .productDetailContainer > .firstRow > .infoContainer > .buttons > button{
     height: 4rem;
     width: 4rem;
     margin-right: 1rem;
+    cursor: pointer;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
 }
 
 .productDetailContainer > .firstRow > .infoContainer > .buttons > button.liked{
@@ -90,9 +95,88 @@
     padding: 0 2rem;
     margin-right: 1rem;
     border-radius: 50rem;
- }
+}
+
+/******************* Auction Options *******************/
+
+.auctionInfo{
+    margin-top: 2rem;
+    font-size: 1.25rem;
+}
+
+.auctionInfo > h2{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #ededed;
+}
+
+.auctionInfo > .option{
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.auctionInfo > .option > div{
+    width: 50%;
+}
+
+.auctionInfo > .option > div > p{
+    margin-bottom: 1rem;
+}
+
+.auctionInfo > .option > div > p:nth-child(2){
+    color: #8d9790;
+}
+
+.auctionInfo > form{
+    display: flex;
+    flex-direction: column;
+}
+
+.auctionInfo > form > input,
+.auctionInfo > form > button{
+    padding: 1rem;
+}
+
+.auctionInfo > form > button{
+    margin-top: 1rem;
+    color: white;
+    background-color: #2d3448;
+}
+
+.auctionInfo > form > button:hover{
+    background-color: black;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
 
 /******************* Second Row *******************/
-.productDetailContainer > .secondRow{
-    width: 100%;
+
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .productDetailContainer > .firstRow{
+        flex-direction: column;
+    }
+
+    .productDetailContainer > .firstRow > .carousel{
+        height: 45vh;
+    }
+
+    .productDetailContainer > .firstRow > .infoContainer{
+        min-height: auto;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px){
+    .productDetailContainer > .firstRow > .infoContainer > .price{
+        display: inline-block;
+    }
+
+    .productDetailContainer > .firstRow > .infoContainer > .buttons > .price{
+        /* display: none; */
+    }
 }

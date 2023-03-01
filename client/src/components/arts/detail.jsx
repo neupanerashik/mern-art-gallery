@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice';
+import { placeBid, clearError, clearMessage } from '../../redux/auctionSlice';
 import { addToLikes, readArtwork } from '../../redux/artSlice';
+import { toast } from 'react-toastify';
 
 
 // import css and components
 import './detail.css'
 import Carousel from '../utility/carousel/carousel';
-import { toast } from 'react-toastify';
+import Timer from '../utility/timer/timer';
 import Reviews from './reviews';
 
 const Detail = () => {
@@ -16,20 +18,18 @@ const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [hasLiked, setHasLiked] = useState(false);
+  const [bidAmount, setBidAmount] = useState('')
+  const [highestBid, setHighestBid] = useState({})
+
   const {artwork} = useSelector(state => state.art);
   const {cartItems} = useSelector(state => state.cart);
   const {myData, isAuthenticated} = useSelector(state => state.user);
+  const {message, error} = useSelector(state => state.auction);
 
-
+  
   // handle add to cart
   const handleAddToCart = () => {
-    dispatch(addToCart({
-      id: artwork._id, 
-      name: artwork.name, 
-      price: artwork.price, 
-      category: artwork.category, 
-      image: artwork.images[0].url
-    }))
+    dispatch(addToCart({id: artwork._id, name: artwork.name, price: artwork.price, category: artwork.category, image: artwork.images[0].url}))
   }
 
   // handle add to likes
@@ -40,14 +40,15 @@ const Detail = () => {
     }
 
     if(hasLiked) {toast.warn("Already Liked!")}
-		dispatch(addToLikes({
-      artId: artwork._id, 
-      artName: artwork.name, 
-      artPrice: artwork.price, 
-      artCategory: artwork.category, 
-      artImage: artwork.images[0].url
-    }));
+		dispatch(addToLikes({artId: artwork._id, artName: artwork.name, artPrice: artwork.price, artCategory: artwork.category, artImage: artwork.images[0].url}));
 	}
+
+  // handle place bid
+  const handlePlaceBid = (e) => {
+    e.preventDefault();
+    dispatch(placeBid({bidAmount, artId: artwork?._id, bidder: myData?._id})).then(() => dispatch(readArtwork(id)))
+    setBidAmount('');
+  }
 
   useEffect(() => {
     dispatch(readArtwork(id))
@@ -58,47 +59,109 @@ const Detail = () => {
       const foundLike = myData.likes.find(item => item.artId.toString() === artwork._id.toString());
       setHasLiked(foundLike !== undefined);
     }
+
+    if(artwork && artwork.bids){
+        const highestBid = artwork.bids.reduce((prevBid, currBid) => {return (prevBid.bidAmount > currBid.bidAmount) ? prevBid : currBid}, {});
+        setHighestBid(highestBid)
+    }
   }, [myData, artwork]);
+
+  useEffect(() => {
+    if(message){
+      toast.success(message);
+      dispatch(clearMessage());
+    }
+
+    if(error){
+      toast.error(error);
+      dispatch(clearError());
+    }
+
+    return () => {
+      dispatch(clearMessage());
+      dispatch(clearError());
+    };
+  }, [dispatch, message, error])
+
   
   return (
     <>
       <div className='productDetailContainer'>
         <div className="firstRow">
-          <Carousel images={artwork.images}/>
+          <div className='carousel'>
+            <Carousel images={artwork?.images}/>
+          </div>
           
           <div className="infoContainer">
             <h2>{artwork.name}</h2>
            
-            <Link to={`/user/${artwork.creator}`}>Creator Profile</Link>
+            <Link to={`/user/${artwork?.creator}`}>Creator Profile</Link>
            
             <div className='rating'>
               <div>
               {
                 [1, 2, 3, 4, 5].map((val, index) => {
                   return(
-                    <i key={index} className={val <= artwork.averageRating ? "fas fa-star" : "far fa-star"} aria-hidden='true' />
+                    <i key={index} className={val <= artwork?.averageRating ? "fas fa-star" : "far fa-star"} aria-hidden='true' />
                   )		
                 })
               }
               </div>
               <div>{artwork?.reviews?.length} reviews</div>
               {(artwork?.discount > 0) && <div>{artwork.discount} % discount</div>}
+              {artwork?.isAuctionItem && <div>Auction Item</div>}
             </div>
            
             <div className='description'>{artwork.description}</div>
-           
-            <div className="price">Rs {artwork.price}</div>
 
             <div className="buttons">
+              {artwork?.isAuctionItem && <div className='price'>Bidding: Rs {artwork.price}</div>}
+              
+              {!artwork?.isAuctionItem && <div className='price'>Rs {artwork.price}</div>}
+
               <button disabled={myData?._id === artwork.creator} onClick={handleAddToLikes} className={hasLiked ? "liked" : ""}>
                 <i className="fa-regular fa-heart"></i>
               </button>
+
               <button onClick={handleAddToCart}>
                 <i className={cartItems.find(item => item.id === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
               </button>
             </div>
 
+            {artwork && artwork.isAuctionItem && 
+              <div className='auctionInfo'>
+                <h2>Auction Informations</h2>
+
+                <div className='option'>
+                  <div>Auction Ends In</div>
+                  <div>
+                    {artwork && artwork.endDate && <Timer endDate={artwork.endDate} />}
+                  </div>
+                </div>
+
+                <div className='option'>
+                  <div>Estimated Value</div>
+                  <div>
+                    <p>Rs {artwork?.estimatedValueFrom} - {artwork?.estimatedValueTo}</p>
+                  </div>
+                </div>
+
+                <div className='option'>
+                  <div>Current Bid</div>
+                  <div>
+                    <p>Rs {highestBid.bidAmount}</p>
+                    <p>{artwork?.bids?.length} {artwork?.bids?.length === 1 ? 'bid' : 'bids'}</p>
+                  </div>
+                </div>
+
+                <form onSubmit={handlePlaceBid}>
+                  <input type='number' autoComplete='off' placeholder='Bidding Amount' value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} required />
+                  <button type='submit'>Place Bid</button>
+                </form>
+              </div>
+            }
           </div>
+
         </div>
 
         <div className="secondRow">

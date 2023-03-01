@@ -1,42 +1,38 @@
 /******************** Table********************/
-
 .likesContainer > table{
     width: 100%;
-    border-spacing: 0rem 0.25rem;
+    border-spacing: 0 0;
+    border: 1px solid #ededed;
 }
 
-.likesContainer > table > thead > tr > th{
+.likesContainer > table > thead > tr > th,
+.likesContainer > table > tbody > tr > td{
     padding: 1rem;
-    margin-bottom: 1rem;
-    text-align: left;
+    text-align: justify;
     font-size: 1.25rem;
-    background-color: #ededed;
+    background-color:#ededed;
 }
 
 .likesContainer > table > tbody > tr > td{
-    margin-top: 1rem;
-    font-size: 1.25rem;
+    background-color: white;
     border-bottom: 1px solid #ededed;
-}
-
-.likesContainer > table > tbody > tr > td:not(:first-child){
-    padding: 1rem;
 }
 
 .likesContainer > table > tbody > tr > td > img{
     height: 8rem;
     width: 12.5rem;
     min-width: 12.5rem;
+    object-fit: cover;
 }
 
 .likesContainer > table > tbody > tr > td > i{
     font-size: 1.5rem;
-    cursor: pointer;
     color: red;
+    cursor: pointer;
 }
 
 .likesContainer > table > tbody > tr > td > i:hover{
-	animation-name: var(--trash-animation);
+    animation-name: var(--trash-animation);
 	animation-duration: 0.3s;
 	animation-iteration-count: 3;
 }
@@ -53,16 +49,9 @@
 
 /******************** Media Query ********************/
 
-/* large mobile screen */
-@media (max-width: 768px) {
-    .likesContainer > .myLikes{
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-  
 /* extra small mobile screen */
- @media (max-width: 480px) {
-    .likesContainer > .myLikes{
-        grid-template-columns: repeat(1, 1fr);
+ @media (max-width: 576px) {
+    .likesContainer {
+        overflow-x: auto;
     }
 }

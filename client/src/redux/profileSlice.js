@@ -59,21 +59,6 @@ export const updateAvatar = createAsyncThunk('updateAvatar', async (avatar, { re
 });
 
 
-// upload product
-export const uploadArt = createAsyncThunk('uploadArt', async(productData, {rejectWithValue}) => {
-    try{
-        const { data, status} = await axios.post('/api/v1/art/upload', productData, {
-            headers: {'Content-Type': 'multipart/form-data'},
-            withCredentials: true
-        });
-        if(status >= 300) {return rejectWithValue(data)};
-        return data; 
-    }catch(err){
-        return rejectWithValue(err.response.data);
-    }
-})
-
-
 // delete artwork
 export const deleteArt = createAsyncThunk('deleteArt', async (artId, {rejectWithValue, dispatch}) => {
     try{
@@ -129,18 +114,6 @@ const profileSlice = createSlice({
         }).addCase(getUserArtworks.rejected, (state, action) => {
             state.isLoading = false;
             state.userArtworks = [];
-        })
-
-
-        // upload product
-        .addCase(uploadArt.pending, (state, action) => {
-            state.isLoading = true;
-        }).addCase(uploadArt.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.message = action.payload.message;
-        }).addCase(uploadArt.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload.message;
         })
 
         // delete art

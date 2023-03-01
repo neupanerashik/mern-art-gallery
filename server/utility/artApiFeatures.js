@@ -1,4 +1,4 @@
-class ApiFeatures {
+class ArtApiFeatures {
 
   constructor(query, queryStr) {
     this.query = query;
@@ -14,6 +14,11 @@ class ApiFeatures {
     if (this.queryStr.category) {
       const category = this.queryStr.category;
       this.query = this.query.find({ category });
+    }
+
+    if (this.queryStr.isAuctionItem) {
+      const isAuctionItem = this.queryStr.isAuctionItem;
+      this.query = this.query.find({ isAuctionItem });
     }
 
     return this;    
@@ -80,4 +85,4 @@ class ApiFeatures {
   }
 }
   
-export default ApiFeatures;  
+export default ArtApiFeatures;  

@@ -14,17 +14,17 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 
 
 //middleware to authenticate creator
-export const isCreator = (roles) => {
-	return(req, res, next) => {
-		if(!roles.includes(req.user.role)) return next(new ErrorHandler(`${req.user.role} cannot access this resource.`, 403));
-		next();
-	}
+const creatorRoles = ["painter", "drawer", "sculptor", "photographer", "admin"]
+
+export const isCreator = (req, res, next) => {
+	if (!creatorRoles.includes(req.user.role)) {return next(new ErrorHandler(`${req.user.role} cannot access this resource.`, 403));}
+	next();
 }
+  
 
 //middleware to check the role of user
-export const isAdmin = () => {
-	return(req, res, next) => {
-		if(!req.user.role==="admin") return next(new ErrorHandler("Only admin can access this resource!", 403));
-		next();
-	}
+export const isAdmin = (req, res, next) => {
+	if (req.user.role !== "admin") {return next(new ErrorHandler("Only admin can access this resource!", 403))}
+	next();
 }
+  

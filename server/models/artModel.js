@@ -15,9 +15,17 @@ const schema = new mongoose.Schema({
         comment: String,
 		reviewedOn: {type: Date, default: Date.now}
     }],
+	bids: [{
+		bidder: {type: mongoose.Schema.ObjectId, ref: 'User', required: true},
+        bidAmount: {type: Number, required: true}, 
+        bidPlacedOn: {type: Date, default: Date.now}
+    }],
 	averageRating: {type: Number, default: 0},
 	discount: {type: Number, default: null},
-	isAuctionItem: {type: Boolean, default: false}
+	isAuctionItem: {type: Boolean, default: false},
+	estimatedValueFrom: {type: Number},
+	estimatedValueTo: {type: Number},
+	endDate: {type: String}
 });
 
 export const Art = mongoose.model("Art", schema);

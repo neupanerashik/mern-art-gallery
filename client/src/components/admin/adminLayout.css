@@ -1,0 +1,47 @@
+.adminContainer{
+    text-align: center;
+}
+
+.adminContainer > .welcomeBanner{
+    padding: 10rem 0;
+    font-size: 2rem;
+    background-color: var(--bg-main);
+}
+
+.adminContainer > nav{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #ededed;
+}
+
+.adminContainer > nav > a{
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.adminContainer > nav > a.active{
+    font-weight: bolder;
+    border-bottom: 1px solid black;
+}
+
+
+/******************** Media Query ********************/
+/* large mobile screen */
+@media (max-width: 576px) {
+    .adminContainer > nav {
+        margin: 1rem 0;
+        flex-direction: column;
+        border: 1px solid #ededed;
+    }
+
+    .adminContainer > nav > a{
+        padding: 1rem;
+        width: 100%;
+        text-align: justify;
+    }
+
+    .adminContainer > nav > a.active{
+        background-color: #ededed;
+        border: none;
+    }
+}

@@ -14,10 +14,10 @@ import ChatDialog from '../../chat/chatDialog';
 // menu
 const menus = [
   {title: 'home'},
-  {title: 'about'},
-  {title: 'contact'},
   {title: 'auction'},
-  {title: 'arts', subMenu: ['painting', 'photography', 'sculpture', 'drawing', 'digital']},
+  {title: 'arts'},
+  {title: 'help', subMenu: ['about', 'contact']},
+
 ];
 
 const Navbar = ({user, isAuthenticated}) => {
@@ -26,18 +26,10 @@ const Navbar = ({user, isAuthenticated}) => {
   const [sidebar, setSidebar] = useState(false);
   const {cartItems} = useSelector(state => state.cart);
   const {myData, isLoading} = useSelector(state => state.user);
-  const [profileSpeedDial, setProfileSpeedDial] = useState(false);
+  const [accountPopover, setAccountPopover] = useState(false);
   const [toggleCart, setToggleCart] = useState({ right: false });
   
-  let activeStyle = {
-    fontWeight: "bolder"
-  };
-
-  const handleLink = (menu) => (event) => {
-    if (menu.title === 'arts') {
-      event.preventDefault();
-    }
-  };
+  let activeStyle = {fontWeight: "bolder"};
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {return}
@@ -62,11 +54,10 @@ const Navbar = ({user, isAuthenticated}) => {
           {
             menus.map((menu, index) => {
               return(
-                <li key={index}>
+                <li key={index} onClick={() => setSidebar(false)}>
                   <NavLink exact="true"
                     to={menu.title === 'home' ? '/' : `${menu.title}`} 
                     style={({ isActive }) => isActive ? activeStyle : undefined}
-                    onClick={handleLink(menu)}
                   >
                     <span>{menu.title}</span>
                     {menu.subMenu && <i className="fa-solid fa-chevron-down"></i>}
@@ -95,16 +86,43 @@ const Navbar = ({user, isAuthenticated}) => {
         <div className='navIcons'>
           <ChatDialog />
         
-          <div className="profileIcon" onClick={() => setProfileSpeedDial(!profileSpeedDial)}>
-            {profileSpeedDial ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
+          <div className="profileIcon" onClick={() => setAccountPopover(!accountPopover)}>
+            {accountPopover ? <i className="fa-solid fa-xmark"></i> : <i className="fa-regular fa-user"></i>}
             
-            <div className={profileSpeedDial ? "active" : ""}>
-              {isAuthenticated && <Link to={`/user/${myData?._id}`}>My Profile</Link>}
-              {isAuthenticated && user?.role === "admin" && <Link to='/admin'>Admin Panel</Link>} 
-              {!isAuthenticated && <Link to='/login'>Login</Link>}
-              {!isAuthenticated && <Link to='/register'>Register</Link>}
-              {isAuthenticated && <Link to='#' onClick={handleLogout} style={{backgroundColor: "#ededed"}}>{isLoading ? <Bubbles /> : "Log Out"}</Link>}
-            </div>
+            <ul className={accountPopover ? "active" : ""}>
+              {!isAuthenticated && 
+                <>
+                  <li>
+                    <Link to='/login'>Login</Link>
+                  </li>
+                  <li>
+                    <Link to='/register'>Register</Link>
+                  </li>
+                </>
+              }
+
+              {isAuthenticated && 
+                <>
+                  <li>
+                    <Link to="#" style={{backgroundColor: "#ededed", borderRadius: "0.5rem"}}>Signed in as <br/><b>{myData?.name}</b></Link>
+                  </li>
+                  <li>
+                    <Link to={`/user/${myData?._id}`}>My Profile</Link> 
+                  </li>
+
+                  {isAuthenticated && myData?.role === "admin" && 
+                      <li>
+                        <Link to='/admin'>Admin Panel</Link>
+                      </li>
+                  } 
+
+                  <li>
+                    <Link to='#' onClick={handleLogout} style={{borderTop: "1px solid #ededed"}}>{isLoading ? <Bubbles /> : "Log Out"}</Link>
+                  </li>
+                </>
+              }
+
+            </ul>
           </div>	
 
           <div className="cartIcon" onClick={toggleDrawer('right', true)}>

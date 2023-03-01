@@ -1,6 +1,6 @@
 import express from 'express'
-import { isAuthenticated } from '../middleware/authenticationMiddleware.js'
-import { uploadSingle } from '../middleware/multerMiddleware.js'
+import { isAdmin, isAuthenticated } from '../middleware/authMiddleware.js'
+import { getUsers } from '../controllers/adminControllers.js'
 import {
     registerUser,
     loginUser,
@@ -17,6 +17,7 @@ import {
     sendMailFromContact,
     deleteAccount,
 } from '../controllers/userControllers.js'
+
 
 const router = express.Router()
 
@@ -37,6 +38,12 @@ router.route('/password/update').put(isAuthenticated, updatePassword)
 router.route('/account/delete/:id').delete(isAuthenticated, deleteAccount);
 router.route('/subscribe').put(isAuthenticated, subscribe)
 router.route('/unsubscribe').put(isAuthenticated, unsubscribe)
+
+
+// admin routes
+router.route('/admin/users').get(isAuthenticated, isAdmin, getUsers)
+router.route('/admin/user/delete/:id').delete(isAuthenticated, isAdmin, deleteAccount)
+
 
 
 export default router;

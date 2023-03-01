@@ -4,7 +4,8 @@ import userReducer from './redux/userSlice'
 import artReducer from './redux/artSlice'
 import cartReducer from './redux/cartSlice'
 import chatReducer from './redux/chatSlice'
-
+import adminReducer from './redux/adminSlice'
+import auctionReducer from './redux/auctionSlice'
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,8 @@ const store = configureStore({
         art: artReducer,
         cart: cartReducer,
         chat: chatReducer,
+        admin: adminReducer,
+        auction: auctionReducer
     }
 })
 

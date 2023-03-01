@@ -1,7 +1,8 @@
 import moment from 'moment'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import useFetch from '../../hooks/useFetch.js'
+import { getReviews } from '../../redux/artSlice.js'
 import ReviewDialog from './reviewDialog.jsx'
 
 // import css
@@ -20,52 +21,56 @@ function ReviewBar({title, style}){
 
 const Reviews = () => {
     const {id} = useParams();
+    const dispatch = useDispatch()
     const {myData} = useSelector(state => state.user);
+    const {allReviews} = useSelector(state => state.art);
 
     // get request
-    const {data} = useFetch(`/art/review/${id}`);
+    useEffect(() => {
+        dispatch(getReviews(id))
+    }, [dispatch, id])
 
     const ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const ratingPercentages = { 1: "0%", 2: "0%", 3: "0%", 4: "0%", 5: "0%" };
 
     let sortedReviews = [];
 
-    if (data) {
-      // Sort the reviews
-      sortedReviews = sortReviews(data.reviews, myData?._id);
-  
-      // Count the ratings
-      sortedReviews.reduce((acc, curr) => {
-        acc[curr.rating]++;
-        return acc;
-      }, ratingCounts);
-  
-      const totalReviews = sortedReviews.length;
-  
-      for (const [rating, count] of Object.entries(ratingCounts)) {
-        const percentage = count / totalReviews * 100;
-        ratingPercentages[rating] = percentage.toFixed(2) + "%";
-      }
+    if (allReviews && allReviews.reviews) {
+        // Sort the reviews
+        sortedReviews = sortReviews(allReviews.reviews, myData?._id);
+
+        // Count the ratings
+        sortedReviews.reduce((acc, curr) => {
+            acc[curr.rating]++;
+            return acc;
+        }, ratingCounts);
+
+        const totalReviews = sortedReviews.length;
+
+        for (const [rating, count] of Object.entries(ratingCounts)) {
+            const percentage = count / totalReviews * 100;
+            ratingPercentages[rating] = percentage.toFixed(2) + "%";
+        }
     }
   
     function sortReviews(reviews, currentUserId) {
-      let sortedReviews = [];
-      let currentUserReview = null;
-  
-      for (let i = 0; i < reviews.length; i++) {
-        const review = reviews[i];
-        if (review.reviewerId.toString() === currentUserId?.toString()) {
-          currentUserReview = review;
-        } else {
-          sortedReviews.push(review);
+        let sortedReviews = [];
+        let currentUserReview = null;
+
+        for (let i = 0; i < reviews.length; i++) {
+            const review = reviews[i];
+            if (review.reviewerId.toString() === currentUserId?.toString()) {
+                currentUserReview = review;
+            } else {
+                sortedReviews.push(review);
+            }
         }
-      }
-  
-      if (currentUserReview) {
-        sortedReviews.unshift(currentUserReview);
-      }
-  
-      return sortedReviews;
+
+        if (currentUserReview) {
+            sortedReviews.unshift(currentUserReview);
+        }
+
+        return sortedReviews;
     }
    
     return (
@@ -75,8 +80,8 @@ const Reviews = () => {
 
                 <div className='reviewSummary'>
                     <div className='summary one'>
-                        <p>{data && (data.averageRating).toFixed(1)}</p>
-                        <p>{data?.reviews?.length} reviews</p>
+                        <p>{allReviews && allReviews.averageRating && (allReviews.averageRating).toFixed(1)}</p>
+                        <p>{allReviews?.reviews?.length} reviews</p>
                         <ReviewDialog />
                     </div>
 
@@ -91,7 +96,7 @@ const Reviews = () => {
 
                 <div className="reviews">
                     {
-                        data && sortedReviews.map((review, index) => {
+                        allReviews && sortedReviews.map((review, index) => {
                             return(
                             <div className='review' key={index}>
                                 <div className="reviewer">

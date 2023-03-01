@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, clearMessage, createReview } from '../../redux/artSlice';
+import { clearError, clearMessage, createReview, getReviews, readArtwork } from '../../redux/artSlice';
 import Dialog from '@mui/material/Dialog';
 
 // import css
@@ -21,7 +21,7 @@ export default function ReviewDialog() {
 
     const handleReviewSubmit = () => {
 		if(rating === null && comment === ''){return toast.warn('Please, provide both the rating and comment.')}
-		dispatch(createReview({rating, comment, id}));
+		dispatch(createReview({rating, comment, id})).then(() => {dispatch(readArtwork(id))}).then(() => {dispatch(getReviews(id))});
         handleClose();
 	}
 

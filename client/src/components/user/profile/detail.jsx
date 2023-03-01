@@ -115,7 +115,7 @@ const Detail = () => {
         </div>
 
         <div>
-          <span>Twitter Id</span>
+          <span>Twitter Id:</span>
           <label>
             <input type="text" value={twitter} onChange={(e) => setTwitter(e.target.value)} />
           </label>

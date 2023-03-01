@@ -1,0 +1,90 @@
+.artList{
+    display: flex;
+    flex-direction: column;
+}
+
+.artList > header{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.artList > header > .search {
+    width: 30rem;
+    padding: 0 1rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ededed;
+}
+
+.artList > header > .search > input{
+    margin-left: 0.5rem;
+    padding: 1rem;
+}
+
+.artList > header > select{
+    margin-left: 1rem;
+    padding: 1rem;
+    border: none;
+}
+
+/******************** User List ********************/
+.artList > table{
+    width: 100%;
+    border-spacing: 0 0;
+    border: 1px solid #ededed;
+}
+
+.artList > table > thead > tr > th,
+.artList > table > tbody > tr > td{
+    padding: 1rem;
+    text-align: justify;
+    font-size: 1.25rem;
+    background-color:#ededed;
+}
+
+.artList > table > tbody > tr > td{
+    background-color: white;
+    border-bottom: 1px solid #ededed;
+}
+
+.artList > table > tbody > tr > td > img{
+    height: 8rem;
+    width: 12.5rem;
+    min-width: 12.5rem;
+    object-fit: cover;
+}
+
+.artList > table > tbody > tr > td > i{
+    font-size: 1.5rem;
+    color: red;
+    cursor: pointer;
+}
+
+.artList > table > tbody > tr > td > i:hover{
+    animation-name: var(--trash-animation);
+	animation-duration: 0.3s;
+	animation-iteration-count: 3;
+}
+
+.artList > .noUsers{
+    padding: 5rem 0;
+    font-size: 2rem;
+    border: 1px solid #ededed;
+}
+
+
+/******************** Media Query ********************/
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+  .artList{
+    overflow-x: auto;
+  }
+
+  .artList > header .search{
+    width: 100%;
+  }
+}

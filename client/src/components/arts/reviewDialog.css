@@ -1,6 +1,6 @@
 .reviewDialogContainer > div > div > .reviewDialogContent{
-    padding: 2rem;
     width: 35rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
 }

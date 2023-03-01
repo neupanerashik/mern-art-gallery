@@ -7,20 +7,25 @@ import './upload.css'
 import Bubbles from '../../utility/bubbles/bubbles'
 
 // import actions
-import { clearError, clearMessage, uploadArt } from '../../../redux/profileSlice';
+import { clearError, clearMessage, uploadArt } from '../../../redux/artSlice';
 
 const Upload = () => {
-    const {error, message, isLoading} = useSelector(state => state.profile);
+    const {error, message, isLoading} = useSelector(state => state.art);
 
     const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const [price, setPrice] = useState(0);
-    const [discount, setDiscount] = useState(0);
+    const [price, setPrice] = useState('');
+    const [discount, setDiscount] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [isAuctionItem, setIsAuctionItem] = useState(false);
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
+    const [estimatedValueFrom, setEstimatedValueFrom] = useState("");
+    const [estimatedValueTo, setEstimatedValueTo] = useState("");
+    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedTime, setSelectedTime] = useState("");
+
 
     const handleImageChange = (e) => {
         e.preventDefault();
@@ -29,16 +34,20 @@ const Upload = () => {
     };
 
     const handleClear = () => {
-        setName('');
-        setPrice(0);
-        setDiscount(0);
-        setCategory('');
-        setDescription('');
-        setIsAuctionItem(false);
+        setName('')
+        setPrice('')
+        setDiscount('')
+        setCategory('')
+        setDescription('')
+        setIsAuctionItem(false)
         setImages([]);
         setImagePreviews([]);
+        setEstimatedValueFrom('')
+        setEstimatedValueTo('')
+        setSelectedDate('')
+        setSelectedTime('')
     }
-      
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,13 +58,21 @@ const Upload = () => {
         myForm.append('category', category);
         myForm.append('description', description);
         myForm.append('isAuctionItem', isAuctionItem);
-
+    
         for (const image of images) {
             myForm.append('artImages', image);
         }
-
+    
+        if (isAuctionItem) {
+          myForm.append('estimatedValueFrom', estimatedValueFrom);
+          myForm.append('estimatedValueTo', estimatedValueTo);
+          myForm.append('endDate', selectedDate + ' ' + selectedTime);
+        }
+    
         dispatch(uploadArt(myForm));
+        handleClear();
     };
+    
 
     useEffect(() => {
         if(message){
@@ -127,8 +144,30 @@ const Upload = () => {
                         }
                     </div>
 
-                    <div className="row4">
-                        <input type="checkbox" value={isAuctionItem} onChange={(e) => setIsAuctionItem(!isAuctionItem)} /><span>Upload in auction?</span>
+                    <div className={isAuctionItem ? "auctionFields active" : "auctionFields"}>
+                        <div>
+                            <span>Estimated Value (From)</span>
+                            <input type="number" placeholder="required" min="0" onChange={e => setEstimatedValueFrom(e.target.value)} />
+                        </div>
+
+                        <div>
+                            <span>Estimated Value (To)</span>
+                            <input type="number" placeholder="required" min="0"  onChange={e => setEstimatedValueTo(e.target.value)} />
+                        </div>
+
+                        <div>
+                            <span>End Date</span>
+                            <input type="date" onChange={(e) => setSelectedDate(e.target.value)} required />
+                        </div>
+
+                        <div>
+                            <span>End Time</span>
+                            <input type="time" onChange={(e) => setSelectedTime(e.target.value)} required />
+                        </div>
+                    </div>
+
+                    <div className="buttons">
+                        <input type="checkbox" value={isAuctionItem} onChange={(e) => setIsAuctionItem(!isAuctionItem)} /><span>Upload as auction artwork?</span>
                         <button type='button' onClick={handleClear}>Clear</button>
                         <button type='submit' onClick={handleSubmit} disabled={isLoading}>{isLoading ? <Bubbles /> : "Submit"}</button>
                     </div>

@@ -6,21 +6,25 @@ import { removeFromLikes } from '../../../redux/artSlice';
 // import css and components
 import './likes.css'
 import Seo from '../../seo/seo';
+import { getMyProfile } from '../../../redux/userSlice';
 
 const Likes = () => {
   const dispatch = useDispatch()
   const [likes, setLikes] = useState([]);
-  const {userData} = useSelector(state => state.profile);
+  const {myData} = useSelector(state => state.user);
 
   const handleRemoveFromLikes = (artId) => {
-    dispatch(removeFromLikes(artId))
-  }
+    dispatch(removeFromLikes(artId)).then(() => {
+      dispatch(getMyProfile());
+    });
+  };
+  
 
   useEffect(() => {
-    if (userData && userData.likes) {
-     setLikes(userData.likes);
+    if (myData && myData?.likes) {
+     setLikes(myData?.likes);
     }
-  }, [userData]);
+  }, [myData]);
 
   return (
     <>
@@ -33,10 +37,10 @@ const Likes = () => {
               <tr>
                 <th>Image</th>
                 <th>Name</th>
+                <th>ID</th>
                 <th>Price</th>
                 <th>Category</th>
                 <th>Liked On</th>
-                <th>ID</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -45,10 +49,10 @@ const Likes = () => {
                 <tr key={like._id}>
                   <td><img src={like.artImage} alt="artPic" /></td>
                   <td>{like.artName}</td>
+                  <td>{like.artId}</td>
                   <td>Rs {like.artPrice}</td>
                   <td>{like.artCategory}</td>
                   <td>{moment(like.artLikedOn).format('YYYY-MM-DD')}</td>
-                  <td>{like.artId}</td>
                   <td><i className="fa-solid fa-trash-can" onClick={() => handleRemoveFromLikes(like.artId)}></i></td>
                 </tr>
               ))}

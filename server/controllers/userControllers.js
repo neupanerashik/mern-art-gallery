@@ -208,10 +208,7 @@ export const deleteAccount = catchAsyncError(async (req, res, next) => {
     chats.forEach(async (chat) => {
         await Chat.findOneAndDelete({ _id: chat._id })
         await Message.deleteMany({chatId: chat._id})
-    })
-
-    // delete messages
-    
+    })    
 
     await user.deleteOne();
 

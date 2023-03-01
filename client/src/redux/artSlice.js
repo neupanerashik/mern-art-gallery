@@ -2,9 +2,23 @@ import axios from "axios";
 import { updateMyData } from './userSlice.js';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// upload product
+export const uploadArt = createAsyncThunk('uploadArt', async(productData, {rejectWithValue}) => {
+    try{
+        const { data, status} = await axios.post('/api/v1/art/upload', productData, {
+            headers: {'Content-Type': 'multipart/form-data'},
+            withCredentials: true
+        });
+        if(status >= 300) {return rejectWithValue(data)};
+        return data; 
+    }catch(err){
+        return rejectWithValue(err.response.data);
+    }
+})
+
 // get arts
-export const getAllArts = createAsyncThunk('getAllArts', async ({keyword='', category='', maxPrice, minPrice, sortByPrice}, {rejectWithValue}) => { 
-    const link = `/api/v1/arts?keyword=${keyword}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortByPrice=${sortByPrice}`
+export const getAllArts = createAsyncThunk('getAllArts', async ({keyword='', category='', maxPrice=Number(50000), minPrice=Number(0), sortByPrice='', isAuctionItem=''}, {rejectWithValue}) => { 
+    const link = `/api/v1/arts?keyword=${keyword}&category=${category}&isAuctionItem=${isAuctionItem}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortByPrice=${sortByPrice}`
     try {
         const {data, status} = await axios.get(link);
         if(status >= 300) {return rejectWithValue(data)};
@@ -61,7 +75,7 @@ export const removeFromLikes = createAsyncThunk('removeFromLikes', async (artId,
 
 
 // create review 
-export const createReview = createAsyncThunk('createReview', async (reviewData,  {rejectWithValue}) => {
+export const createReview = createAsyncThunk('createReview', async (reviewData,  {rejectWithValue, dispatch}) => {
 	try{
 		const {data, status} = await axios.put('/api/v1/art/review', reviewData, {headers: {'Content-Type': 'application/json'}})
         if (status >= 300) {return rejectWithValue(data)};
@@ -71,16 +85,29 @@ export const createReview = createAsyncThunk('createReview', async (reviewData, 
 	}
 })
 
+// get reviews
+export const getReviews = createAsyncThunk('getreviews', async (id, {rejectWithValue}) => { 
+    try {
+        const {data, status} = await axios.get(`/api/v1/art/${id}/reviews`);
+        if(status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (error) {
+        return rejectWithValue(error.response.data);
+    }
+  }
+)
+
 
 export const artSlice = createSlice({
     name: 'art',
 
     initialState: {
+        artwork: {},
         allArts: [],
+        allReviews: {},
         newArrivals: [],
         highestRated: [],
         specialOffers: [],
-        artwork: {},
     },
 
     reducers: {
@@ -94,6 +121,18 @@ export const artSlice = createSlice({
     },
 
     extraReducers: (builder) => {
+        
+        // upload product
+        builder.addCase(uploadArt.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(uploadArt.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload.message;
+        }).addCase(uploadArt.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload.message;
+        })
+
         // get arts
         builder.addCase(getAllArts.pending, (state, action) => {
             state.isLoading = true;
@@ -126,6 +165,18 @@ export const artSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload.message;
         })
+
+         // get reviews
+         builder.addCase(getReviews.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(getReviews.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.allReviews = action.payload;
+        }).addCase(getReviews.rejected, (state, action) => {
+            state.isLoading = false;
+            state.allReviews = {};
+        })
+
     }
 });
 

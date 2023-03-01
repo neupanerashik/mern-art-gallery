@@ -15,7 +15,8 @@
 .artsContainer > header > .filtersHeader > button{
     padding: 1rem 2rem;
     cursor: pointer;
-    /* border-radius: 5rem; */
+    border-radius: 5rem;
+    margin-left: auto;
 }
 
 .artsContainer > header > .filtersHeader > button > i{
@@ -47,26 +48,29 @@
     height: 0;
 }
 
-.artsContainer > header > .filters > select{
+.artsContainer > header > .filters > .selectFields{
+    margin-right: auto;
+}
+
+.artsContainer > header > .filters > .selectFields > select{
+    margin-right: 1rem;
     padding: 1rem;
-    border: none;
-}
-
-.artsContainer > header > .filters > .priceFields > label{
-    font-size: 1.25rem;
-}
-
-.artsContainer > header > .filters > .priceFields > input[type='number']{
-    -moz-appearance: textfield;
-    appearance: textfield;
-    width: 10rem;
-    margin: 0 2rem 0 0.5rem;
-    padding: 0.5rem;
+    cursor: pointer;
+    background-color: white;
     border: 1px solid #b2beb5;
 }
 
-.artsContainer > header > .filters > .priceFields > input:last-child{
-    margin-right: 0;
+.artsContainer > header > .filters > .priceFields > label{
+    font-size: 1.5rem;
+}
+
+.artsContainer > header > .filters > .priceFields > input[type='number']{
+    margin-left: 1rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width: 10rem;
+    padding: 1rem;
+    border: 1px solid #b2beb5;
 }
 
 .artsContainer > header > .filters > .priceFields > button{
@@ -106,6 +110,44 @@
 @media (max-width: 576px) {
     .artsContainer > .arts {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .artsContainer > header > .filters {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .artsContainer > header > .filters.filters.open{
+        height: 9.5rem;
+    }
+    
+    .artsContainer > header > .filters > .selectFields{
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+    }
+
+    .artsContainer > header > .filters > .selectFields > select{
+        margin-right: 0;
+        width: 50%;
+    }
+
+    .artsContainer > header > .filters > .priceFields{
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .artsContainer > header > .filters > .priceFields > label{
+        display: none;
+    }
+
+    .artsContainer > header > .filters > .priceFields > input[type='number']{
+        width: 100%;
+        margin-left: 0;
     }
 }
   

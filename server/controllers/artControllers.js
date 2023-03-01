@@ -4,14 +4,15 @@ import { User } from "../models/userModel.js";
 import { getDataUri } from "../utility/getDataUri.js";
 import catchAsyncError from "../utility/catchAsyncError.js";
 import ErrorHandler from "../utility/errorHandler.js";
-import ApiFeatures from "../utility/apiFeatures.js";
+import ArtApiFeatures from "../utility/artApiFeatures.js";
 
 
 // create art
 export const createArt = catchAsyncError(async (req, res, next) => {
-    const { name, price, description, category } = req.body;
+    const { name, price, description, category, estimatedValueFrom, estimatedValueTo, endDate, isAuctionItem} = req.body;
     if (!name|| !description || !category) return next(new ErrorHandler("Please enter all the required fields.", 400));
-    if (price === 0) return next(new ErrorHandler("Please enter the price as well!.", 400));
+    if (isAuctionItem && (!estimatedValueFrom || !estimatedValueTo || !endDate)) {return next(new ErrorHandler("Please enter all the required fields for auction item.", 400))}
+    if (price === 0) return next(new ErrorHandler("Price cannot be zero!.", 400));
 
     req.body.creator = req.user.id;
     let artImages = req.files;
@@ -43,7 +44,7 @@ export const createArt = catchAsyncError(async (req, res, next) => {
 
 // read all products
 export const readArts = catchAsyncError(async (req, res, next) => {
-    const features = new ApiFeatures(Art.find(), req.query).search().sort().filterByPrice().limitFields();
+    const features = new ArtApiFeatures(Art.find(), req.query).search().sort().filterByPrice().limitFields();
     const arts = await features.query;
 
     res.status(200).json({
@@ -219,7 +220,7 @@ export const addToLikes = catchAsyncError(async (req, res, next) => {
 export const removeFromLikes = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
     const art = await Art.findById(req.body.artId);
-    if(!art) return next(new ErrorHandler("Artwork not founddddd!", 404));
+    if(!art) return next(new ErrorHandler("Artwork not found!", 404));
     const newLikes = user.likes.filter(like => like.artId.toString() !== req.body.artId.toString());
     user.likes = newLikes;
     await user.save();
@@ -230,3 +231,33 @@ export const removeFromLikes = catchAsyncError(async (req, res, next) => {
         user
     });
 });
+
+
+// place bid
+export const placeBid = catchAsyncError(async (req, res, next) => {
+    const {bidAmount, artId, bidder} = req.body;
+    const art = await Art.findById(artId);
+
+    if(!bidAmount || bidAmount === '') return next(new ErrorHandler(`Please provide bidding amount.`));
+    const highestBid = art.bids.reduce((prevBid, currBid) => {return (prevBid.bidAmount > currBid.bidAmount) ? prevBid : currBid}, {});
+    if (bidAmount <= highestBid.bidAmount) return next(new ErrorHandler(`Bidding amount must be higher than current bid of Rs ${highestBid.bidAmount}`, 404));
+    const hasPlacedBid = art.bids.find(bid => bid.bidder.toString() === req.user._id.toString());
+
+    if(!hasPlacedBid){
+        art.bids.push({bidder, bidAmount});
+    }else{
+        art.bids.forEach(bid => {
+            if(bid.bidder.toString() === req.user._id.toString()){
+                bid.bidAmount = bidAmount;
+            }
+        })
+    }
+
+    await art.save({validateBeforeSave: false});
+
+    res.status(201).json({
+        success: true,
+        message: 'Bid placed successfully.',
+        art
+    });
+})

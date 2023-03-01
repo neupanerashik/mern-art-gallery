@@ -25,7 +25,7 @@ const Profile = () => {
 
     const [menu, setMenu] = useState(allMenu[0]);
 
-    // scroll to products
+    // scroll to top
     const handleScroll = (mnu) => {
         menuRef.current.scrollIntoView({ behavior: 'smooth' });
         setMenu(mnu);
