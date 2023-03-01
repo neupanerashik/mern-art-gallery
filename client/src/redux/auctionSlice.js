@@ -2,7 +2,6 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const placeBid = createAsyncThunk('placeBid', async (bidData, {rejectWithValue}) => {
-    console.log(bidData) 
     try {
         const {data, status} = await axios.post('/api/v1/auction/bid', bidData, {
             withCredentials: true,
@@ -15,18 +14,8 @@ export const placeBid = createAsyncThunk('placeBid', async (bidData, {rejectWith
     }
 })
 
-export const getBids = createAsyncThunk('getBids', async (artId, {rejectWithValue}) => {
-    try {
-        const {data, status} = await axios.get(`/api/v1/auction/${artId}`); 
-        if(status >= 300) {return rejectWithValue(data)};
-        return data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
-    }
-})
 
-
-const auctionSlice = createSlice({
+export const auctionSlice = createSlice({
     name: 'auction',
 
     initialState: {
@@ -35,7 +24,7 @@ const auctionSlice = createSlice({
 
     reducers: {
         clearMessage: (state, action) => {
-            state.messsage = null;
+            state.message = null;
         },
 
         clearError: (state, action) => {
@@ -54,17 +43,6 @@ const auctionSlice = createSlice({
         }).addCase(placeBid.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload.message;
-        })
-
-        // get bids
-        builder.addCase(getBids.pending, (state) => {
-            state.isLoading = true;
-        }).addCase(getBids.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.allBids = action.payload.bids
-        }).addCase(getBids.rejected, (state, action) => {
-            state.isLoading = false;
-            state.allBids = []
         })
     }
 })

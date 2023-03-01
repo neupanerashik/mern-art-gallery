@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice';
-import { placeBid, clearError, clearMessage } from '../../redux/auctionSlice';
+import { placeBid, clearError as clearAuctionError, clearMessage as clearAuctionMessage } from '../../redux/auctionSlice';
 import { addToLikes, readArtwork } from '../../redux/artSlice';
 import { toast } from 'react-toastify';
-
 
 // import css and components
 import './detail.css'
@@ -24,7 +23,7 @@ const Detail = () => {
   const {artwork} = useSelector(state => state.art);
   const {cartItems} = useSelector(state => state.cart);
   const {myData, isAuthenticated} = useSelector(state => state.user);
-  const {message, error} = useSelector(state => state.auction);
+  const {message: auctionMessage, error: auctionError} = useSelector(state => state.auction);
 
   
   // handle add to cart
@@ -67,21 +66,21 @@ const Detail = () => {
   }, [myData, artwork]);
 
   useEffect(() => {
-    if(message){
-      toast.success(message);
-      dispatch(clearMessage());
+    if(auctionMessage){
+      toast.success(auctionMessage);
+      dispatch(clearAuctionMessage());
     }
 
-    if(error){
-      toast.error(error);
-      dispatch(clearError());
+    if(auctionError){
+      toast.error(auctionError);
+      dispatch(clearAuctionError());
     }
 
     return () => {
-      dispatch(clearMessage());
-      dispatch(clearError());
+      dispatch(clearAuctionMessage());
+      dispatch(clearAuctionError());
     };
-  }, [dispatch, message, error])
+  }, [dispatch, auctionMessage, auctionError])
 
   
   return (
