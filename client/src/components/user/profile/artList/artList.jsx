@@ -1,26 +1,36 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllArts } from '../../../redux/artSlice';
-import { deleteArt } from '../../../redux/profileSlice';
+import { useParams } from 'react-router-dom';
+import { getAllArts, deleteArt } from '../../../../redux/artSlice';
 
 // import css
 import './artList.css'
 
 const ArtList = () => {
+  const {id} = useParams()
+
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('')
+  const [arts, setArts] = useState([]);
+
   const { allArts } = useSelector((state) => state.art);
-  const [arts, setArts] = useState(allArts);
 
   useEffect(() => { 
       dispatch(getAllArts({ keyword, category }))
   }, [dispatch, keyword, category]);
 
   useEffect(() => {
-    setArts(allArts);
-  }, [allArts]);
+    if(allArts){
+      if(id) {
+        const arts = allArts.filter(art => art.creator.toString() === id)
+        setArts(arts)
+      }else{
+        setArts(allArts)
+      }
+    }
+  }, [allArts, id]);
 
   const handleDeleteArtwork = (artId) => {
     dispatch(deleteArt(artId)).then(() => {
@@ -82,7 +92,7 @@ const ArtList = () => {
         </tbody>
       </table>
 
-      {!arts[0] && <div className='noUsers'>No artworks!</div>}
+      {!arts[0] && <div className='noArts'>No artworks!</div>}
     </div>
   )
 }

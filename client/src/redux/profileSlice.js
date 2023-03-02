@@ -14,18 +14,6 @@ export const getUserProfile = createAsyncThunk('getProfile', async (id, { reject
 });
 
 
-// get my works
-export const getUserArtworks = createAsyncThunk('getUserArtworks', async(id, {rejectWithValue}) => {
-    try {
-        const { data, status } = await axios.get(`/api/v1/artworks/${id}`, {withCredentials: true});
-        if (status >= 300) {return rejectWithValue(data)};
-        return data;
-    } catch (err) {
-        return rejectWithValue(err.response.data);
-    }
-})
-
-
 // update profile
 export const updateProfile = createAsyncThunk('updateProfile', async (profileData, { rejectWithValue, dispatch }) => {
     try {
@@ -59,25 +47,11 @@ export const updateAvatar = createAsyncThunk('updateAvatar', async (avatar, { re
 });
 
 
-// delete artwork
-export const deleteArt = createAsyncThunk('deleteArt', async (artId, {rejectWithValue, dispatch}) => {
-    try{
-        const {data, status} = await axios.delete(`/api/v1/art/delete/${artId}`, {withCredentials: true});
-        if(status >= 300) {return rejectWithValue(data)};
-        dispatch(updateMyData({}));
-        return data;
-    }catch(err){
-        return rejectWithValue(err.response.data);
-    }
-})
-
-
 // slices
 const profileSlice = createSlice({
 	name: 'profile',
 
 	initialState: {
-        userArtworks: [],
         userData: {}
     },
 
@@ -105,30 +79,6 @@ const profileSlice = createSlice({
             state.userData = null;
         })
 
-        // get my artworks
-        builder.addCase(getUserArtworks.pending, (state, action) => {
-            state.isLoading = true;
-        }).addCase(getUserArtworks.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.userArtworks = action.payload.userArtworks;
-        }).addCase(getUserArtworks.rejected, (state, action) => {
-            state.isLoading = false;
-            state.userArtworks = [];
-        })
-
-        // delete art
-         .addCase(deleteArt.pending, (state, action) => {
-            state.isLoading = true;
-        }).addCase(deleteArt.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.message = action.payload.message;
-            state.myArtworks = state.myArtworks.filter(art => art._id !== action.payload.art._id)
-        }).addCase(deleteArt.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload.message;
-        })
-
-
         // update profile and avatar
          .addMatcher(isAnyOf(updateProfile.pending, updateAvatar.pending), (state, action) => {
             state.isLoading = true;
@@ -139,8 +89,6 @@ const profileSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload.message;
         })
-
-       
 	}
 })
 

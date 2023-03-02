@@ -60,8 +60,11 @@
 }
 
 .userList > .noUsers{
-    padding: 5rem 0;
+    height: 25rem;
+    width: 100%;
     font-size: 2rem;
+    display: grid;
+    place-items: center;
     border: 1px solid #ededed;
 }
 

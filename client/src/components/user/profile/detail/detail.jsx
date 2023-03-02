@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { clearError, clearMessage, updateProfile } from '../../../../redux/profileSlice';
+import { deleteAccount } from '../../../../redux/userSlice';
 
 // import css and components
 import './detail.css'
-import Bubbles from '../../utility/bubbles/bubbles';
-import { clearError, clearMessage, updateProfile } from '../../../redux/profileSlice';
-import { deleteAccount } from '../../../redux/userSlice';
-
+import Bubbles from '../../../utility/bubbles/bubbles';
 
 const Detail = () => {
   const navigate = useNavigate();

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToLikes } from '../../../redux/artSlice';
 import { addToCart } from '../../../redux/cartSlice';
-import { deleteArt, clearError as clearProfileError, clearMessage as clearProfileMessage } from '../../../redux/profileSlice';
+import { addToLikes } from '../../../redux/artSlice';
+import { clearError as clearProfileError, clearMessage as clearProfileMessage } from '../../../redux/profileSlice';
 
 // import css and components
 import './card.css'
@@ -16,10 +16,6 @@ const Card = ({art, title, style}) => {
   const {cartItems} = useSelector(state => state.cart);
   const {myData, isAuthenticated} = useSelector(state => state.user);
   const {error: profileError, message: profileMessage} = useSelector(state => state.profile);
-
-
-  // handle delete art
-  const handleArtDelete = (artId) => {dispatch(deleteArt(artId))}
 
   // handle add to cart
   const handleAddToCart = (art) => {dispatch(addToCart({id: art._id, name: art.name, price: art.price, category: art.category, image: art.images[0].url}))}
@@ -83,32 +79,11 @@ const Card = ({art, title, style}) => {
           <span>View</span>
         </button>
 
-        {
-          myData?._id !== art.creator && (
-            <button disabled={myData?._id === art.creator} onClick={handleAddToLikes} className={hasLiked ? "liked" : ""}>
-              <i className={hasLiked ? "fa-solid fa-check" : "fa-regular fa-heart"}></i>
-              <span>{hasLiked ? "Liked" : "Like"}</span>
-            </button>
-          )
-        }
-
-        {
-          myData?._id === art.creator && (
-            <button disabled={myData?._id !== art.creator}>
-              <i className="fa-solid fa-pen"></i>
-              <span>Edit</span>
-            </button>
-          )
-        }
-
-        {
-          myData?._id === art.creator && (
-            <button disabled={myData?._id !== art.creator} onClick={() => handleArtDelete(art._id)}>
-              <i className="fa-regular fa-trash-can"></i>
-              <span>Delete</span>
-            </button>
-          )
-        }
+        
+        <button onClick={handleAddToLikes} className={hasLiked ? "liked" : ""}>
+          <i className={hasLiked ? "fa-solid fa-check" : "fa-regular fa-heart"}></i>
+          <span>{hasLiked ? "Liked" : "Like"}</span>
+        </button>
       </div>
     </div>
   )

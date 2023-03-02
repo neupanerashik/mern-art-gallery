@@ -43,6 +43,18 @@ export const readArtwork = createAsyncThunk('readArtwork', async (id, {rejectWit
 )
 
 
+// delete artwork
+export const deleteArt = createAsyncThunk('deleteArt', async (artId, {rejectWithValue}) => {
+    try{
+        const {data, status} = await axios.delete(`/api/v1/art/delete/${artId}`, {withCredentials: true});
+        if(status >= 300) {return rejectWithValue(data)};
+        return data;
+    }catch(err){
+        return rejectWithValue(err.response.data);
+    }
+})
+
+
 // add to likes
 export const addToLikes = createAsyncThunk('addToLikes', async (artData, { rejectWithValue, dispatch }) => {
     try {
@@ -153,6 +165,18 @@ export const artSlice = createSlice({
         }).addCase(readArtwork.rejected, (state, action) => {
             state.isLoading = false;
             state.artwork = {};
+        })
+
+
+         // delete art
+         .addCase(deleteArt.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(deleteArt.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload.message;
+        }).addCase(deleteArt.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload.message;
         })
 
         // create review

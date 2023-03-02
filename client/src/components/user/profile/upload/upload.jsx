@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // import css and components
 import './upload.css'
-import Bubbles from '../../utility/bubbles/bubbles'
+import Bubbles from '../../../utility/bubbles/bubbles'
 
 // import actions
-import { clearError, clearMessage, uploadArt } from '../../../redux/artSlice';
+import { clearError, clearMessage, uploadArt } from '../../../../redux/artSlice';
 
 const Upload = () => {
     const {error, message, isLoading} = useSelector(state => state.art);
@@ -70,7 +70,6 @@ const Upload = () => {
         }
     
         dispatch(uploadArt(myForm));
-        handleClear();
     };
     
 
@@ -99,12 +98,12 @@ const Upload = () => {
 
                         <div>
                             <span>Price</span>
-                            <input type="number" placeholder='required*' value={price} autoComplete='off' onChange={(e) => setPrice(e.target.value)} required />
+                            <input type="number" placeholder='required*' value={price} min='0' autoComplete='off' onChange={(e) => setPrice(e.target.value)} required />
                         </div>
 
                         <div>
                             <span>Discount</span>
-                            <input type="number" placeholder='optional' value={discount} onChange={(e) => setDiscount(e.target.value)} />
+                            <input type="number" placeholder='optional' value={discount} min='0' onChange={(e) => setDiscount(e.target.value)} />
                         </div>
 
                         <div>
@@ -167,7 +166,7 @@ const Upload = () => {
                     </div>
 
                     <div className="buttons">
-                        <input type="checkbox" value={isAuctionItem} onChange={(e) => setIsAuctionItem(!isAuctionItem)} /><span>Upload as auction artwork?</span>
+                        <input type="checkbox" checked={isAuctionItem} onChange={(e) => setIsAuctionItem(!isAuctionItem)} /><span>Upload as auction artwork?</span>
                         <button type='button' onClick={handleClear}>Clear</button>
                         <button type='submit' onClick={handleSubmit} disabled={isLoading}>{isLoading ? <Bubbles /> : "Submit"}</button>
                     </div>

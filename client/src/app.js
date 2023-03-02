@@ -22,7 +22,6 @@ import AdminLayout from './components/admin/adminLayout';
 import UserList from './components/admin/userList/userList';
 import Dashboard from './components/admin/dashboard/dashboard';
 import OrderList from './components/admin/orderList/orderList';
-import ArtList from './components/admin/artList/artList';
 import Error from './components/layout/error/error';
 
 // redux store
@@ -31,6 +30,7 @@ import store from './store.js';
 // react toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ArtList from './components/user/profile/artList/artList';
 
 function App() {
   // const dispatch = useDispatch();

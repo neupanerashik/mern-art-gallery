@@ -1,12 +1,12 @@
 import moment from 'moment'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromLikes } from '../../../redux/artSlice'; 
+import { removeFromLikes } from '../../../../redux/artSlice'; 
 
 // import css and components
 import './likes.css'
-import Seo from '../../seo/seo';
-import { getMyProfile } from '../../../redux/userSlice';
+import Seo from '../../../seo/seo';
+import { getMyProfile } from '../../../../redux/userSlice';
 
 const Likes = () => {
   const dispatch = useDispatch()

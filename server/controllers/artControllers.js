@@ -11,7 +11,7 @@ import ArtApiFeatures from "../utility/artApiFeatures.js";
 export const createArt = catchAsyncError(async (req, res, next) => {
     const { name, price, description, category, estimatedValueFrom, estimatedValueTo, endDate, isAuctionItem} = req.body;
     if (!name|| !description || !category) return next(new ErrorHandler("Please enter all the required fields.", 400));
-    if (isAuctionItem && (!estimatedValueFrom || !estimatedValueTo || !endDate)) {return next(new ErrorHandler("Please enter all the required fields for auction item.", 400))}
+    if (isAuctionItem === true && (!estimatedValueFrom || !estimatedValueTo || !endDate)) {return next(new ErrorHandler("Please enter all the required fields for auction item.", 400))}
     if (price === 0) return next(new ErrorHandler("Price cannot be zero!.", 400));
 
     req.body.creator = req.user.id;

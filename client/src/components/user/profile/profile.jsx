@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector}  from 'react-redux'
 import { useParams } from 'react-router-dom'
-
-// import css and components
-import './profile.css'
-import Seo from '../../seo/seo.jsx'
-import Detail from './detail'
-import Artworks from './artworks'
-import MyLikes from './likes'
-import Upload from './upload'
-import Spinner from '../../utility/spinner/spinner'
 import { toast } from 'react-toastify'
 import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSlice'
 import { getUserProfile } from '../../../redux/profileSlice'
+
+// import css and components
+import './profile.css'
+import ArtList from './artList/artList'
+import Detail from './detail/detail'
+import Likes from './likes/likes'
+import Upload from './upload/upload'
+import Seo from '../../seo/seo'
+import Spinner from '../../utility/spinner/spinner'
 
 const allMenu = ["Artworks", "Likes", "Detail", "Upload"] 
 
@@ -131,8 +131,10 @@ const Profile = () => {
                     </ul>
                     
                     <div className="options">
-                        {menu === "Artworks" && <Artworks />}
-                        {myData && userData._id === myData._id && menu === "Likes" && <MyLikes />}
+                        {/* {menu === "Artworks" && <Artworks />} */}
+                        {menu === "Artworks" && <ArtList />}
+
+                        {myData && userData._id === myData._id && menu === "Likes" && <Likes />}
                         {myData && userData._id === myData._id && menu === "Detail" && <Detail />}
                         {myData && userData._id === myData._id && menu === "Upload" && <Upload />}
                     </div>
