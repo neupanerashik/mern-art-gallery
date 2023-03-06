@@ -1,0 +1,52 @@
+.checkoutContainer > .checkoutBanner{
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.checkoutContainer > .checkoutBanner > h2{
+    font-size: 3rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.checkoutContainer > .checkoutBanner > div{
+    margin-top: 1rem;
+    font-size: 1.25rem;
+}
+
+.checkoutContainer > .checkoutBanner > div > span{
+    margin-left: 1rem;
+}
+
+.checkoutContainer > .message{
+    margin-bottom: 1rem;
+    padding: 2rem;
+    font-size: 1.25rem;
+    background-color: #ededed;
+}
+
+.checkoutContainer > .message > i{
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.checkoutContainer > .message > span{
+    margin-right: 1rem;
+}
+
+.checkoutContainer > .message > a{
+    text-decoration: underline;   
+}
+/******************** Steps ********************/
+.checkoutContainer > .forms > .step{
+    padding: 3rem 0;
+}
+
+.checkoutContainer > .forms > .step.disabled{
+    opacity: 0.25;
+    pointer-events: none;
+}

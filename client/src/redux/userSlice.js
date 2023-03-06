@@ -74,13 +74,55 @@ export const getMyChats = createAsyncThunk('getMyChats', async (myId, { rejectWi
     }
 });
 
+
+export const createOrder = createAsyncThunk('createOrder', async (orderData,  {rejectWithValue}) => {
+    try{
+        const {data, status} = await axios.post('/api/v1/order/new', {orderData}, {
+            withCredentials: true,
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+});
+
+
+// get orders made
+export const getOrdersMade = createAsyncThunk('getOrdersMade', async (_, {rejectWithValue}) => {
+    try {
+        const { data, status } = await axios.get('/api/v1/orders/made', {withCredentials: true});
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+})
+
+
+// get orders received
+export const getOrdersReceived = createAsyncThunk('getOrdersReceived', async (_, {rejectWithValue}) => {
+    try {
+        const { data, status } = await axios.get('/api/v1/orders/received', {withCredentials: true});
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+})
+
 export const userSlice = createSlice({
   name: 'user',
   
   initialState: {
     myData: {},
     isAuthenticated: false,
-    chats: []
+    chats: [],
+    order: {},
+    orders: [],
+    ordersMade: [],
+    ordersReceived: [],
   },
   
   reducers: {
@@ -127,7 +169,7 @@ export const userSlice = createSlice({
     })
 
     // delete art
-    .addCase(deleteAccount.pending, (state, action) => {
+    builder.addCase(deleteAccount.pending, (state, action) => {
        state.isLoading = true;
    }).addCase(deleteAccount.fulfilled, (state, action) => {
        state.isLoading = false;
@@ -139,7 +181,7 @@ export const userSlice = createSlice({
    })
 
      // delete art
-     .addCase(getMyChats.pending, (state, action) => {
+    builder.addCase(getMyChats.pending, (state, action) => {
         state.isLoading = true;
     }).addCase(getMyChats.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -149,6 +191,43 @@ export const userSlice = createSlice({
         state.error = action.payload.message;
     })
    
+
+    //createOrder
+    builder.addCase(createOrder.pending, (state, action) => {
+        state.isLoading = true;
+    }).addCase(createOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.order = action.payload;
+    }).addCase(createOrder.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+    })
+
+
+    //orders made
+    builder.addCase(getOrdersMade.pending, (state, action) => {
+        state.isLoading = true;
+    }).addCase(getOrdersMade.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ordersMade = action.payload.ordersMade;
+    }).addCase(getOrdersMade.rejected, (state, action) => {
+        state.isLoading = false;
+        state.ordersMade = [];
+        state.error = action.payload;
+    })
+
+    //orders received
+    builder.addCase(getOrdersReceived.pending, (state, action) => {
+        state.isLoading = true;
+    }).addCase(getOrdersReceived.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ordersReceived = action.payload.ordersReceived;
+    }).addCase(getOrdersReceived.rejected, (state, action) => {
+        state.isLoading = false;
+        state.ordersReceived = [];
+        state.error = action.payload;
+    })
+
     // register user, login user
     builder.addMatcher(isAnyOf(registerUser.pending, loginUser.pending), (state) => {
         state.isLoading = true;

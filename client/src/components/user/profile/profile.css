@@ -50,14 +50,12 @@
 
 .profileSection > .profileCard > .name{
     margin-top: 1rem;
-}
-
-.profileSection > .profileCard > .name > h2{
     font-size: 2.5rem;
     text-align: center;
 }
 
-.profileSection > .profileCard > .name > p{
+.profileSection > .profileCard > .role,
+.profileSection > .profileCard > .email{
     margin-top: 0.5rem;
     font-size: 1.25rem;
     text-align: center;
@@ -66,7 +64,7 @@
 /******************** Social ********************/
 
 .profileSection > .profileCard > .social{
-    margin-top: 2rem;
+    margin: 2rem 0;
 }
 
 .profileSection > .profileCard > .social > a:not(:last-child){
@@ -101,30 +99,25 @@
 /******************** Profile Options ********************/
 .profileSection > .profileOptions{
     border: 1px solid #ededed;
-    margin-top: 2.5rem;
     padding: 2.5rem;
 }
 
-.profileSection > .profileOptions > ul{
+.profileSection > .profileOptions > nav{
     margin-bottom: 3rem;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #ededed;
 }
 
-.profileSection > .profileOptions > ul > li{
-    padding-bottom: 1rem;
-    margin-right: 4.5rem;
-    cursor: pointer;
-    font-size: 2.5rem;
+.profileSection > .profileOptions > nav > a{
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.profileSection > .profileOptions > nav > a.active{
     font-weight: bolder;
-    transition: all 0.2s ease-in-out;
+    border-bottom: 1px solid black;
 }
-
-.profileSection > .profileOptions > ul > li:last-child{
-    margin-right: 0;
-}
-
 
 /******************** Media Query ********************/
 /* large mobile screen */

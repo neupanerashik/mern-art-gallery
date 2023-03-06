@@ -6,10 +6,10 @@ import { clearError, clearMessage, updateProfile } from '../../../../redux/profi
 import { deleteAccount } from '../../../../redux/userSlice';
 
 // import css and components
-import './detail.css'
+import './userDetail.css'
 import Bubbles from '../../../utility/bubbles/bubbles';
 
-const Detail = () => {
+const UserDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {myData} = useSelector(state => state.user);
@@ -136,4 +136,4 @@ const Detail = () => {
   )
 }
 
-export default Detail;
+export default UserDetail;

@@ -13,6 +13,8 @@ import ErrorMiddleware from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import artRoutes from './routes/artRoutes.js'
 import chatRoutes from './routes/chatRoutes.js'
+import paymentRoutes from './routes/paymentRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 // dot env
 dotenv.config({path: './config.env'});
@@ -39,6 +41,9 @@ app.listen(PORT, () => console.log(`Listening in port ${PORT}`));
 app.use("/api/v1", userRoutes)
 app.use("/api/v1", artRoutes)
 app.use("/api/v1", chatRoutes)
+app.use("/api/v1", paymentRoutes)
+app.use("/api/v1", orderRoutes)
+
 
 // error middleware
 app.use(ErrorMiddleware);

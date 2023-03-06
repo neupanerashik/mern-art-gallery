@@ -1,0 +1,77 @@
+.ordersContainer > .ordersMade,
+.ordersContainer > .ordersReceived{
+    display: flex;
+    flex-direction: column;
+}
+
+.ordersContainer > .ordersMade > h2,
+.ordersContainer > .ordersReceived > h2{
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.75rem;
+}
+
+/******************** Order Table ********************/
+.ordersContainer > .ordersMade > table,
+.ordersContainer > .ordersReceived > table{
+    width: 100%;
+    border-spacing: 0 0;
+    border: 1px solid #ededed;
+}
+
+.ordersContainer > .ordersReceived{
+    margin-top: 2rem;
+}
+
+.ordersContainer > .ordersMade > table > thead > tr > th,
+.ordersContainer > .ordersReceived > table > thead > tr > th{    
+    padding: 1rem;
+    text-align: justify;
+    font-size: 1.25rem;
+    background-color:#ededed;
+}
+
+.ordersContainer > .ordersMade > table > tbody > tr > td,
+.ordersContainer > .ordersReceived > table > tbody > tr > td{
+    padding: 1rem;
+    background-color: white;
+    border-bottom: 1px solid #ededed;
+}
+
+.ordersContainer > .ordersMade > table > tbody > tr > td > i,
+.ordersContainer > .ordersReceived > table > tbody > tr > td > i{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.ordersContainer > .ordersMade > table > tbody > tr > td > i:hover
+.ordersContainer > .ordersReceived > table > tbody > tr > td > i:hover{
+    animation-name: var(--trash-animation);
+	animation-duration: 0.3s;
+	animation-iteration-count: 3;
+}
+
+.ordersContainer > .ordersMade > .noOrders
+.ordersContainer > .ordersReceived > .noOrders{
+    height: 25rem;
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid #ededed;
+}
+
+
+/******************** Media Query ********************/
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+  .ordersContainer > .ordersMade{
+    overflow-x: auto;
+  }
+
+  .ordersContainer > .ordersMade > header > .search{
+    width: 100%;
+  }
+}

@@ -1,0 +1,99 @@
+.updateArtworkContainer > div > div > form{
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.updateArtworkContainer > div > div > form > header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.updateArtworkContainer > div > div > form > header > h2{
+    margin-bottom: 1rem;
+    font-size: 2.25rem;
+}
+
+.updateArtworkContainer > div > div > form > header > i{
+    font-size: 2.25rem;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+.updateArtworkContainer > div > div > form > div{
+    margin-top: 1rem;
+    width: 49%;
+}
+
+.updateArtworkContainer > div > div > form > div.description{
+    width: 100%;
+}
+
+.updateArtworkContainer > div > div > form > div > label{
+    font-size: 1.25rem;
+}
+
+.updateArtworkContainer > div > div > form > div > input,
+.updateArtworkContainer > div > div > form > div > select {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+}
+
+
+.updateArtworkContainer > div > div > form > div > textarea{
+    height: 15rem;
+    width: 100%;
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    resize: vertical;
+    outline: none;
+    border: 1px solid #e0e0e0;
+}
+
+
+.updateArtworkContainer > div > div > form > div > input:focus{
+    border: 1px solid #2d3448;
+}
+
+.updateArtworkContainer > div > div > form > button{
+    margin-top: 1rem;
+    margin-left: auto;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    color: white;
+    background-color: #2d3448;
+}
+
+.updateArtworkContainer > div > div > form > button:hover{
+    background-color: black;
+    transition: all 0.2s ease;
+}
+
+
+/******************** Media Query ********************/
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .updateArtworkContainer > div > div > form{
+        width: 40rem;
+        flex-direction: column;
+    }
+
+    .updateArtworkContainer > div > div > form > div{
+        width: 100%;
+    }
+}
+  
+/* small mobile screen */
+@media (max-width: 480px) {
+    .updateArtworkContainer > div > div > form{
+        width: 35rem;
+    }
+}
+

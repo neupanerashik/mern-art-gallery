@@ -1,0 +1,35 @@
+.updateOrderContainer > div > div > form{
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.updateOrderContainer > div > div > form > header {
+    display: flex;
+    align-items: center;
+}
+
+.updateOrderContainer > div > div > form > header > h2{
+    font-size: 2.25rem;
+}
+
+.updateOrderContainer > div > div > form > header > i{
+    font-size: 2.25rem;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+.updateOrderContainer > div > div > form > select{
+    margin: 2rem 0;
+    padding: 1rem;
+    cursor: pointer;
+    border: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+.updateOrderContainer > div > div > form > button{
+    padding: 1rem 2rem;
+    cursor: pointer;
+    color: white;
+    background-color: #2d3448;
+}

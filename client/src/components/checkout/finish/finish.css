@@ -1,0 +1,59 @@
+.finishContainer > .finish{
+	margin-top: 3rem;
+	padding: 5rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 1rem;
+	border: 2px solid #ededed;
+}
+
+.finishContainer > .finish > i{
+	margin-bottom: 3rem;
+	padding: 2rem;
+	font-size: 2rem;
+	color: white;
+	border-radius: 50%;
+	background-color: green;
+}
+
+.finishContainer > .finish > p{
+	margin-bottom: 1rem;
+	font-size: 1.5rem;
+	color: #2d3448;
+}
+
+.finishContainer > .finish > p:nth-child(3){
+	font-size: 1.75rem;
+	font-weight: bolder;
+}
+
+/******************** Divider ********************/
+.finishContainer > .divider{
+    margin-top: 3rem;
+}
+
+.finishContainer > .divider > span > button{
+    padding: 1rem 2rem;
+    color: #484545;
+    background-color: white;
+    transition: all 0.1s ease;
+    background-color: #ededed;
+	border-radius: 5rem;
+}
+
+.finishContainer > .divider > span > button:hover{
+    cursor: pointer;
+    background-color: #dbd9d9;
+}
+/************************Media Query************************/
+
+/*Mobile Screen*/
+@media (max-width: 480px){
+	.finishContainer > .finish > div{
+		display: flex;
+		flex-direction: column;
+	}
+}

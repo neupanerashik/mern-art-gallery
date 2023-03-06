@@ -2,10 +2,19 @@
     height: 100%;
     width: 100%;
 	overflow: hidden;
-	position: relative;
 	cursor: pointer;
     display: flex;
     flex-direction: column;
+	position: relative;
+}
+
+.cardContainer > .artStatus{
+    padding: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: white;
+    background-color: #2d3448;
 }
 
 /******************** Card Image ********************/

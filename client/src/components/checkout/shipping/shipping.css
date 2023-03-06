@@ -1,0 +1,96 @@
+.shippingContainer > h2{
+    font-size: 2rem;
+}
+
+.shippingContainer > form{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.shippingContainer > form > div{
+    width: 49%;
+    margin-top: 2rem;
+}
+
+.shippingContainer > form > div:nth-last-child(1),
+.shippingContainer > form > div:nth-last-child(2){
+    width: 100%;
+}
+
+.shippingContainer > form > div > label{
+    font-size: 1.5rem;
+}
+
+.shippingContainer > form > div > input,
+.shippingContainer > form > div > select {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5rem;
+}
+
+
+.shippingContainer > form > div > input:focus{
+    border: 1px solid #b2beb5;
+}
+
+.shippingContainer > form > div > input:focus::placeholder{
+    opacity: 0;
+    transform: all 0.2s ease;
+}
+
+/******************** Divider ********************/
+.shippingContainer > .divider{
+    margin-top: 3rem;
+}
+
+.shippingContainer > .divider > span > button{
+    padding: 1rem 2rem;
+    color: #484545;
+    background-color: white;
+    transition: all 0.1s ease;
+    background-color: #ededed;
+}
+
+.shippingContainer > .divider > span > button:first-child{
+    border-radius: 5rem 0 0 5rem;
+}
+
+.shippingContainer > .divider > span > button:last-child{
+    border-radius: 0 5rem 5rem 0;
+}
+
+.shippingContainer > .divider > span > button:hover{
+    cursor: pointer;
+    background-color: #dbd9d9;
+}
+
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .shippingContainer{
+        padding: 0 15%;
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .shippingContainer{
+        padding: 0 5%;
+    }
+
+    .shippingContainer > form > div{
+        width: 100%;
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .shippingContainer{
+        padding: 0 2.5%;
+    }
+}

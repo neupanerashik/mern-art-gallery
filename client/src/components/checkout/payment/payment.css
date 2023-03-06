@@ -1,0 +1,92 @@
+.paymentContainer > h2{
+    font-size: 2rem;
+}
+
+.paymentContainer > form{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.paymentContainer > form > div{
+    width: 49%;
+    margin-top: 2rem;
+}
+
+.paymentContainer > form > div > label{
+    font-size: 1.5rem;
+}
+
+.paymentContainer > form > div > input,
+.paymentContainer > form > div > .stripeInputField{   
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5rem;
+}
+
+
+.paymentContainer > form > div > input:focus,
+.paymentContainer > form > div > .stripeInputField:focus{
+    border: 1px solid #b2beb5;
+}
+
+.paymentContainer > form > div > input:focus::placeholder,
+.paymentContainer > form > div > .stripeInputField:focus::placeholder{
+    opacity: 0;
+    transform: all 0.2s ease;
+}
+
+/******************** Divider ********************/
+.paymentContainer > .divider{
+    margin-top: 3rem;
+}
+
+.paymentContainer > .divider > span > button{
+    padding: 1rem 2rem;
+    color: #484545;
+    background-color: white;
+    transition: all 0.1s ease;
+    background-color: #ededed;
+}
+
+.paymentContainer > .divider > span > button:first-child{
+    border-radius: 5rem 0 0 5rem;
+}
+
+.paymentContainer > .divider > span > button:last-child{
+    border-radius: 0 5rem 5rem 0;
+}
+
+.paymentContainer > .divider > span > button:hover{
+    cursor: pointer;
+    background-color: #dbd9d9;
+}
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .paymentContainer{
+        padding: 0 15%;
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .paymentContainer{
+        padding: 0 5%;
+    }
+
+    .paymentContainer > form > div{
+        width: 100%;
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    .paymentContainer{
+        padding: 0 2.5%;
+    }
+}

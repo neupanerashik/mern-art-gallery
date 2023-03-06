@@ -59,7 +59,6 @@
 
 .artList > table > tbody > tr > td > i{
     font-size: 1.5rem;
-    color: red;
     cursor: pointer;
 }
 
@@ -67,6 +66,10 @@
     animation-name: var(--trash-animation);
 	animation-duration: 0.3s;
 	animation-iteration-count: 3;
+}
+
+.artList > table > tbody > tr > td > i:last-child{
+    margin-left: 2rem;
 }
 
 .artList > .noArts{

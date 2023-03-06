@@ -110,6 +110,22 @@ export const getReviews = createAsyncThunk('getreviews', async (id, {rejectWithV
 )
 
 
+///updateOrder thunk
+export const updateArtwork = createAsyncThunk('updateArtwork', async (artData, {rejectWithValue}) => {  
+    const {artId, name, price, category, discount, description} = artData;
+    try {
+        const {data, status} = await axios.put(`/api/v1/art/update/${artId}`, {name, price, category, discount, description}, {
+            headers: {'Content-Type': 'application/json'}, 
+            withCredentials: true
+        });
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+})
+
+
 export const artSlice = createSlice({
     name: 'art',
 
@@ -169,7 +185,7 @@ export const artSlice = createSlice({
 
 
          // delete art
-         .addCase(deleteArt.pending, (state, action) => {
+        builder.addCase(deleteArt.pending, (state, action) => {
             state.isLoading = true;
         }).addCase(deleteArt.fulfilled, (state, action) => {
             state.isLoading = false;
@@ -177,6 +193,16 @@ export const artSlice = createSlice({
         }).addCase(deleteArt.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload.message;
+        })
+
+
+         // delete art
+        builder.addCase(updateArtwork.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(updateArtwork.fulfilled, (state, action) => {
+            state.isLoading = false;
+        }).addCase(updateArtwork.rejected, (state, action) => {
+            state.isLoading = false;
         })
 
         // create review

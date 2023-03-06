@@ -87,10 +87,15 @@ export const getRecommendations = catchAsyncError(async (req, res, next) => {
 // update art
 export const updateArt = catchAsyncError(async (req, res, next) => {
 
-    // res.status(200).json({
-    //     success: true,
-    //     art,
-    // });
+    let art = await Art.findById(req.params.id)
+    if(!art) {return next(new ErrorHandler('Artwork not found.', 404))}
+    req.body.creator = req.user.id;		
+	art = await Art.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true, useFindAndModify: false});
+
+    res.status(200).json({
+        success: true,
+        art,
+    });
 });
 
 

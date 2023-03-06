@@ -18,7 +18,13 @@ const Card = ({art, title, style}) => {
   const {error: profileError, message: profileMessage} = useSelector(state => state.profile);
 
   // handle add to cart
-  const handleAddToCart = (art) => {dispatch(addToCart({id: art._id, name: art.name, price: art.price, category: art.category, image: art.images[0].url}))}
+  const handleAddToCart = (art) => {
+    if(art.artStatus === 'sold'){
+      toast.warn('The artwork is already sold.')
+      return;
+    }
+    dispatch(addToCart({artId: art._id, name: art.name, price: art.price, category: art.category, image: art.images[0].url}))
+  }
 
   // handle add to likes
   const handleAddToLikes = () => {
@@ -54,6 +60,7 @@ const Card = ({art, title, style}) => {
 
   return (
     <div className="cardContainer" style={style}>
+      {art?.artStatus === 'sold' && <div className="artStatus">Sold</div>}  
       <div className='itemImage'>
         <img src={art.images[0].url} alt='itemPic' />
       </div>
@@ -68,8 +75,8 @@ const Card = ({art, title, style}) => {
         {
           myData?._id !== art.creator && (
             <button disabled={myData?._id === art.creator} onClick={() => handleAddToCart(art)}>
-              <i className={cartItems.find(item => item.id === art._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
-              <span>{cartItems.find(item => item.id === art._id) ? "Added To Cart" : "Add To Cart"}</span>
+              <i className={cartItems.find(item => item.artId === art._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
+              <span>{cartItems.find(item => item.artId === art._id) ? "Added To Cart" : "Add To Cart"}</span>
             </button>
           )
         }

@@ -8,7 +8,10 @@ import './cart.css'
 
 export default function Cart({ toggleDrawer }) {
     const dispatch = useDispatch();
-    const {cartItems} = useSelector(state => state.cart);
+    const { cartItems } = useSelector(state => state.cart);
+    const { isAuthenticated } = useSelector(state => state.user);
+
+    const orderSubtotal = cartItems.reduce((accumulator, item) => accumulator + item.price, 0);
 
     return (
         <>
@@ -40,15 +43,21 @@ export default function Cart({ toggleDrawer }) {
                 <div className='cartFooter'>
                     <div>
                         <p>Shipping</p>
-                        <strong>Rs 200</strong>
+                        <strong>{orderSubtotal <= 1000 ? `Rs 100` : 'Free Shipping'}</strong>
                     </div>
 
                     <div>
                         <p>Total</p>
-                        <strong>Rs {cartItems.reduce((accumulator, item) => accumulator + item.price, 0)}</strong>
+                        <strong>Rs {orderSubtotal}</strong>
                     </div>
-
-                    <Link to='/login?redirect=checkout' onClick={toggleDrawer('right', false)}>Checkout</Link>
+                    
+                    {cartItems.length === 0 ?
+                        <Link to="/" onClick={toggleDrawer('right', false)}>Shop More</Link> :
+                        (isAuthenticated ? 
+                            <Link to="/checkout" onClick={toggleDrawer('right', false)}>Checkout</Link> : 
+                            <Link to="/login?redirect=checkout" onClick={toggleDrawer('right', false)}>Login First</Link>
+                        )
+                    }
 
                     <p className="shipping-cart">Free shipping on all orders over Rs 1000</p>
                 </div>

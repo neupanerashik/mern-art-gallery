@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { clearError, clearMessage, loginUser } from '../../../redux/userSlice'
 import { toast } from 'react-toastify'
@@ -13,6 +13,7 @@ import Bubbles from '../../utility/bubbles/bubbles'
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const {isLoading} = useSelector(state => state.user);
   const [email, setEmail] = useState('');
@@ -30,14 +31,22 @@ const Login = (props) => {
     if(isAuthenticated){
       toast.success(message);
       dispatch(clearMessage());
-      navigate('/');
+      
+      // Redirect the user to the checkout page if the 'redirect' query parameter is set.
+      const params = new URLSearchParams(location.search);
+      const redirect = params.get('redirect');
+      if (redirect === 'checkout') {
+        navigate('/checkout');
+      } else {
+        navigate('/');
+      }
     }
 
     if(error){
       toast.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, message, error, navigate, isAuthenticated])
+  }, [dispatch, message, error, navigate, isAuthenticated, location.search])
   
   return (
     <>

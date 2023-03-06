@@ -6,6 +6,7 @@ import { getAllArts, deleteArt } from '../../../../redux/artSlice';
 
 // import css
 import './artList.css'
+import UpdateArtwork from './updateArtwork';
 
 const ArtList = () => {
   const {id} = useParams()
@@ -33,10 +34,7 @@ const ArtList = () => {
   }, [allArts, id]);
 
   const handleDeleteArtwork = (artId) => {
-    dispatch(deleteArt(artId)).then(() => {
-      dispatch(getAllArts({keyword, category}));
-    });
-
+    dispatch(deleteArt(artId));
     setArts((prevArts) => prevArts.filter((art) => art._id !== artId));
   }
 
@@ -67,6 +65,7 @@ const ArtList = () => {
               <th>Name</th>
               <th>ID</th>
               <th>Price</th>
+              <th>Discount</th>
               <th>Category</th>
               <th>Posted On</th>
               <th>Actions</th>
@@ -76,14 +75,18 @@ const ArtList = () => {
           {
             arts[0] && arts.map((art, index) => {
               return (
-                <tr key={art._id}>
+                <tr key={index}>
                   <td><img src={art.images[0].url} alt="artPic" /></td>
                   <td>{art.name}</td>
                   <td>{art._id}</td>
                   <td>Rs {art.price}</td>
+                  <td>{art.discount} %</td>
                   <td>{art.category}</td>
                   <td>{moment(art.uploadedAt).format('YYYY-MM-DD')}</td>
-                  <td><i className="fa-solid fa-trash-can" onClick={() => handleDeleteArtwork(art._id)}></i></td>
+                  <td>
+                    <UpdateArtwork currentArtwork={art} />
+                    <i className="fa-solid fa-trash-can" onClick={() => handleDeleteArtwork(art._id)}></i>
+                  </td>
                 </tr>
               )
             })

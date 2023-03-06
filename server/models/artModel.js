@@ -25,7 +25,8 @@ const schema = new mongoose.Schema({
 	isAuctionItem: {type: Boolean, default: false},
 	estimatedValueFrom: {type: Number},
 	estimatedValueTo: {type: Number},
-	endDate: {type: String}
+	endDate: {type: String},
+	artStatus: {type: String, default: "unsold"}
 });
 
 export const Art = mongoose.model("Art", schema);

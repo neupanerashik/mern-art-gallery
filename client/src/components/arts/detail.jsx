@@ -28,6 +28,10 @@ const Detail = () => {
   
   // handle add to cart
   const handleAddToCart = () => {
+    if(artwork?.artStatus === 'sold'){
+      toast.warn('The artwork is already sold.')
+      return;
+    }
     dispatch(addToCart({id: artwork._id, name: artwork.name, price: artwork.price, category: artwork.category, image: artwork.images[0].url}))
   }
 
@@ -92,7 +96,7 @@ const Detail = () => {
           </div>
           
           <div className="infoContainer">
-            <h2>{artwork.name}</h2>
+            <h2>{artwork.name} {artwork?.artStatus === 'sold' && <span>(Sold)</span>}</h2>
            
             <Link to={`/user/${artwork?.creator}`}>Creator Profile</Link>
            

@@ -12,7 +12,6 @@ const UserList = () => {
   const { allUsers } = useSelector(state => state.admin);
   const [users, setUsers] = useState(allUsers);
 
-
   useEffect(() => {
     dispatch(getUsers({keyword}))
   }, [dispatch, keyword]);
@@ -22,10 +21,7 @@ const UserList = () => {
   }, [allUsers]);
 
   const handleDeleteUser = (userId) => {
-    dispatch(deleteUser(userId)).then(() => {
-      dispatch(getUsers({keyword}));
-    });
-
+    dispatch(deleteUser(userId));
     setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
   }
 

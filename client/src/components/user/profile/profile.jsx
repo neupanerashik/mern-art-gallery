@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector}  from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSlice'
 import { getUserProfile } from '../../../redux/profileSlice'
+import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSlice'
 
 // import css and components
 import './profile.css'
-import ArtList from './artList/artList'
-import Detail from './detail/detail'
-import Likes from './likes/likes'
-import Upload from './upload/upload'
 import Seo from '../../seo/seo'
 import Spinner from '../../utility/spinner/spinner'
 
-const allMenu = ["Artworks", "Likes", "Detail", "Upload"] 
+// roles
+const roles = ['painter', 'sculptor', 'photographer', 'drawer']
+
 
 const Profile = () => {
     const {id} = useParams()
@@ -23,12 +21,10 @@ const Profile = () => {
     const {myData} = useSelector(state => state.user);
     const {userData, message, error, isLoading} = useSelector(state => state.profile);
 
-    const [menu, setMenu] = useState(allMenu[0]);
 
     // scroll to top
     const handleScroll = (mnu) => {
         menuRef.current.scrollIntoView({ behavior: 'smooth' });
-        setMenu(mnu);
     };
 
     const handleAvatarChange = async (e) => {
@@ -79,15 +75,10 @@ const Profile = () => {
 
                     </div>
 
-                    <div className="name">
-                        {userData && (
-                            <>
-                                <h2>{userData.name}</h2>
-                                <p>{userData.role}</p>
-                                <p>{userData.email}</p>
-                            </>
-                        )}
-                    </div>
+                    <div className="name">{userData && userData.name}</div>
+                    <div className="role">{userData && userData.role}</div>
+                    <div className="email">{userData && userData.email}</div>
+                    
 
                     {userData.socials && 
                         <div className="social">
@@ -116,29 +107,25 @@ const Profile = () => {
                         {userData._id !== myData?._id && <button>Donate</button>}
                     </div>
                 </div>
-                <div className="profileOptions" ref={menuRef}>
-                    <ul>
-                        {allMenu.map((mn, index) => {
-                            if ((mn === 'Artwork' || mn === 'Upload') && userData.role === 'user') { return null }
-                            if ((mn === 'Likes' || mn === 'Detail' || mn === "Upload") && (myData === null || userData._id !== myData._id)) { return null }                           
 
-                            return (
-                                <li key={index} onClick={() => handleScroll(mn)} style={{ borderBottom: mn === menu ? "1px solid black" : "" }}>
-                                    {mn}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    
-                    <div className="options">
-                        {/* {menu === "Artworks" && <Artworks />} */}
-                        {menu === "Artworks" && <ArtList />}
+                <div className="profileOptions" onClick={handleScroll}>
+                    <nav ref={menuRef}>
+                        <NavLink to='artworks'>Artworks</NavLink>
+                        {myData && userData._id === myData._id && <NavLink to='likes'>Likes</NavLink>}
+                        {myData && userData._id === myData._id && <NavLink to='detail'>Detail</NavLink>}
+                        {
+                            myData && 
+                            userData._id === myData._id && 
+                            roles.includes(myData.role) && 
+                            <NavLink to='orders'>Orders</NavLink>
+                        }
+                        {myData && userData._id === myData._id && <NavLink to='upload'>Upload</NavLink>}
+                    </nav>
 
-                        {myData && userData._id === myData._id && menu === "Likes" && <Likes />}
-                        {myData && userData._id === myData._id && menu === "Detail" && <Detail />}
-                        {myData && userData._id === myData._id && menu === "Upload" && <Upload />}
-                    </div>
+                    <Outlet />
                 </div>
+                
+
                 
             </section>
         </>

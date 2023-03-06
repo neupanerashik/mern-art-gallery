@@ -1,0 +1,86 @@
+.orderList{
+    display: flex;
+    flex-direction: column;
+}
+
+.orderList > header{
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.orderList > header > .search {
+    width: 30rem;
+    padding: 0 1rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ededed;
+}
+
+.orderList > header > .search:focus-within{
+    border: 1px solid #b2beb5;
+}
+
+.orderList > header > .search > input{
+    margin-left: 1rem;
+    padding: 1rem;
+}
+
+/******************** User List ********************/
+.orderList > table{
+    width: 100%;
+    border-spacing: 0 0;
+    border: 1px solid #ededed;
+}
+
+.orderList > table > thead > tr > th,
+.orderList > table > tbody > tr > td{
+    padding: 1rem;
+    text-align: justify;
+    font-size: 1.25rem;
+    background-color:#ededed;
+}
+
+.orderList > table > tbody > tr > td{
+    background-color: white;
+    border-bottom: 1px solid #ededed;
+}
+
+.orderList > table > tbody > tr > td > i{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.orderList > table > tbody > tr > td > i:last-child{
+    margin-left: 2rem;
+}
+
+.orderList > table > tbody > tr > td > i:hover{
+    animation-name: var(--trash-animation);
+	animation-duration: 0.3s;
+	animation-iteration-count: 3;
+}
+
+.orderList > .noOrders{
+    height: 25rem;
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid #ededed;
+}
+
+
+/******************** Media Query ********************/
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+  .orderList{
+    overflow-x: auto;
+  }
+
+  .orderList > header > .search{
+    width: 100%;
+  }
+}
