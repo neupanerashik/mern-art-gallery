@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {useDispatch, useSelector}  from 'react-redux'
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -9,6 +9,7 @@ import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSl
 import './profile.css'
 import Seo from '../../seo/seo'
 import Spinner from '../../utility/spinner/spinner'
+import HireDialog from './hireDialog'
 
 // roles
 const roles = ['painter', 'sculptor', 'photographer', 'drawer']
@@ -103,8 +104,8 @@ const Profile = () => {
                     }
 
                     <div className="buttons">
-                        {userData._id !== myData?._id && <button>Hire</button>}
-                        {userData._id !== myData?._id && <button>Donate</button>}
+                        {(userData._id !== myData?._id) && (userData.role !== 'admin') && <HireDialog />}
+                        {/* {(userData._id !== myData?._id) && <button>Donate</button>} */}
                     </div>
                 </div>
 

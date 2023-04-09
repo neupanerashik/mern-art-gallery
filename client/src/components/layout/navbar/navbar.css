@@ -152,11 +152,6 @@
     transition: all 0.2s ease-in-out;
 }
 
-.navbar > .navIcons > .profileIcon > ul > li > a:hover{
-    background-color: #ededed;
-
-}
-
 /******************** Cart Icon ********************/
 .navbar > .navIcons > .cartIcon > span{
     height: 1.25rem;

@@ -1,22 +1,20 @@
 import nodemailer from "nodemailer"
 
-const sendEmail = (options) => {
+const sendEmail = ({sender, receiver, name, subject, message}) => {
 	const transporter = nodemailer.createTransport({
 	  service: 'gmail',
 	  auth: {
 	    user: process.env.EMAIL_ADDRESS,
-	    pass: 'gegw hqap hdod qnrs'
+	    pass: process.env.APP_PASSWORD
 	  }
 	});
 
-	const name = options.name || 'VisArt';
-
 	// send mail with defined transport object
 	const info = transporter.sendMail({
-		from: `${name} <${options.sender}>`,
-        to: options.receiver,
-        subject: options.subject,
-        text: options.message
+		from: `${name} <${sender}>`,
+        to: receiver,
+        subject: subject,
+		text: `Sender: ${sender} \nMessage: ${message}`,
       }, (err, info) => {
 		if(err) console.log("Failed" + err)
         else console.log(`Email sent:` + info.response);

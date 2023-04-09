@@ -15,7 +15,7 @@ const Hero = () => {
         event.preventDefault(); // prevent page refresh
         return toast.warn('Please enter a keyword first.');
       } else if (keyword.trim()) {
-        navigate(`/search/${keyword}`);
+        navigate(`/arts/search?keyword=${keyword}`)
       }
   
       if (event.key === 'Enter') {

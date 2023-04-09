@@ -251,8 +251,6 @@ export const unsubscribe = catchAsyncError(async (req, res, next) => {
 // send mail from contact
 export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
     const {name, email, subject, message} = req.body;
-    console
-
     sendEmail({sender: email, receiver: process.env.EMAIL_ADDRESS, name, subject, message});
 
     res.status(200).json({
@@ -261,3 +259,13 @@ export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
     })
 });
 
+// send email to hire
+export const sendEmailToHire = catchAsyncError(async (req, res, next) => {
+    const {name, email, receiver, subject, message} = req.body;
+    sendEmail({sender: email, receiver, name, subject, message});
+
+    res.status(200).json({
+        success: true,
+        message: `Email sent.`
+    })
+});

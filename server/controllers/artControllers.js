@@ -44,6 +44,7 @@ export const createArt = catchAsyncError(async (req, res, next) => {
 
 // read all products
 export const readArts = catchAsyncError(async (req, res, next) => {
+    console.log(req.query)
     const features = new ArtApiFeatures(Art.find(), req.query).search().sort().filterByPrice().limitFields();
     const arts = await features.query;
 

@@ -8,21 +8,29 @@ import './arts.css'
 import Card from '../utility/card/card'
 
 const Arts = () => {
+    const {type} = useParams();
     const location = useLocation();
     const dispatch = useDispatch();
-    const {keyword, type} = useParams();
-    const {allArts} = useSelector(state => state.art);
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(type || '');
     const [minPrice, handleMinPrice] = useState('');
     const [maxPrice, handleMaxPrice] = useState('');
     const [sortByPrice, setSortByPrice] = useState('');
     const [showFilters, setShowFilters] = useState(false);
+    const {allArts} = useSelector(state => state.art);
+
+    const searchParams = new URLSearchParams(location.search);
+    let keyword = searchParams.get('keyword');
+    if (keyword === null) keyword = '';
 
     const toggleFilters = () => {setShowFilters(!showFilters)}
     
     useEffect(() => { 
-        if(location.pathname === '/auction') {dispatch(getAllArts({isAuctionItem: true, maxPrice, minPrice, sortByPrice, category}))}
-        else {dispatch(getAllArts({ keyword, category, maxPrice, minPrice, sortByPrice }))}
+        if(location.pathname === '/auction') {
+            dispatch(getAllArts({isAuctionItem: true, maxPrice, minPrice, sortByPrice, category}))
+        }
+        else {
+            dispatch(getAllArts({ isAuctionItem: false, keyword, category, maxPrice, minPrice, sortByPrice }))
+        }
     }, [dispatch, location, keyword, category, maxPrice, minPrice, sortByPrice]);
 
     return (

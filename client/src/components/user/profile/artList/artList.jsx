@@ -17,9 +17,10 @@ const ArtList = () => {
   const [arts, setArts] = useState([]);
 
   const { allArts } = useSelector((state) => state.art);
+  const {myData} = useSelector((state) => state.user);
 
   useEffect(() => { 
-      dispatch(getAllArts({ keyword, category }))
+      dispatch(getAllArts({ keyword, category }));
   }, [dispatch, keyword, category]);
 
   useEffect(() => {
@@ -83,10 +84,12 @@ const ArtList = () => {
                   <td>{art.discount} %</td>
                   <td>{art.category}</td>
                   <td>{moment(art.uploadedAt).format('YYYY-MM-DD')}</td>
-                  <td>
-                    <UpdateArtwork currentArtwork={art} />
-                    <i className="fa-solid fa-trash-can" onClick={() => handleDeleteArtwork(art._id)}></i>
-                  </td>
+                  { myData?._id === art.creator &&
+                    <td>
+                      <UpdateArtwork currentArtwork={art} />
+                      <i className="fa-solid fa-trash-can" onClick={() => handleDeleteArtwork(art._id)}></i>
+                    </td>
+                  }
                 </tr>
               )
             })

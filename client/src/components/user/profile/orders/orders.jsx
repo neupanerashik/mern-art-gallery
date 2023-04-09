@@ -48,7 +48,7 @@ const Orders = () => {
           </tbody>
         </table>
 
-        {!ordersMade[0] && <div className='noOrders'>No arders made!</div>}
+        {!ordersMade[0] && <div className='noOrders'>No orders made!</div>}
       </div>
 
       <div className='ordersReceived'>
@@ -81,7 +81,7 @@ const Orders = () => {
           </tbody>
         </table>
 
-        {!ordersReceived[0] && <div className='noOrders'>No arders made!</div>}
+        {!ordersReceived[0] && <div className='noOrders'>No orders made!</div>}
       </div>
     </div>
   )

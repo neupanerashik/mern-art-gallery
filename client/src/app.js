@@ -59,7 +59,7 @@ function App() {
         <Route exact path='/auction' element={<Arts />} />
         <Route exact path='/arts' element={<Arts />} />
         <Route exact path='/arts/:type' element={<Arts />} />
-        <Route exact path='/search/:keyword' element={<Arts />} />
+        <Route exact path='/arts/search' element={<Arts />} />
         <Route exact path='/password/forget' element={<ForgetPassword />} />
         <Route exact path='/password/reset/:token' element={<ResetPassword />} />
         <Route exact path='/password/change' element={<ChangePassword />} />
