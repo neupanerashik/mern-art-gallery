@@ -92,7 +92,13 @@
 
 .profileSection > .profileCard > .buttons > button:hover{
     color: white;
-    background-color: #2D3448;
+    background-color: #2d3448;
+    transition: all 0.25s ease-in-out;
+}
+
+.profileSection > .profileCard > .buttons > button:last-child:hover{
+    color: white;
+    background-color: purple;
     transition: all 0.25s ease-in-out;
 }
 

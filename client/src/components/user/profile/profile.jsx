@@ -9,7 +9,8 @@ import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSl
 import './profile.css'
 import Seo from '../../seo/seo'
 import Spinner from '../../utility/spinner/spinner'
-import HireDialog from './hireDialog'
+import Khalti from '../../khalti/khalti'
+import HireDialog from '../../dialogs/hire/hireDialog'
 
 // roles
 const roles = ['painter', 'sculptor', 'photographer', 'drawer']
@@ -105,7 +106,7 @@ const Profile = () => {
 
                     <div className="buttons">
                         {(userData._id !== myData?._id) && (userData.role !== 'admin') && <HireDialog />}
-                        {/* {(userData._id !== myData?._id) && <button>Donate</button>} */}
+                        {(userData._id !== myData?._id) && <Khalti />}
                     </div>
                 </div>
 

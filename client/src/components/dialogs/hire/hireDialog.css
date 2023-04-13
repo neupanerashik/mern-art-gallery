@@ -1,0 +1,82 @@
+.hireDialog > div > div > form{
+    width: 40rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.hireDialog > div > div > form > h2{
+    font-size: 1.75rem;
+    align-self: center;
+    margin-bottom: 1.5rem;
+}
+
+.hireDialog > div > div > form > div{
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.hireDialog > div > div > form > div > label, 
+.hireDialog > div > div > form > .dateTime > div > label{
+    font-size: 1.25rem;
+}
+
+.hireDialog > div > div > form > div > input, 
+.hireDialog > div > div > form > .dateTime > div > input {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+}
+
+.hireDialog > div > div > form > div > input:focus{
+    border: 1px solid #b2beb5;
+}
+
+.hireDialog > div > div > form > div > input:focus::placeholder{
+    opacity: 0;
+    transform: all 0.2s ease;
+}
+
+.hireDialog > div > div > form > div > textarea{
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    resize: vertical;
+    border-radius: 1rem;
+    outline: none;
+    font-size: 1.25rem;
+    border: 1px solid #e0e0e0;
+}
+
+.hireDialog > div > div > form > .dateTime{
+    display: flex;
+    justify-content: space-between;
+}
+
+.hireDialog > div > div > form > .dateTime > div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.hireDialog > div > div > form > div > textarea:focus{
+    border: 1px solid #b2beb5;
+}
+
+
+
+.hireDialog > div > div > form > button{
+    padding: 1rem 2.5rem;
+    color: white;
+    background-color: #2d3448;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.hireDialog > div > div > form > button:hover{
+    background-color: black;
+    transition: all 0.25s ease;
+}
