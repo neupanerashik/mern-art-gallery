@@ -48,11 +48,16 @@
     display: flex;
 }
 
-.profileDetailContainer > .information > div > label > input{
+.profileDetailContainer > .information > div > label > input,
+.profileDetailContainer > .information > div > label > a{
     width: 100%;
     padding: 1rem;
     border: 1px solid #b2beb5;
     text-align: left;
+}
+
+.profileDetailContainer > .information > div > label > a{
+    font-size: 1.25rem;
 }
 
 .profileDetailContainer > .information > div > label > input[disabled]{

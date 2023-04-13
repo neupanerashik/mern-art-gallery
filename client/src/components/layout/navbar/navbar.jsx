@@ -11,6 +11,9 @@ import Bubbles from '../../utility/bubbles/bubbles';
 import Cart from '../../cart/cart';
 import ChatDialog from '../../chat/chatDialog';
 
+// import logo 
+import logo from '../../../assets/logo/logo.png'
+
 // menu
 const menus = [
   {title: 'home'},
@@ -29,8 +32,6 @@ const Navbar = ({user, isAuthenticated}) => {
   const [accountPopover, setAccountPopover] = useState(false);
   const [toggleCart, setToggleCart] = useState({ right: false });
   
-  let activeStyle = {fontWeight: "bolder"};
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {return}
     setToggleCart({ ...toggleCart, [anchor]: open });
@@ -47,7 +48,7 @@ const Navbar = ({user, isAuthenticated}) => {
     <>
       <nav className='navbar'>
         <div className="navLogo">
-          <Link to='/'>VA</Link>
+          <Link to='/'><img src={logo} alt='logo' /> Vis Art</Link>
         </div>
         
         <ul className={!sidebar ? "navMenu" : "navMenu active" }>
@@ -55,13 +56,15 @@ const Navbar = ({user, isAuthenticated}) => {
             menus.map((menu, index) => {
               return(
                 <li key={index} onClick={() => setSidebar(false)}>
-                  <NavLink exact="true"
-                    to={menu.title === 'home' ? '/' : `${menu.title}`} 
-                    style={({ isActive }) => isActive ? activeStyle : undefined}
+                  <NavLink
+                    exact='true'
+                    to={menu.title === 'home' ? '/' : `${menu.title}`}
+                    onClick={menu.title === 'help' ? (e) => e.preventDefault() : null}
                   >
                     <span>{menu.title}</span>
                     {menu.subMenu && <i className="fa-solid fa-chevron-down"></i>}
                   </NavLink>
+
 
                   {
                     menu.subMenu && 

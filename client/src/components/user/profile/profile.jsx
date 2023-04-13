@@ -16,11 +16,11 @@ const roles = ['painter', 'sculptor', 'photographer', 'drawer']
 
 
 const Profile = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const menuRef = useRef(null)
     const dispatch = useDispatch();
-    const {myData} = useSelector(state => state.user);
-    const {userData, message, error, isLoading} = useSelector(state => state.profile);
+    const { myData } = useSelector(state => state.user);
+    const { userData, message, error, isLoading } = useSelector(state => state.profile);
 
 
     // scroll to top

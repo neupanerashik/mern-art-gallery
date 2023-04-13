@@ -1,3 +1,4 @@
+import path from 'path';
 import cloudinary from 'cloudinary'
 import { Art } from "../models/artModel.js";
 import { User } from "../models/userModel.js";
@@ -18,11 +19,26 @@ export const createArt = catchAsyncError(async (req, res, next) => {
     let artImages = req.files;
     let artImagesLinks = [];
 
+    // creator
+    const user = await User.findById(req.user.id);
+
     if(artImages[0]){
         for (const image of artImages) {
             try {
                 const imageUri = getDataUri(image);
-                const result = await cloudinary.v2.uploader.upload(imageUri, {folder: 'VisArt/Arts'});
+                const result = await cloudinary.v2.uploader.upload(imageUri, {folder: 'VisArt/Arts', transformation: [{ 
+                    effect: 'overlay', 
+                    overlay: {
+                        font_family: "Verdana", 
+                        font_size: 100, 
+                        font_weight: "bold", 
+                        text: `Vis Art - ${user.name}`
+                    },
+                    gravity: 'south_west', 
+                    opacity: 80, 
+                    flags: 'relative' 
+                }]});
+               
                 artImagesLinks.push({ public_id: result.public_id, url: result.secure_url });
             } catch (error) {
                 return next(new ErrorHandler(error.message, 500));
@@ -44,7 +60,6 @@ export const createArt = catchAsyncError(async (req, res, next) => {
 
 // read all products
 export const readArts = catchAsyncError(async (req, res, next) => {
-    console.log(req.query)
     const features = new ArtApiFeatures(Art.find(), req.query).search().sort().filterByPrice().limitFields();
     const arts = await features.query;
 

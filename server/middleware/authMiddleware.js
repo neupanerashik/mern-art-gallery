@@ -14,7 +14,7 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 
 
 //middleware to authenticate creator
-const creatorRoles = ["painter", "drawer", "sculptor", "photographer", "admin"]
+const creatorRoles = ["painter", "drawer", "sculptor", "photographer", "admin", "editor"]
 
 export const isCreator = (req, res, next) => {
 	if (!creatorRoles.includes(req.user.role)) {return next(new ErrorHandler(`${req.user.role} cannot access this resource.`, 403));}

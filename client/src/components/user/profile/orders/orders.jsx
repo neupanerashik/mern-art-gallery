@@ -5,7 +5,7 @@ import { getOrdersMade, getOrdersReceived } from '../../../../redux/userSlice';
 
 // import css
 import './orders.css'
-import UpdateOrder from '../../../admin/orderList/updateOrder';
+// import UpdateOrder from '../../../admin/orderList/updateOrder';
 
 const Orders = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { clearError, clearMessage, updateProfile } from '../../../../redux/profileSlice';
@@ -8,6 +8,7 @@ import { deleteAccount } from '../../../../redux/userSlice';
 // import css and components
 import './userDetail.css'
 import Bubbles from '../../../utility/bubbles/bubbles';
+import moment from 'moment';
 
 const UserDetail = () => {
   const navigate = useNavigate();
@@ -15,11 +16,11 @@ const UserDetail = () => {
   const {myData} = useSelector(state => state.user);
   const { isLoading, error, message} = useSelector(state => state.profile);
 
-  const [name, setName] = useState(myData.name);
-  const [email, setEmail] = useState(myData.email);
-  const [facebook, setFacebook] = useState(myData.socials.facebook);
-  const [instagram, setInstagram] = useState(myData.socials.instagram);
-  const [twitter, setTwitter] = useState(myData.socials.twitter);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [twitter, setTwitter] = useState('');
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -34,10 +35,25 @@ const UserDetail = () => {
 
   const handleDeleteAccount = (e) => {
     e.preventDefault();
-    dispatch(deleteAccount(myData._id));
-    toast.success("Account deleted successfully!");
-    navigate('/');
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    if(confirmDelete){
+      dispatch(deleteAccount(myData._id));
+      toast.success("Account deleted successfully!");
+      navigate('/');
+    }else{
+      return;
+    }
   }
+
+  useEffect(() => {
+    if(myData){
+      setName(myData.name);
+      setEmail(myData.email);
+      setFacebook(myData?.socials?.facebook ?? '');
+      setInstagram(myData?.socials?.instagram ?? '');
+      setTwitter(myData?.socials?.twitter ?? '')
+    }
+  }, [myData]);
 
   useEffect(() => {
     if(message){
@@ -79,14 +95,14 @@ const UserDetail = () => {
         <div>
           <span>Your Role</span>
           <label>
-            <input type="text" value={myData.role} disabled/>
+            <input type="text" defaultValue={myData?.role || ''} disabled/>
           </label>
         </div>
 
         <div>
           <span>Joined At</span>
           <label>
-            <input type="text" value={myData.joinedAt} disabled />
+            <input type="text" defaultValue={moment(myData?.joinedAt).format('YYYY-MM-DD') || ''} disabled />
           </label>
         </div>
 
@@ -94,7 +110,7 @@ const UserDetail = () => {
         <div>
           <span>Password</span>
           <label>
-            <input type="button" value='Change Password' onClick={() => navigate('/password/change')} />
+            <Link to='/password/change'>Change Password</Link>
           </label>
         </div>
 

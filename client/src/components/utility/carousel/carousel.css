@@ -12,6 +12,7 @@
 .carouselContainer > .carouselSlide{
     height: 100%;
     width: 100%;
+    position: relative;
 }
 
 .carouselContainer > .carouselSlide > img{
@@ -20,6 +21,18 @@
     object-fit: cover;
 }
 
+/* .carouselContainer > .carouselSlide > .downloadBtn{
+    position: absolute;
+    left: 5rem;
+    bottom: 1rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 0.5rem;
+} */
 
 /******************** Carousel Actions ********************/
 

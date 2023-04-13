@@ -5,7 +5,10 @@ const schema = new mongoose.Schema({
 	price: {type: Number, required: [true, "Please, enter the price!"]},
 	description: {type: String, required: [true, "Please, enter the description!"]},
 	category: {type: String, required: [true, "Please, enter the product category!"]},
-	images: [{public_id: {type: String, required: true}, url: {type: String, required: true}}],
+	images: [{
+		public_id: {type: String, required: true}, 
+		url: {type: String, required: true}
+	}],
 	creator: {type: mongoose.Schema.ObjectId, ref: 'User', required: true},
 	uploadedAt: {type: Date, default: Date.now},
 	reviews: [{

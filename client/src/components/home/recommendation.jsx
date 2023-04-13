@@ -6,7 +6,6 @@ import './recommendation.css'
 import Card from '../utility/card/card'
 import Bubbles from '../utility/bubbles/bubbles'
 import { toast } from 'react-toastify'
-import { useSelector } from 'react-redux'
 
 const recommendations = ['New Arrivals', "Highest Rated"]
 
@@ -17,8 +16,6 @@ const Recommendation = () => {
   const [recommendation, setRecommendation] = useState(recommendations[0]);
 
   const { data, isLoading, error } = useFetch('/arts/recommendations');
-
-  const {myData} = useSelector(state => state.user)
 
   // scroll to recomendations
   const handleScroll = (recom) => {

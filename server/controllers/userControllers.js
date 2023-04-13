@@ -199,10 +199,14 @@ export const deleteAccount = catchAsyncError(async (req, res, next) => {
     // delete avatar
     if(user.avatar.public_id && user.avatar.url){await cloudinary.v2.uploader.destroy(user.avatar.public_id);}
     
-    // image arts images
+    // delete arts and associated images
     arts.forEach(async (art) => {
-        for(let i = 0; i < art.images.length; i++) {await cloudinary.v2.uploader.destroy(art.images[i].public_id)}
+        for(let i = 0; i < art.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(art.images[i].public_id)
+        }
+        await art.deleteOne();
     })
+
 
     // delete chat and message
     chats.forEach(async (chat) => {

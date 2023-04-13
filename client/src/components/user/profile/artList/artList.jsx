@@ -7,6 +7,7 @@ import { getAllArts, deleteArt } from '../../../../redux/artSlice';
 // import css
 import './artList.css'
 import UpdateArtwork from './updateArtwork';
+import { toast } from 'react-toastify';
 
 const ArtList = () => {
   const {id} = useParams()
@@ -16,8 +17,8 @@ const ArtList = () => {
   const [category, setCategory] = useState('')
   const [arts, setArts] = useState([]);
 
-  const { allArts } = useSelector((state) => state.art);
-  const {myData} = useSelector((state) => state.user);
+  const { allArts, isLoading } = useSelector((state) => state.art);
+  const { myData } = useSelector((state) => state.user);
 
   useEffect(() => { 
       dispatch(getAllArts({ keyword, category }));
@@ -35,8 +36,12 @@ const ArtList = () => {
   }, [allArts, id]);
 
   const handleDeleteArtwork = (artId) => {
-    dispatch(deleteArt(artId));
-    setArts((prevArts) => prevArts.filter((art) => art._id !== artId));
+    if(isLoading) return toast.warn("Please, wait for some moment!");
+    const confirmDelete = window.confirm("Are you sure you want to delete the art? This action cannot be undone.");
+    if(confirmDelete){
+      dispatch(deleteArt(artId));
+      setArts((prevArts) => prevArts.filter((art) => art._id !== artId));
+    }
   }
 
 

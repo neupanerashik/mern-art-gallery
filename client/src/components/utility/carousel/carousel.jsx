@@ -34,20 +34,23 @@ const Carousel = ({images, style}) => {
     <div className='carouselContainer' style={style}>
       <div className="carouselSlide">
         {images && <img src={images[currentIndex].url} alt="product-img" ref={carouselImgRef}/>}
+        {/* {images && <a className='downloadBtn' href={`${images[currentIndex].url}`}><i className="fa-solid fa-up-right-and-down-left-from-center"></i></a>} */}
       </div>
 
-      <div className='actions'>
-          {(images && images.length > 1) && <i className="fa-solid fa-chevron-left" onClick={prev}></i>}
-          {(images && images.length > 1) && <i className="fa-solid fa-chevron-right" onClick={next}></i>}
-      </div>
-      
-      <div className="carouselIndicators">
-        {
-          images && images.map((image, index) => 
+      {images && images.length > 1 && 
+        <div className='actions'>
+          <i className="fa-solid fa-chevron-left" onClick={prev}></i>
+          <i className="fa-solid fa-chevron-right" onClick={next}></i>
+      </div>}
+
+      {images && images.length > 1 && 
+        <div className="carouselIndicators">
+          {
+            images && images.map((image, index) => 
             <div className={index === currentIndex ? "indicator active" : "indicator"} onClick={() => setCurrentIndex(index)} key={index}></div>
-          )
-        }
-      </div>
+            )
+          }
+        </div>}
     </div>
   )
 }

@@ -6,9 +6,13 @@
 
 /********************* Navbar Logo ********************/
 .navbar > .navLogo > a{
-    font-size: 2rem;
-    font-weight: bolder;
-    font-family: 'Major Mono Display', monospace;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    font-family: 'Montserrat', monospace;
+}
+
+.navbar > .navLogo > a > img{
+    height: 3.25rem;
 }
 
 /********************* Navbar Menu ********************/
@@ -25,6 +29,10 @@
 .navbar > ul.navMenu > li > a {
     display: block;
     padding: 0 1rem;
+}
+
+.navbar > ul.navMenu > li > a.active{
+    font-weight: bolder;
 }
 
 .navbar > ul.navMenu > li > a > span{
