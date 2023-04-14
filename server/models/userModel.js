@@ -22,30 +22,39 @@ const userSchema = new mongoose.Schema({
         artCategory: {type: String, required: true},
         artLikedOn: {type: Date, default: Date.now}
     }],
+    donation: {
+        khalti: {
+            public_key: {type: String, default: ''},
+            secret_key: {type: String, default: ''}
+        }
+    },
     subscribedAt: Date,
 	passwordResetToken: String,
 	passwordResetExpire: Date,
+    
 })
 
+// hash password
 userSchema.pre('save', async function(next) {
     if(!this.isModified('password')) next();
-
-    // hashing the password
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
     next();
 })
 
+
+//compare password
+userSchema.methods.comparePassword = async function(password){
+    return await bcrypt.compare(password, this.password);
+}
+
+
 // create jwt token
 userSchema.methods.createJwtToken = function(expiresIn='7d'){
     return jwt.sign({_id: this._id}, process.env.JWT_SECRET_KEY, {expiresIn});
 }
 
-//compare password
-userSchema.methods.comparePassword = async function(password){
-	return await bcrypt.compare(password, this.password);
-}
 
 //create reset password token
 userSchema.methods.createPasswordResetToken = async function (){

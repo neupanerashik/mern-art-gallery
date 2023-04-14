@@ -12,6 +12,17 @@
     font-size: 1.25rem;
 }
 
+.profileDetailContainer > header > button{
+    height: 3.5rem;
+    width: 7.5rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    border-radius: 0.5rem;
+    background-color: #2D3448;
+    color: white;
+    cursor: pointer;
+}
+
 /******************** Information ********************/
 
 .profileDetailContainer > .information{
@@ -67,30 +78,6 @@
 
 .profileDetailContainer > .information > div > label > input[type="button"]{
    cursor: pointer;
-}
-
-.profileDetailContainer > .information > div > label > img{
-    height: 5rem;
-    width: 5rem;
-    object-fit: cover;
-    margin-right: 0.5rem;
-}
-
-.profileDetailContainer > .information > button{
-    height: 3.5rem;
-    width: 7.5rem;
-    margin-top: 2rem;
-    margin-left: auto;
-    border-radius: 0.5rem;
-    background-color: #2D3448;
-    color: white;
-    cursor: pointer;
-}
-
-.profileDetailContainer > .information > div > label > img{
-    border: 1px solid #ededed;
-    padding: 0.25rem;
-    object-fit: cover;
 }
 
 /******************** Media Query ********************/

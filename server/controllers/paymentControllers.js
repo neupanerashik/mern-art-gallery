@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Stripe from 'stripe'
+import { User } from '../models/userModel.js'
 import catchAsyncError from '../utility/catchAsyncError.js'
 
 // publishable key
@@ -27,16 +28,18 @@ export const createPaymentIntent = catchAsyncError(async (req, res, next) => {
 
 // khalti payment
 export const verifyKhaltiPayment = catchAsyncError(async (req, res, next) => {
-    const {token, amount} = req.body;
+    const {token, amount, user_id} = req.body;
+    const user = await User.findById(user_id);
 
     const {data} = await axios.post(
         "https://khalti.com/api/v2/payment/verify/", 
         {"token": token, "amount": amount}, 
-        {headers: {'Authorization': `Key ${process.env.KHALTI_SECRET_KEY}`}}
+        {headers: {'Authorization': `Key ${user.donation.khalti.secret_key}`}}
     )
 
     res.status(200).json({
         success: true,
+        message: "Payment successful and verified!",
         verified_payment: data
     })
 })

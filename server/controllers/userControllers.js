@@ -36,8 +36,8 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
 // login user
 export const loginUser = catchAsyncError(async (req, res, next) => {
     const {email, password, remember} = req.body 
-    const expiresIn = remember ? '30d': "7d";
     if(!email|| !password) return next(new ErrorHandler('The fields cannot be empty!', 409)); 
+    const expiresIn = remember ? '30d': "7d";
     const user = await User.findOne({email}).select('+password').select('+confirmPassword');
     if(!user) return next(new ErrorHandler("Invalid email or password!", 400));
     const passwordMatch = await user.comparePassword(password);
@@ -144,15 +144,17 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 
 // update profile
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    const {name, email, facebook, instagram, twitter} = req.body
-    const user = await User.findById(req.user.id);
+    const {name, email, facebook, instagram, twitter, khaltiPublicKey, khaltiSecretKey} = req.body
     if(!name || !email) return next(new ErrorHandler("Name and email cannot be empty!", 400));
+    const user = await User.findById(req.user.id);
 
     user.name = name;
     user.email = email;
     user.socials.facebook = facebook;
     user.socials.instagram = instagram;
     user.socials.twitter = twitter;
+    user.donation.khalti.public_key = khaltiPublicKey;
+    user.donation.khalti.secret_key = khaltiSecretKey;
 
     await user.save();
 

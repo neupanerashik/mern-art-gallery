@@ -1,9 +1,10 @@
+import { Dialog } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, clearMessage, createReview, getReviews, readArtwork } from '../../redux/artSlice';
-import Dialog from '@mui/material/Dialog';
+import { clearError, clearMessage, createReview, getReviews, readArtwork } from '../../../redux/artSlice.js';
+
 
 // import css
 import './reviewDialog.css'

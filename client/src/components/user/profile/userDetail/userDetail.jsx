@@ -21,6 +21,8 @@ const UserDetail = () => {
   const [facebook, setFacebook] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
+  const [khaltiPublicKey, setKhaltiPublicKey] = useState('');
+  const [khaltiSecretKey, setKhaltiSecretKey] = useState('');
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -30,6 +32,8 @@ const UserDetail = () => {
     myForm.append('facebook', facebook);
     myForm.append('instagram', instagram);
     myForm.append('twitter', twitter);
+    myForm.append('khaltiPublicKey', khaltiPublicKey);
+    myForm.append('khaltiSecretKey', khaltiSecretKey);
     dispatch(updateProfile(myForm));
   }
 
@@ -51,7 +55,9 @@ const UserDetail = () => {
       setEmail(myData.email);
       setFacebook(myData?.socials?.facebook ?? '');
       setInstagram(myData?.socials?.instagram ?? '');
-      setTwitter(myData?.socials?.twitter ?? '')
+      setTwitter(myData?.socials?.twitter ?? '');
+      setKhaltiPublicKey(myData?.donation?.khalti?.public_key ?? '');
+      setKhaltiSecretKey(myData?.donation?.khalti?.secret_key ?? '');
     }
   }, [myData]);
 
@@ -74,9 +80,11 @@ const UserDetail = () => {
           <h2>Personal Info</h2>
           <p>Update your photo and personal details here.</p>
         </div>
+        <button onClick={handleUpdate}>{isLoading ? <Bubbles /> : "Save"}</button>
       </header>
 
       <div className="information">
+        {/* general info */}
         <h1>General Information</h1>
         <div>
           <span>Name</span>
@@ -91,7 +99,7 @@ const UserDetail = () => {
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
         </div>
-        
+
         <div>
           <span>Your Role</span>
           <label>
@@ -114,6 +122,7 @@ const UserDetail = () => {
           </label>
         </div>
 
+        {/* social links */}
         <h1>Social Information</h1>
         <div>
           <span>Facebook Id</span>
@@ -136,6 +145,7 @@ const UserDetail = () => {
           </label>
         </div>
 
+        {/* account */}
         <h1>Account</h1>
         <div>
           <span>Delete Account</span>
@@ -144,8 +154,19 @@ const UserDetail = () => {
           </label>
         </div>
 
-        <button onClick={handleUpdate}>{isLoading ? <Bubbles /> : "Save"}</button>
+        {/* donation */}
+        <h1>Donation Setup - Khalti</h1>
         <div>
+          <span>Khalti Merchant Public Key</span>
+          <label>
+            <input type="text" value={khaltiPublicKey} onChange={(e) => setKhaltiPublicKey(e.target.value)} />
+          </label>
+        </div>
+        <div>
+          <span>Khalti Merchant Secret Key</span>
+          <label>
+            <input type="text" value={khaltiSecretKey} onChange={(e) => setKhaltiSecretKey(e.target.value)} />
+          </label>
         </div>
       </div>
     </div>

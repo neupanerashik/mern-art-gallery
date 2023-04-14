@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getReviews } from '../../redux/artSlice.js'
-import ReviewDialog from './reviewDialog.jsx'
+import ReviewDialog from '../dialogs/review/reviewDialog.jsx'
 
 // import css
 import './reviews.css'

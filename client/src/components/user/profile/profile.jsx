@@ -9,8 +9,8 @@ import { clearError, clearMessage, updateAvatar } from '../../../redux/profileSl
 import './profile.css'
 import Seo from '../../seo/seo'
 import Spinner from '../../utility/spinner/spinner'
-import Khalti from '../../khalti/khalti'
 import HireDialog from '../../dialogs/hire/hireDialog'
+import Khalti from '../../dialogs/khalti/khalti'
 
 // roles
 const roles = ['painter', 'sculptor', 'photographer', 'drawer']
@@ -106,7 +106,7 @@ const Profile = () => {
 
                     <div className="buttons">
                         {(userData._id !== myData?._id) && (userData.role !== 'admin') && <HireDialog />}
-                        {(userData._id !== myData?._id) && <Khalti />}
+                        {(userData._id !== myData?._id) && (userData?.donation?.khalti?.public_key && userData?.donation?.khalti?.secret_key) && <Khalti />}
                     </div>
                 </div>
 
@@ -126,9 +126,6 @@ const Profile = () => {
 
                     <Outlet />
                 </div>
-                
-
-                
             </section>
         </>
     )
