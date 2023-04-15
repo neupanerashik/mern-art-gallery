@@ -14,7 +14,6 @@ const Share = () => {
 
 	let url = window.location.href;
 
-
 	return (
         <>
             <button variant="outlined" onClick={handleClickOpen}><i className="fa-solid fa-share"></i></button>
