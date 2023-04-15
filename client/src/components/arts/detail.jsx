@@ -11,6 +11,7 @@ import './detail.css'
 import Carousel from '../utility/carousel/carousel';
 import Timer from '../utility/timer/timer';
 import Reviews from './reviews';
+import Share from '../dialogs/share/share';
 
 const Detail = () => {
   const {id} = useParams();
@@ -129,6 +130,8 @@ const Detail = () => {
               <button onClick={handleAddToCart}>
                 <i className={cartItems.find(item => item.id === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
               </button>
+
+              <Share />
             </div>
 
             {artwork && artwork.isAuctionItem && 

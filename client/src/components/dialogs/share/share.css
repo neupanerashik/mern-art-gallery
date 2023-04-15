@@ -1,0 +1,68 @@
+.shareDialog > div > div > .socialLinks{
+    padding: 3rem;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	background-color: rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.shareDialog > div > div > .socialLinks > .icon > span{
+    height: 6rem;
+	width: 6rem;
+    margin: 0 2rem;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	border-radius: 0.5rem;
+	box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.shareDialog > div > div > .socialLinks > .icon > span > i{
+	font-size: 2.25rem;
+	color: white;
+}
+
+.shareDialog > div > div > .socialLinks > .facebook > span{
+	background-color: #3b5999;
+}
+
+.shareDialog > div > div > .socialLinks > .twitter > span{
+	background-color: #46c1f6;
+}
+
+.shareDialog > div > div > .socialLinks > .mail > span{
+	background-color: #171515;
+}
+
+.shareDialog > div > div > .socialLinks > .reddit > span{
+	background-color: #FF4500;
+}
+
+.shareDialog > div > div > .socialLinks > .telegram > span{
+	background-color: #0088CC;
+}
+/************************Mobile Screen************************/
+@media (max-width: 480px){
+	.shareDialog > div > div > .socialLinks {
+		flex-direction: column;
+	}
+
+	.shareDialog > div > div > .socialLinks > .icon {
+		margin: 2rem 0;
+		flex-direction: row;
+	}
+
+	.shareDialog > div > div > .socialLinks > .icon > p{
+		top: 50%;
+		left: 8rem;
+		transform: translateY(-50%);
+		border-radius: 5px;
+	}
+
+	.shareDialog > div > div > .socialLinks > .icon > p:before{
+		top: 50%;
+		left: -0.6rem;
+		transform: translateY(-50%) rotate(45deg);
+	}
+}
