@@ -17,8 +17,8 @@ const ArtList = () => {
   const [category, setCategory] = useState('')
   const [arts, setArts] = useState([]);
 
-  const { allArts, isLoading } = useSelector((state) => state.art);
   const { myData } = useSelector((state) => state.user);
+  const { allArts, isLoading } = useSelector((state) => state.art);
 
   useEffect(() => { 
       dispatch(getAllArts({ keyword, category }));
@@ -89,7 +89,7 @@ const ArtList = () => {
                   <td>{art.discount} %</td>
                   <td>{art.category}</td>
                   <td>{moment(art.uploadedAt).format('YYYY-MM-DD')}</td>
-                  { myData?._id === art.creator &&
+                  { (myData?._id === art.creator || myData?.role === 'admin') &&
                     <td>
                       <UpdateArtwork currentArtwork={art} />
                       <i className="fa-solid fa-trash-can" onClick={() => handleDeleteArtwork(art._id)}></i>

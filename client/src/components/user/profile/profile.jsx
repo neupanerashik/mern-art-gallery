@@ -110,8 +110,8 @@ const Profile = () => {
                     </div>
                 </div>
 
-                <div className="profileOptions" onClick={handleScroll}>
-                    <nav ref={menuRef}>
+                <div className="profileOptions">
+                    <nav ref={menuRef} onClick={handleScroll}>
                         <NavLink to='artworks'>Artworks</NavLink>
                         {myData && userData._id === myData._id && <NavLink to='likes'>Likes</NavLink>}
                         {myData && userData._id === myData._id && <NavLink to='detail'>Detail</NavLink>}

@@ -21,8 +21,11 @@ const UserList = () => {
   }, [allUsers]);
 
   const handleDeleteUser = (userId) => {
-    dispatch(deleteUser(userId));
-    setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+    const confirmDelete = window.confirm("Are you sure you want to delete the user? This action cannot be undone.");
+    if(confirmDelete) {
+      dispatch(deleteUser(userId));
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+    }
   }
 
 
