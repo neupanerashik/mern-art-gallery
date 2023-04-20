@@ -22,7 +22,7 @@ const Checkout = () => {
     const {isAuthenticated} = useSelector(state => state.user);
 
     //grand-total
-	const orderSubtotal = cartItems.reduce((accumulator, item) => accumulator + item.price, 0);
+	const orderSubtotal = cartItems.reduce((accumulator, item) => accumulator + item.artPrice, 0);
 	const shippingCharge = orderSubtotal > 1000 ? 0 : 100;
 	const tax = Math.round(orderSubtotal * 0.18);
 	const orderTotal = orderSubtotal + shippingCharge + tax;

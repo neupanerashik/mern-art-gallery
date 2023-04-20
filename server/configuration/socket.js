@@ -3,14 +3,11 @@ import { Server } from "socket.io";
 // variables
 let onlineUsers = [];
 
-const io = new Server(8800, {
-    cors: {
-        origin: "http://localhost:3000",
-        credentials: true
-    }
-});
 
 export const configSocket = () => {
+    // socket configuration
+    const io = new Server(8800, {cors: {origin: "http://localhost:3000", credentials: true}});
+
     io.on("connection", (socket) => {   
 
         // online users

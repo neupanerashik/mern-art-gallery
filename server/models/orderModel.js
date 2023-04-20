@@ -14,10 +14,10 @@ const orderSchema = new mongoose.Schema({
 	orderItems: [
 		{
 			artId: {type: mongoose.Schema.ObjectId,ref: "Art",required: true},
-			name: {type: String, required: true},
-			price: {type: String, required: true},
-			category: {type: String, required: true},
-			image: {type: String, required: true}
+			artName: {type: String, required: true},
+			artPrice: {type: String, required: true},
+			artCategory: {type: String, required: true},
+			artImage: {type: String, required: true}
 		}
 	],
 

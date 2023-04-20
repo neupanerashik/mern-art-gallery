@@ -18,7 +18,7 @@ router.route('/orders/received').get(isAuthenticated, getOrdersReceived);
 
 //admin routes
 router.route('/admin/order/:id').put(isAuthenticated, isAdmin, updateOrder);
-router.route('/admin/orders').get(isAuthenticated, isAdmin, getAllOrders)
+router.route('/admin/orders').get(isAuthenticated, isAdmin, getAllOrders);
 router.route('/admin/order/:id').delete(isAuthenticated, isAdmin, deleteOrder);
 
 export default router

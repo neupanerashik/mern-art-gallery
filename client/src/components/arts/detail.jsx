@@ -33,7 +33,7 @@ const Detail = () => {
       toast.warn('The artwork is already sold.')
       return;
     }
-    dispatch(addToCart({id: artwork._id, name: artwork.name, price: artwork.price, category: artwork.category, image: artwork.images[0].url}))
+    dispatch(addToCart({artId: artwork._id, artName: artwork.name, artPrice: artwork.price, artCategory: artwork.category, artImage: artwork.images[0].url}))
   }
 
   // handle add to likes
@@ -128,7 +128,7 @@ const Detail = () => {
               </button>
 
               <button onClick={handleAddToCart}>
-                <i className={cartItems.find(item => item.id === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
+                <i className={cartItems.find(item => item.artId === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
               </button>
 
               <Share />
