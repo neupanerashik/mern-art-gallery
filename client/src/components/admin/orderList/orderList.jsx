@@ -14,8 +14,11 @@ const OrderList = () => {
   const [orders, setOrders] = useState([])
 
   const handleOrderDelete = (orderId) => {
-    dispatch(deleteOrder(orderId));
-    setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+    const confirmDelete = window.confirm("Are you sure you want to delete the order? This action cannot be undone.");
+    if(confirmDelete){
+      dispatch(deleteOrder(orderId));
+      setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+    }
   }
 
   useEffect(() => {

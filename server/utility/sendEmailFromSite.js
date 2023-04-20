@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer"
 
-const sendEmail = ({sender, receiver, name, subject, message}) => {
+const sendEmailFromSite = ({sender, receiver, subject, message}) => {
 	const transporter = nodemailer.createTransport({
 	  service: 'gmail',
 	  auth: {
@@ -11,15 +11,15 @@ const sendEmail = ({sender, receiver, name, subject, message}) => {
 
 	// send mail with defined transport object
 	const info = transporter.sendMail({
-		from: `${name} <${sender}>`,
+		from: `Vis Art <${sender}>`,
         to: receiver,
         subject: subject,
-		text: `Sender: ${sender} \nMessage: ${message}`,
-		replyTo: sender
+		text: message,
+		replyTo: 'noreply@example.com',
       }, (err, info) => {
 		if(err) console.log("Failed" + err)
         else console.log(`Email sent:` + info.response);
 	});
 }
 
-export default sendEmail;
+export default sendEmailFromSite;

@@ -2,6 +2,8 @@ import { Order } from "../models/orderModel.js";
 import { Art } from "../models/artModel.js";
 import ErrorHandler from "../utility/errorHandler.js";
 import catchAsyncError from "../utility/catchAsyncError.js";
+import moment from 'moment';
+import sendEmailFromSite from "../utility/sendEmailFromSite.js";
 
 //create new order
 export const newOrder = catchAsyncError(async(req, res, next) => {
@@ -98,6 +100,11 @@ export const updateOrder = catchAsyncError(async (req, res, next) => {
 
     if(req.body.orderStatus === 'shipped'){
         order.shippedOn = Date.now();
+
+        // send email notification
+        const orderCreatedOn = moment(order.orderCreatedOn).format('YYYY-MM-DD');
+        const message = `Hello ${order.shippingDetail.name}. \nWe are writing this email to inform you that your order which was made on  ${orderCreatedOn} has been shipped successfully! \nThank you for purchasing the art from our website!`
+        sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: order.shippingDetail.email, subject: "Order Shipped", message});
     }
 
     if(req.body.orderStatus === 'delivered'){

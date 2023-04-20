@@ -16,7 +16,6 @@ import {
     getUserProfile,
     sendMailFromContact,
     deleteAccount,
-    sendEmailToHire,
 } from '../controllers/userControllers.js'
 
 
@@ -29,7 +28,6 @@ router.route('/password/forget').post(forgetPassword)
 router.route('/password/reset/:token').put(resetPassword)
 router.route('/user/:id').get(getUserProfile)
 router.route('/send/email').post(sendMailFromContact)
-router.route('/hire/email').post(sendEmailToHire)
 
 // logged in user routes
 router.route('/logout').get(isAuthenticated, logoutUser)

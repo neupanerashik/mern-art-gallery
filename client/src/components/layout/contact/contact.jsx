@@ -65,7 +65,7 @@ const Contact = () => {
 
                     <div>
                         <label>Your Email</label> <br />
-                        <input type="text" placeholder="example@emil.com" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="text" placeholder="example@email.com" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
 
                     <div>

@@ -1,13 +1,13 @@
-import catchAsyncError from '../utility/catchAsyncError.js'
-import ErrorHandler from '../utility/errorHandler.js'
-import sendEmail from '../utility/sendEmail.js';
-import cloudinary from "cloudinary"
 import crypto from "crypto"
-import { User } from '../models/userModel.js'
+import cloudinary from "cloudinary"
 import { Art } from '../models/artModel.js';
+import { User } from '../models/userModel.js'
 import { Chat } from '../models/chatModel.js';
+import sendEmail from '../utility/sendEmail.js';
 import { Message } from '../models/messageModel.js';
-
+import ErrorHandler from '../utility/errorHandler.js'
+import catchAsyncError from '../utility/catchAsyncError.js'
+import sendEmailFromSite from "../utility/sendEmailFromSite.js";
 
 // register user
 export const registerUser = catchAsyncError(async (req, res, next) => {
@@ -113,7 +113,7 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
     // const passwordResetUrl = `${req.protocol}://${req.get('host')}/password/reset/${token}`;
     const passwordResetUrl = `http://localhost:3000/password/reset/${token}`;
     const message = `Click on the given link to reset password: ${passwordResetUrl}`;
-    sendEmail({sender: process.env.EMAIL_ADDRESS, receiver: user.email, subject: "Password Reset", message});
+    sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: user.email, subject: "Password Reset", message});
     
     res.status(200).json({
         success: true,
@@ -258,17 +258,6 @@ export const unsubscribe = catchAsyncError(async (req, res, next) => {
 export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
     const {name, email, subject, message} = req.body;
     sendEmail({sender: email, receiver: process.env.EMAIL_ADDRESS, name, subject, message});
-
-    res.status(200).json({
-        success: true,
-        message: `Email sent.`
-    })
-});
-
-// send email to hire
-export const sendEmailToHire = catchAsyncError(async (req, res, next) => {
-    const {name, email, receiver, subject, message} = req.body;
-    sendEmail({sender: email, receiver, name, subject, message});
 
     res.status(200).json({
         success: true,

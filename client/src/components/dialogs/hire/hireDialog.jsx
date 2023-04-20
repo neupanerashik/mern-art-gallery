@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { Dialog } from '@mui/material'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
@@ -8,44 +7,39 @@ import { useSelector } from 'react-redux';
 import './hireDialog.css'
 
 export default function HireDialog() {
+    const {userData} = useSelector(state => state.profile);
+
     const [open, setOpen] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+
+    const [senderEmail, setSenderEmail] = useState('');
+    const [receiverEmail, setReceiverEmail] = useState('');
     const [message, setMessage] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const {userData} = useSelector(state => state.profile);
-
 
     const handleClickOpen = () => {setOpen(true)};
     const handleClose = () => {setOpen(false)};
 
-
     const handleHireSubmit = async (e) => {
         e.preventDefault();
-        if(!date || !time) {return toast.warn("Please choose date and time!")}
-        if(!name || !email || !message) {return toast.warn("Fill all the required fields!")}
-        const subject = `Hiring ${userData?.role} for an event at ${date}, ${time}` ;
+        if(!date || !time) {return toast.warn("Please choose date and time!")};
+        if(!senderEmail || !message) {return toast.warn("Fill all the required fields!")};
+        if(!receiverEmail) {return toast.warn("The artist has not provide the email!")};
 
-        try {   
-            const { data, status } = await axios.post('/api/v1/hire/email', {name, email, receiver: userData?.email, subject, message}, {headers: {'Content-Type': 'application/json'}});
-            if (status >= 300) {throw new Error(data);};
-            if (data.success) {
-                toast.success(data.message);
-                setName('');
-                setEmail('');
-                setMessage('');
-                setDate('');
-                setTime('');
-            } else {
-                toast.error(data.message);
-            } 
-        } catch (err) {
-            return toast.error(err.response.data.message);
-        }
+        const subject = `About hiring ${userData?.role}`;
+        const body = message + `\n\nDate: ${date}\nTime: ${time} `;
 
+        // open gmail in browser
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(receiverEmail)}&cc=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(gmailUrl, '_blank');
         handleClose();
     }
+
+    useEffect(() => {
+        if (userData?.email) {
+            setReceiverEmail(userData.email);
+        }
+    }, [userData]);
 
     return (
         <>
@@ -57,17 +51,12 @@ export default function HireDialog() {
                     
                     <div>
                         <label>Receiver</label>
-                        <input type='text' value={userData?.email} disabled />
+                        <input type='text' value={receiverEmail} disabled />
                     </div>
 
                     <div>
-                        <label>Sender Name</label>
-                        <input value={name} onChange={e=>setName(e.target.value)} type='text' label="Sender Name" />
-                    </div>
-
-                    <div>
-                        <label>Sender Email</label>
-                        <input value={email} onChange={e=>setEmail(e.target.value)} type='email' label="Sender Email" />
+                        <label>Sender</label>
+                        <input value={senderEmail} onChange={e=>setSenderEmail(e.target.value)} type='email' label="Sender Email" />
                     </div>
                     
                     <div>
