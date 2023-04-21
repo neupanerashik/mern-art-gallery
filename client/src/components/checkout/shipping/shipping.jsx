@@ -42,7 +42,7 @@ const Shipping = ({activeStep, handleStepChange, orderData}) => {
 
                 <div>
                     <label>Phone Number</label> <br />
-                    <input type="tel" placeholder="e.g. 9812345678" name='phone' autoComplete='off' value={shippingDetail.phone} onChange={handleChange} />
+                    <input type="tel" maxLength="10" placeholder="e.g. 9812345678" name='phone' autoComplete='off' value={shippingDetail.phone} onChange={handleChange} />
                 </div>
 
                 <div>

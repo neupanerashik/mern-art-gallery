@@ -6,7 +6,7 @@ import { User } from '../models/userModel.js';
 // is authendicated or not
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 	const token = req.cookies.jwt;
-	if(!token) return next(new ErrorHandler('Access denied. Please login/register first!', 401));
+	if(!token) return next(new ErrorHandler('Please login first!', 401));
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 	req.user = await User.findById(decodedToken._id);
     next();

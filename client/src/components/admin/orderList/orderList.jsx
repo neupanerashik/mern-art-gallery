@@ -39,7 +39,9 @@ const OrderList = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Status</th>
+            <th>Customer</th>
+            <th>Order Status</th>
+            <th>Payment Status</th>
             <th>Amount</th>
             <th>Ordered On</th>
             <th>Actions</th>
@@ -51,7 +53,9 @@ const OrderList = () => {
               return (
                 <tr key={index}> 
                   <td>{order._id}</td>
+                  <td>{order.shippingDetail.name}</td>
                   <td>{order.orderStatus}</td>
+                  <td>{order.paymentDetail.status}</td>
                   <td>Rs {order.orderTotal}</td>
                   <td>{moment(order.orderCreatedOn).format('YYYY-MM-DD')}</td>
                   <td>

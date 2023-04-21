@@ -36,13 +36,9 @@ export const newOrder = catchAsyncError(async(req, res, next) => {
 //get all orders 
 export const getAllOrders = catchAsyncError(async (req, res, next) => {
     const orders = await Order.find();
-    
-    let totalSales = 0;
-    orders.forEach(order => {totalSales = totalSales + order.orderSubtotal})
-    
+        
     res.status(200).json({
         success: true,
-        totalSales,
         orders
     })
 })

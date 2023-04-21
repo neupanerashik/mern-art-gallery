@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -7,7 +8,6 @@ import { getAllArts, deleteArt } from '../../../../redux/artSlice';
 // import css
 import './artList.css'
 import UpdateArtwork from './updateArtwork';
-import { toast } from 'react-toastify';
 
 const ArtList = () => {
   const {id} = useParams()

@@ -1,6 +1,6 @@
 import express from 'express'
 import { isAdmin, isAuthenticated } from '../middleware/authMiddleware.js'
-import { getUsers } from '../controllers/adminControllers.js'
+import { getAllUsers } from '../controllers/adminControllers.js'
 import {
     registerUser,
     loginUser,
@@ -35,13 +35,13 @@ router.route('/profile/me').get(isAuthenticated, getMyProfile)
 router.route('/profile/update').put(isAuthenticated, updateProfile)
 router.route('/profile/avatar/update').put(isAuthenticated, updateAvatar)
 router.route('/password/update').put(isAuthenticated, updatePassword)
-router.route('/account/delete/:id').delete(isAuthenticated, deleteAccount);
+router.route('/account/delete/:id').delete(isAuthenticated, deleteAccount)
 router.route('/subscribe').put(isAuthenticated, subscribe)
 router.route('/unsubscribe').put(isAuthenticated, unsubscribe)
 
 
 // admin routes
-router.route('/admin/users').get(isAuthenticated, isAdmin, getUsers)
+router.route('/admin/users').get(isAuthenticated, isAdmin, getAllUsers)
 router.route('/admin/user/delete/:id').delete(isAuthenticated, isAdmin, deleteAccount)
 
 

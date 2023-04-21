@@ -33,7 +33,15 @@ const Detail = () => {
       toast.warn('The artwork is already sold.')
       return;
     }
-    dispatch(addToCart({artId: artwork._id, artName: artwork.name, artPrice: artwork.price, artCategory: artwork.category, artImage: artwork.images[0].url}))
+    dispatch(addToCart({
+        artId: artwork._id, 
+        artName: artwork.name, 
+        artPrice: artwork.price, 
+        artCategory: artwork.category, 
+        artImage: artwork.images[0].url,
+        artCreator: artwork.creator,
+      })
+    )
   }
 
   // handle add to likes

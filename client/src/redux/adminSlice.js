@@ -61,12 +61,24 @@ export const deleteOrder = createAsyncThunk('admin/deleteOrder', async (orderId,
     }
 });
 
+// getStats thunk
+export const getStats = createAsyncThunk('admin/getStats', async (_, {rejectWithValue}) => {
+    try{
+        const {data, status} = await axios.get('/api/v1/admin/stats');
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    }catch (err){
+        return rejectWithValue(err.response.data);
+    }
+})
+
 const adminSlice = createSlice({
     name: 'admin',
 
     initialState: {
         allUsers: [],
         allOrders: [],
+        stats: {}
     },
 
     reducers: {
@@ -102,16 +114,25 @@ const adminSlice = createSlice({
         })
 
         // get allUsers
-         builder.addCase(getAllOrders.pending, (state, action) => {
+        builder.addCase(getAllOrders.pending, (state, action) => {
             state.isLoading = true;
         }).addCase(getAllOrders.fulfilled, (state, action) => {
             state.isLoading = false;
             state.allOrders = action.payload.orders;
-            state.totalSales = action.payload.totalSales;
         }).addCase(getAllOrders.rejected, (state, action) => {
             state.isLoading = false;
-            state.totalSales = null;
             state.allOrders = [];
+        })
+
+        // getStats
+        builder.addCase(getStats.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(getStats.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.stats = action.payload;
+        }).addCase(getStats.rejected, (state, action) => {
+            state.isLoading = false;
+            state.stats = {}
         })
     }
 })

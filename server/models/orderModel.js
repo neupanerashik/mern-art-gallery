@@ -17,7 +17,8 @@ const orderSchema = new mongoose.Schema({
 			artName: {type: String, required: true},
 			artPrice: {type: String, required: true},
 			artCategory: {type: String, required: true},
-			artImage: {type: String, required: true}
+			artImage: {type: String, required: true},
+			artCreator: {type: mongoose.Schema.ObjectId,ref: "User",required: true},
 		}
 	],
 

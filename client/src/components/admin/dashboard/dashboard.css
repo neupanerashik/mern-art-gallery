@@ -1,5 +1,141 @@
-.dashboardContainer{
-    height: 50vh;
-    display: grid;
-    place-items: center;
+/* widgets */
+.dashboardContainer > .widgetsContainer{
+    margin: 2rem 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dashboardContainer > .widgetsContainer > .widget{
+    padding: 2.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
+}
+
+.dashboardContainer > .widgetsContainer > .widget > .left{
+    font-weight: bolder;
+}
+
+/* featured information */
+.dashboardContainer > .featuredInfo{
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* new users */
+.dashboardContainer > .featuredInfo > .newUsersContainer{
+    padding: 2rem;
+    flex: 3;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
+}
+
+.dashboardContainer > .featuredInfo > .newUsersContainer > h2,
+.dashboardContainer > .featuredInfo > .recentOrdersContainer > h2,
+.dashboardContainer > .charts > .topSellersContainer > h2,
+.dashboardContainer > .charts > .barChartContainer > h2{
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 1.8rem;
+}
+
+.dashboardContainer > .featuredInfo > .newUsersContainer > table,
+.dashboardContainer > .featuredInfo > .recentOrdersContainer > table,
+.dashboardContainer > .charts > .topSellersContainer > table{
+    width: 100%;
+    border-spacing: 0 0;
+}
+
+.dashboardContainer > .featuredInfo > .newUsersContainer > table > thead > tr > th,
+.dashboardContainer > .featuredInfo > .newUsersContainer > table > tbody > tr > td,
+.dashboardContainer > .featuredInfo > .recentOrdersContainer > table > thead > tr > th,
+.dashboardContainer > .featuredInfo > .recentOrdersContainer > table > tbody > tr > td,
+.dashboardContainer > .charts > .topSellersContainer > table > thead > tr > th,
+.dashboardContainer > .charts > .topSellersContainer > table > tbody > tr > td{
+    padding: 0.75rem 0;
+    text-align: justify;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ededed;
+}
+
+.dashboardContainer > .featuredInfo > .newUsersContainer > table > tbody > tr > td,
+.dashboardContainer > .featuredInfo > .recentOrdersContainer > table > tbody > tr > td,
+.dashboardContainer > .charts > .topSellersContainer > table > tbody > tr > td{
+    background-color: white;
+    border: none;
+}
+
+/* recent orders */
+.dashboardContainer > .featuredInfo > .recentOrdersContainer{
+    padding: 2rem;
+    flex: 4;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
+}
+
+/* charts */
+.dashboardContainer > .charts{
+    display: flex;
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* top sellers */
+.dashboardContainer > .charts > .topSellersContainer{
+    padding: 2rem;
+    flex: 2;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
+}
+
+/* barchart */
+.dashboardContainer > .charts > .barChartContainer{
+    padding: 2rem;
+    flex: 4;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.25);
+}
+
+.dashboardContainer > .charts > .barChartContainer > h2{
+    margin-bottom: 1rem;
+}
+
+
+/******************** Media Query ********************/
+
+/* large tablet screen */
+@media (max-width: 992px) {
+    .dashboardContainer > .widgetsContainer > .widget{
+        padding: 1.5rem;
+        flex-direction: column;
+    }
+
+    .dashboardContainer > .widgetsContainer > .widget > .left{
+        margin-bottom: 1rem;
+    }
+
+    .dashboardContainer > .featuredInfo{
+        flex-direction: column;
+    }
+}
+  
+/* large mobile screen */
+@media (max-width: 576px) {
+    .dashboardContainer > .widgetsContainer{
+        flex-wrap: wrap;
+        gap:1rem;
+    }
+
+    .dashboardContainer > .charts{
+        flex-direction: column;
+    }
+}
+  
+/* extra small mobile screen */
+ @media (max-width: 360px) {
+    
 }
