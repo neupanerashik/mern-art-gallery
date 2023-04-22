@@ -7,6 +7,7 @@
 
 .chatDialogContainer > div > div > .chatBox {
     width: 35rem;
+    transition: all ease 0.2s;
 }
 
 /******************************Specific Chat- Chat Heading****************************/
@@ -76,9 +77,16 @@
     height: 100%;
     width: 100%;
     font-size: 1.25rem;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+}
+
+.chatDialogContainer > div > div > .chatBox > .chatFeed > .noMessage > i{
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
 }
 
 /******************************Specific Chat- Chat Input****************************/

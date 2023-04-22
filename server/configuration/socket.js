@@ -16,6 +16,8 @@ export const configSocket = () => {
 				onlineUsers.push({userId: newUserId, socketId: socket.id});
                 io.emit('getOnlineUsers', onlineUsers);
 			}
+
+            console.log("Online Users-----------------------------" ,onlineUsers)
 		})
 
         // send message
@@ -23,7 +25,8 @@ export const configSocket = () => {
 			const user = onlineUsers.find(user => user.userId === message.receiver);
 
             if(user){
-                io.to(user.socketId).emit('getMessage', message)
+                io.to(user.socketId).emit('getMessage', message);
+                console.log('message received')
             }
 		})
 
