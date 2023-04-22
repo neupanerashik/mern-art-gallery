@@ -62,6 +62,7 @@ export default function ChatDialog() {
 	useEffect(() => {
 		if (arrivalMessage && currentChat) {
 			if (currentChat.participants.includes(arrivalMessage.sender)) {
+				// should include this to reflect live change on other side
 				setCurrentChatMessages(prev => [...prev, arrivalMessage]);
 			}
 		}
@@ -88,6 +89,9 @@ export default function ChatDialog() {
 		
 		// send message to backend
 		dispatch(sendMessage(message));
+
+		// should include this to reflect live change own side
+		setCurrentChatMessages(prev => [...prev, {chatId: currentChat._id, sender, receiver, text: textMessage}])
 
 		setTextMessage('');
 
