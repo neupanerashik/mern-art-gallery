@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch.js'
 // import css and components
 import './participant.css'
 
-const Participant = ({chat, currentChat, onlineUsers}) => {
+const Participant = ({chat, currentChat, onlineUsers, messageNotification}) => {
     const [online, setOnline] = useState(false);
 
     const { myData } = useSelector(state => state.user);
@@ -31,6 +31,8 @@ const Participant = ({chat, currentChat, onlineUsers}) => {
             </div>
             <div className={data?.user?.role === 'csr' ? "name csr" : "name"}>{isLoading ? 'Loading...' : (data?.user?.role === "csr") ? "Customer Service" : data?.user?.name}</div>
             <div className={online ? "status online" : "status"}></div>
+
+            {/* {messageNotification.length > 0 && <div><i className="fa-solid fa-circle-exclamation"></i></div>} */}
         </div>
     )
 }

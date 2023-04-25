@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { io }  from 'socket.io-client'
-import { getMyChats } from '../../redux/userSlice';
-import { getChatMessages, sendMessage } from '../../redux/chatSlice';
+import { toast } from 'react-toastify'
+import { getChatMessages, sendMessage, getMyChats } from '../../redux/chatSlice';
 
 // import css and components
 import "swiper/css";
@@ -12,8 +12,8 @@ import Participant from './participant';
 import Dialog from '@mui/material/Dialog';
 
 export default function ChatDialog() {
-	const chatFeedRef = useRef();
 	const socket = useRef();
+	const chatFeedRef = useRef(null);
 	const dispatch = useDispatch();
 	const [textMessage, setTextMessage] = useState('');
 	const [onlineUsers, setOnlineUsers] = useState([]);
@@ -23,8 +23,8 @@ export default function ChatDialog() {
 
     const [openReviewDialog, setOpenReviewDialog] = useState(false);
 
-	const {chatMessages} = useSelector(state => state.chat);
-	const {myData, chats, isAuthenticated} = useSelector(state => state.user);
+	const {chats, chatMessages} = useSelector(state => state.chat);
+	const {myData, isAuthenticated} = useSelector(state => state.user);
 
     const handleClickOpen = () => {setOpenReviewDialog(true)};
     const handleClose = () => {setOpenReviewDialog(false)};
@@ -32,7 +32,9 @@ export default function ChatDialog() {
 
 	// get my chats
 	useEffect(() => {
-		if (myData && myData._id) {dispatch(getMyChats(myData._id))}
+		if (myData && myData._id) {
+			dispatch(getMyChats(myData._id))
+		}
 	}, [dispatch, myData]);
 
 
@@ -54,28 +56,46 @@ export default function ChatDialog() {
 		socket.current = io('http://localhost:8800');
 		
 		socket.current.on('getMessage', ({chatId, sender, receiver, text}) => {
-			setArrivalMessage({chatId, sender, receiver, text})		
+			dispatch(getMyChats(myData._id));
+			setArrivalMessage({chatId, sender, receiver, text})
 		});
 		
-	}, [myData, arrivalMessage, currentChat]);
+	}, [myData, dispatch]);
 
+	// arrival message and current chat messages
 	useEffect(() => {
-		if (arrivalMessage && currentChat) {
-			if (currentChat.participants.includes(arrivalMessage.sender)) {
-				// should include this to reflect live change on other side
+		if (arrivalMessage) {
+			if (currentChat && currentChat.participants.includes(arrivalMessage.sender)) {
+				// should include this to reflect live change on receiver side
 				setCurrentChatMessages(prev => [...prev, arrivalMessage]);
 			}
+
+			if (!openReviewDialog || currentChat === null || currentChat._id !== arrivalMessage.chatId) {
+				toast.success("New message received.");
+				setArrivalMessage(null)
+			}
+
+			setArrivalMessage(null)
 		}
-	}, [arrivalMessage, currentChat]);
+	}, [arrivalMessage, currentChat, openReviewDialog]);
 	  
 
+	// add and get online users
 	useEffect(() => {
 		if(myData && myData._id){
 			socket.current.emit('addOnlineUser', myData?._id);
 			socket.current.on('getOnlineUsers', (onlineUsers) => {setOnlineUsers(onlineUsers)})
 		}
 	}, [myData]);
-	  
+
+
+	// Scroll to the bottom of the chat feed when a new message is received or sent
+	useEffect(() => {
+		if (chatFeedRef.current) {
+			chatFeedRef.current.scrollTop = chatFeedRef.current.scrollHeight;
+		}
+	}, [currentChatMessages]);
+
 
 	// handling the message send
 	const handleSendMessage = async (e) => {
@@ -88,15 +108,12 @@ export default function ChatDialog() {
 		socket.current.emit('sendMessage', message);
 		
 		// send message to backend
-		dispatch(sendMessage(message));
+		dispatch(sendMessage(message)).then(() => {dispatch(getMyChats(myData._id));});
 
-		// should include this to reflect live change own side
+		// should include this to reflect live change on sender side
 		setCurrentChatMessages(prev => [...prev, {chatId: currentChat._id, sender, receiver, text: textMessage}])
 
 		setTextMessage('');
-
-		// scroll to the last
-		chatFeedRef.current.scrollTop = chatFeedRef.current.scrollHeight;
 	}
 
     return (

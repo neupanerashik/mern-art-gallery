@@ -63,17 +63,6 @@ export const deleteAccount = createAsyncThunk('deleteAccount', async (userId, { 
     }
 });
 
-// logout user
-export const getMyChats = createAsyncThunk('getMyChats', async (myId, { rejectWithValue }) => {
-    try {
-        const { data, status } = await axios.get(`/api/v1/chats?myId=${myId}`, {withCredentials: true});
-        if (status >= 300) {return rejectWithValue(data)};
-        return data;
-    } catch (err) {
-        return rejectWithValue(err.response.data);
-    }
-});
-
 
 export const createOrder = createAsyncThunk('createOrder', async (orderData,  {rejectWithValue}) => {
     try{
@@ -118,7 +107,6 @@ export const userSlice = createSlice({
   initialState: {
     myData: {},
     isAuthenticated: false,
-    chats: [],
     order: {},
     orders: [],
     ordersMade: [],
@@ -180,18 +168,7 @@ export const userSlice = createSlice({
        state.error = action.payload.message;
    })
 
-     // delete art
-    builder.addCase(getMyChats.pending, (state, action) => {
-        state.isLoading = true;
-    }).addCase(getMyChats.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.chats = action.payload.chats;
-    }).addCase(getMyChats.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload.message;
-    })
    
-
     //createOrder
     builder.addCase(createOrder.pending, (state, action) => {
         state.isLoading = true;

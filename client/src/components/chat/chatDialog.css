@@ -68,8 +68,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
     position: relative;
+    overflow: auto;
+    transition: all 0.3s ease-in-out;
 }
 
 .chatDialogContainer > div > div > .chatBox > .chatFeed > .noChat,
