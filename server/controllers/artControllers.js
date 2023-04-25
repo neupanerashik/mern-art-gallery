@@ -1,17 +1,23 @@
+import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 import cloudinary from 'cloudinary'
+import { fileURLToPath } from 'url';
 import { Art } from "../models/artModel.js";
 import { User } from "../models/userModel.js";
-import { getDataUri } from "../utility/getDataUri.js";
 import catchAsyncError from "../utility/catchAsyncError.js";
 import ErrorHandler from "../utility/errorHandler.js";
 import ArtApiFeatures from "../utility/artApiFeatures.js";
 
 
+// configuring __filename and __dirname in ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // create art
 export const createArt = catchAsyncError(async (req, res, next) => {
     const { name, price, description, category, estimatedValueFrom, estimatedValueTo, endDate, isAuctionItem} = req.body;
-    if (!name|| !description || !category) return next(new ErrorHandler("Please enter all the required fields.", 400));
+    if (!name|| !price || !description || !category) return next(new ErrorHandler("Please enter all the required fields.", 400));
     if (isAuctionItem === true && (!estimatedValueFrom || !estimatedValueTo || !endDate)) {return next(new ErrorHandler("Please enter all the required fields for auction item.", 400))}
     if (price === 0) return next(new ErrorHandler("Price cannot be zero!.", 400));
 
@@ -19,27 +25,28 @@ export const createArt = catchAsyncError(async (req, res, next) => {
     let artImages = req.files;
     let artImagesLinks = [];
 
-    // creator
-    const user = await User.findById(req.user.id);
+    // watermark image
+    const watermarkImagePath = path.join(__dirname, '..', 'assets', 'logo.png');
+    const watermarkImageBuffer = await fs.promises.readFile(watermarkImagePath);
 
     if(artImages[0]){
         for (const image of artImages) {
             try {
-                const imageUri = getDataUri(image);
-                const result = await cloudinary.v2.uploader.upload(imageUri, {folder: 'VisArt/Arts', transformation: [{ 
-                    effect: 'overlay', 
-                    overlay: {
-                        font_family: "Verdana", 
-                        font_size: 100, 
-                        font_weight: "bold", 
-                        text: `Vis Art - ${user.name}`
-                    },
-                    gravity: 'south_west', 
-                    opacity: 80, 
-                    flags: 'relative' 
-                }]});
-               
-                artImagesLinks.push({ public_id: result.public_id, url: result.secure_url });
+                const extname = image.originalname.split(".")[1];
+                const watermarkedImage = await sharp(image.buffer).composite([{input: watermarkImageBuffer, gravity: 'southwest'}]).toBuffer();
+
+                const originalImageUri = `data:image/${extname};base64,${image.buffer.toString("base64")}`;
+                const watermarkedImageUri = `data:image/${extname};base64,${watermarkedImage.toString("base64")}`;
+                
+                const originalImageResult = await cloudinary.v2.uploader.upload(originalImageUri, {folder: 'VisArt/Arts'});
+                const watermarkedImageResult = await cloudinary.v2.uploader.upload(watermarkedImageUri, {folder: 'VisArt/Arts'});
+
+                artImagesLinks.push({ 
+                    original_image_public_id: originalImageResult.public_id,
+                    original_image_url: originalImageResult.secure_url, 
+                    watermarked_image_public_id: watermarkedImageResult.public_id,
+                    watermarked_image_url: watermarkedImageResult.secure_url,
+                });
             } catch (error) {
                 return next(new ErrorHandler(error.message, 500));
             }
@@ -122,7 +129,9 @@ export const deleteArt = catchAsyncError(async (req, res, next) => {
 
     // image delete logic
     for (let i = 0; i < art.images.length; i++) {
-        await cloudinary.v2.uploader.destroy(art.images[i].public_id);
+        await cloudinary.v2.uploader.destroy(art.images[i].original_image_public_id);
+        await cloudinary.v2.uploader.destroy(art.images[i].watermarked_image_public_id);
+
     }
 
     await art.deleteOne();

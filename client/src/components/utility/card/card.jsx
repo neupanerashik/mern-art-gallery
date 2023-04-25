@@ -62,7 +62,7 @@ const Card = ({art, title, style}) => {
     <div className="cardContainer" style={style}>
       {art?.artStatus === 'sold' && <div className="artStatus">Sold</div>}  
       <div className='itemImage'>
-        <img src={art.images[0].url} alt='itemPic' />
+        <img src={art.images[0].original_image_url} alt='itemPic' />
       </div>
 
       <div className='itemInfo'>

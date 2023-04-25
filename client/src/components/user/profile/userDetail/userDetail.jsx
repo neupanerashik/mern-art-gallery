@@ -1,3 +1,5 @@
+import moment from 'moment';
+import { Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +10,6 @@ import { deleteAccount } from '../../../../redux/userSlice';
 // import css and components
 import './userDetail.css'
 import Bubbles from '../../../utility/bubbles/bubbles';
-import moment from 'moment';
 
 const UserDetail = () => {
   const navigate = useNavigate();
@@ -155,7 +156,11 @@ const UserDetail = () => {
         </div>
 
         {/* donation */}
-        <h1>Donation Setup - Khalti</h1>
+        <h1>Donation Setup - Khalti 
+          <Tooltip title={<span style={{ fontSize: '1rem' }}>Please create khalti merchant account and save the provided secret and public keys corctly!</span>} placement="top-start">
+            <i className="fa-solid fa-circle-info" style={{marginLeft: '1rem'}}></i>
+          </Tooltip>
+        </h1>
         <div>
           <span>Khalti Merchant Public Key</span>
           <label>

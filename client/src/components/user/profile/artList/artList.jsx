@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getAllArts, deleteArt } from '../../../../redux/artSlice';
+import { getAllArts, deleteArt, clearMessage } from '../../../../redux/artSlice';
 
 // import css
 import './artList.css'
@@ -17,7 +17,7 @@ const ArtList = () => {
   const [arts, setArts] = useState([]);
 
   const { myData } = useSelector((state) => state.user);
-  const { allArts, isLoading } = useSelector((state) => state.art);
+  const { allArts, isLoading, message } = useSelector((state) => state.art);
 
   useEffect(() => { 
       dispatch(getAllArts({ keyword, category }));
@@ -42,6 +42,13 @@ const ArtList = () => {
       setArts((prevArts) => prevArts.filter((art) => art._id !== artId));
     }
   }
+
+  useEffect(() => {
+    if(message){
+      toast.success(message);
+      clearMessage();
+    }
+  }, [message]);
 
 
   return (
@@ -81,7 +88,7 @@ const ArtList = () => {
             arts[0] && arts.map((art, index) => {
               return (
                 <tr key={index}>
-                  <td><img src={art.images[0].url} alt="artPic" /></td>
+                  <td><img src={art.images[0].original_image_url} alt="artPic" /></td>
                   <td>{art.name}</td>
                   <td>{art._id}</td>
                   <td>Rs {art.price}</td>

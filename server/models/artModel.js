@@ -6,8 +6,10 @@ const schema = new mongoose.Schema({
 	description: {type: String, required: [true, "Please, enter the description!"]},
 	category: {type: String, required: [true, "Please, enter the product category!"]},
 	images: [{
-		public_id: {type: String, required: true}, 
-		url: {type: String, required: true}
+		original_image_public_id: {type: String, required: true}, 
+		original_image_url: {type: String, required: true},
+		watermarked_image_public_id: {type: String, required: true}, 
+		watermarked_image_url: {type: String, required: true}
 	}],
 	creator: {type: mongoose.Schema.ObjectId, ref: 'User', required: true},
 	uploadedAt: {type: Date, default: Date.now},

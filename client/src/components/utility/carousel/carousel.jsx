@@ -33,7 +33,7 @@ const Carousel = ({images, style}) => {
   return (
     <div className='carouselContainer' style={style}>
       <div className="carouselSlide">
-        {images && <img src={images[currentIndex].url} alt="product-img" ref={carouselImgRef}/>}
+        {images && <img src={images[currentIndex].watermarked_image_url} alt="product-img" ref={carouselImgRef}/>}
         {/* {images && <a className='downloadBtn' href={`${images[currentIndex].url}`}><i className="fa-solid fa-up-right-and-down-left-from-center"></i></a>} */}
       </div>
 
