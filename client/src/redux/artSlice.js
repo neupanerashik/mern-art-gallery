@@ -17,8 +17,8 @@ export const uploadArt = createAsyncThunk('uploadArt', async(productData, {rejec
 })
 
 // get arts
-export const getAllArts = createAsyncThunk('getAllArts', async ({keyword='', category='', maxPrice=Number(50000), minPrice=Number(0), sortByPrice='', isAuctionItem=false}, {rejectWithValue}) => { 
-    const link = `/api/v1/arts?keyword=${keyword}&category=${category}&isAuctionItem=${isAuctionItem}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortByPrice=${sortByPrice}`
+export const getAllArts = createAsyncThunk('getAllArts', async ({keyword='', category='', maxPrice=Number(50000), minPrice=Number(0), sortByPrice=''}, {rejectWithValue}) => { 
+    const link = `/api/v1/arts?keyword=${keyword}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortByPrice=${sortByPrice}`
     try {
         const {data, status} = await axios.get(link);
         if(status >= 300) {return rejectWithValue(data)};

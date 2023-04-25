@@ -11,7 +11,6 @@ import UpdateArtwork from './updateArtwork';
 
 const ArtList = () => {
   const {id} = useParams()
-
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('')

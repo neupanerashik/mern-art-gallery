@@ -260,6 +260,8 @@ export const placeBid = catchAsyncError(async (req, res, next) => {
     const art = await Art.findById(artId);
 
     if(!bidAmount || bidAmount === '') return next(new ErrorHandler(`Please provide bidding amount.`));
+    if(bidAmount <= art.estimatedValueFrom) return next(new ErrorHandler(`The bidding price should be bigger than the lower estimated value of Rs ${art.estimatedValueFrom}`));
+    
     const highestBid = art.bids.reduce((prevBid, currBid) => {return (prevBid.bidAmount > currBid.bidAmount) ? prevBid : currBid}, {});
     if (bidAmount <= highestBid.bidAmount) return next(new ErrorHandler(`Bidding amount must be higher than current bid of Rs ${highestBid.bidAmount}`, 404));
     const hasPlacedBid = art.bids.find(bid => bid.bidder.toString() === req.user._id.toString());

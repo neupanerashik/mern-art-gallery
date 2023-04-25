@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import { getAllArts } from '../../redux/artSlice'
 
@@ -17,6 +17,7 @@ const Arts = () => {
     const [sortByPrice, setSortByPrice] = useState('');
     const [showFilters, setShowFilters] = useState(false);
     const {allArts} = useSelector(state => state.art);
+    const [arts, setArts] = useState([]);
 
     const searchParams = new URLSearchParams(location.search);
     let keyword = searchParams.get('keyword');
@@ -25,13 +26,14 @@ const Arts = () => {
     const toggleFilters = () => {setShowFilters(!showFilters)}
     
     useEffect(() => { 
-        if(location.pathname === '/auction') {
-            dispatch(getAllArts({isAuctionItem: true, maxPrice, minPrice, sortByPrice, category}))
-        }
-        else {
-            dispatch(getAllArts({ isAuctionItem: false, keyword, category, maxPrice, minPrice, sortByPrice }))
-        }
+        dispatch(getAllArts({keyword, category, maxPrice, minPrice, sortByPrice }))
     }, [dispatch, location, keyword, category, maxPrice, minPrice, sortByPrice]);
+
+    useEffect(() => {
+        if(allArts){
+          setArts(allArts.filter((arts) => arts.isAuctionItem === false));
+        }
+      }, [allArts])
 
     return (
         <div className='artsContainer'>
@@ -69,9 +71,9 @@ const Arts = () => {
             </header>
 
             {
-                allArts[0] && (
+                arts[0] && (
                     <div className="arts">
-                        {allArts[0] && allArts.map((art, index) => {
+                        {arts[0] && arts.map((art, index) => {
                             return(
                                 <Card art={art} style={{height: "30rem"}} key={index} />
                             )
@@ -80,7 +82,7 @@ const Arts = () => {
                 )
             }
 
-            {!allArts[0] && <p className='noArt'>No {category} art has been posted yet!</p>}
+            {!arts[0] && <p className='noArt'>No {category} art has been posted yet!</p>}
 
         </div>
     )

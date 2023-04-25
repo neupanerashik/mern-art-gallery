@@ -58,6 +58,7 @@ const Detail = () => {
   // handle place bid
   const handlePlaceBid = (e) => {
     e.preventDefault();
+    if(bidAmount < artwork?.estimatedValueFrom) return toast.warning(`The bidding price should be bigger than the lower estimated value of Rs ${artwork?.estimatedValueFrom}`);
     dispatch(placeBid({bidAmount, artId: artwork?._id, bidder: myData?._id})).then(() => dispatch(readArtwork(id)))
     setBidAmount('');
   }

@@ -36,6 +36,7 @@ import store from './store.js';
 // react toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Auctions from './components/auction/auction';
 
 function App() {
   // const dispatch = useDispatch();
@@ -56,7 +57,7 @@ function App() {
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/art/:id' element={<Detail />} />
-        <Route exact path='/auction' element={<Arts />} />
+        <Route exact path='/auction' element={<Auctions />} />
         <Route exact path='/arts' element={<Arts />} />
         <Route exact path='/arts/:type' element={<Arts />} />
         <Route exact path='/arts/search' element={<Arts />} />
