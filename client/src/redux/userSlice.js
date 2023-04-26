@@ -175,9 +175,10 @@ export const userSlice = createSlice({
     }).addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.order = action.payload;
+        state.message = action.payload.message;
     }).addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload.message;
     })
 
 
@@ -190,7 +191,6 @@ export const userSlice = createSlice({
     }).addCase(getOrdersMade.rejected, (state, action) => {
         state.isLoading = false;
         state.ordersMade = [];
-        state.error = action.payload;
     })
 
     //orders received
@@ -202,7 +202,6 @@ export const userSlice = createSlice({
     }).addCase(getOrdersReceived.rejected, (state, action) => {
         state.isLoading = false;
         state.ordersReceived = [];
-        state.error = action.payload;
     })
 
     // register user, login user

@@ -38,7 +38,7 @@ const Detail = () => {
         artName: artwork.name, 
         artPrice: artwork.price, 
         artCategory: artwork.category, 
-        artImage: artwork.images[0].url,
+        artImage: artwork.images[0].original_image_url,
         artCreator: artwork.creator,
       })
     )
@@ -52,7 +52,13 @@ const Detail = () => {
     }
 
     if(hasLiked) {toast.warn("Already Liked!")}
-		dispatch(addToLikes({artId: artwork._id, artName: artwork.name, artPrice: artwork.price, artCategory: artwork.category, artImage: artwork.images[0].url}));
+		dispatch(addToLikes({
+      artId: artwork._id, 
+      artName: artwork.name, 
+      artPrice: artwork.price, 
+      artCategory: artwork.category, 
+      artImage: artwork.images[0].original_image_url
+    }));
 	}
 
   // handle place bid

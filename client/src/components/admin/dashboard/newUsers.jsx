@@ -22,7 +22,7 @@ const NewUsers = ({newUsers}) => {
                             <td>{newUser.name}</td>
                             <td>{newUser.role}</td>
                             <td>{newUser.email}</td>
-                            <td>{moment(newUser.joinedOn).format('YYYY-MM-DD')}</td>
+                            <td>{moment(newUser.joinedAt).format('YYYY-MM-DD')}</td>
                         </tr>
                     );
                 })

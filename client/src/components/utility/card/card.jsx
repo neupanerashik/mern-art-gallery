@@ -23,7 +23,15 @@ const Card = ({art, title, style}) => {
       toast.warn('The artwork is already sold.')
       return;
     }
-    dispatch(addToCart({artId: art._id, name: art.name, price: art.price, category: art.category, image: art.images[0].url}))
+    dispatch(addToCart({
+      artId: art._id, 
+      artName: art.name, 
+      artPrice: art.price, 
+      artCategory: art.category, 
+      artImage: art.images[0].original_image_url,
+      artCreator: art.creator,
+    })
+  )
   }
 
   // handle add to likes
@@ -34,7 +42,7 @@ const Card = ({art, title, style}) => {
     }
 
     if(hasLiked) {toast.warn("Already Liked!")}
-		dispatch(addToLikes({artId: art._id, artName: art.name, artPrice: art.price, artCategory: art.category, artImage: art.images[0].url}));
+		dispatch(addToLikes({artId: art._id, artName: art.name, artPrice: art.price, artCategory: art.category, artImage: art.images[0].original_image_url}));
 	}
 
   // useEffect

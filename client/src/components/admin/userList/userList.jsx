@@ -58,7 +58,7 @@ const UserList = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
-                  <td>{moment(user.joinedOn).format('YYYY-MM-DD')}</td>
+                  <td>{moment(user.joinedAt).format('YYYY-MM-DD')}</td>
                   <td><i className="fa-solid fa-trash-can" onClick={() => handleDeleteUser(user._id)}></i></td>
                 </tr>
               )

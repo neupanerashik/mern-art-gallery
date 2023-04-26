@@ -30,11 +30,7 @@ const OrderList = () => {
   }, [allOrders]);
 
   return (
-    <div className='orderList'>
-      <header>
-        
-      </header>
-      
+    <div className='orderList'>      
       <table>
         <thead>
           <tr>

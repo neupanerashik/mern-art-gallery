@@ -1,8 +1,8 @@
-import { Order } from "../models/orderModel.js";
+import moment from 'moment';
 import { Art } from "../models/artModel.js";
+import { Order } from "../models/orderModel.js";
 import ErrorHandler from "../utility/errorHandler.js";
 import catchAsyncError from "../utility/catchAsyncError.js";
-import moment from 'moment';
 import sendEmailFromSite from "../utility/sendEmailFromSite.js";
 
 //create new order
@@ -20,10 +20,19 @@ export const newOrder = catchAsyncError(async(req, res, next) => {
         paidOn: Date.now(), 
         orderedBy: req.user._id
     })
-
+      
     // Update artStatus of all orderItems to 'sold'
     const orderItemIds = order.orderItems.map(item => item.artId);
     await Art.updateMany({_id: {$in: orderItemIds}}, {artStatus: 'sold'});
+
+     // send download link for images
+    for (const item of orderItems) {
+        if (item.artCategory === "photography") {
+            const art = await Art.findById(item.artId);
+            const message = `Your order #${order._id} has been placed successfully. Thank you for buying art from us. You can download your image from this link:\n${art.images[0].original_image_url}`;
+            sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: shippingDetail.email, subject: "Photography Art Download Link", message});
+        }
+    }
 
     res.status(201).json({
         success: true,

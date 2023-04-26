@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import {useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement} from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from '@stripe/react-stripe-js';
 import { clearCart } from '../../../redux/cartSlice';
-import { createOrder } from '../../../redux/userSlice';
+import { createOrder, clearError, clearMessage } from '../../../redux/userSlice';
 
 // import css
 import './payment.css'
@@ -21,7 +21,7 @@ const Payment = ({activeStep, handleStepChange, orderTotal}) => {
   const orderDetail = JSON.parse(localStorage.getItem('orderDetail'));
   const shippingDetail = JSON.parse(localStorage.getItem('shippingDetail'));
   const { cartItems } = useSelector(state => state.cart);
-  const { myData } = useSelector(state => state.user);
+  const { myData, message, error } = useSelector(state => state.user);
 
   const orderData = {
     shippingDetail,
@@ -36,58 +36,70 @@ const Payment = ({activeStep, handleStepChange, orderTotal}) => {
 	const handlePayment = async (e) => {
 		e.preventDefault();
 
-			setPaymentLoading(true);
-			if(!stripe || !elements){
-				return;
-			};
+    setPaymentLoading(true);
+    if(!stripe || !elements){
+      return;
+    };
 
-      // create payment intent
-      const {data} = await axios.post('/api/v1/create-payment-intent', {amount: orderTotal, email: myData?.email}, {
-        withCredentials: true,
-        headers: {'Content-Type': 'application/json'}
-      })
+    // create payment intent
+    const {data} = await axios.post('/api/v1/create-payment-intent', {amount: orderTotal, email: myData?.email}, {
+      withCredentials: true,
+      headers: {'Content-Type': 'application/json'}
+    })
 
-      // confirm the payment on the client
-			const {paymentIntent, error: stripeError} = await stripe.confirmCardPayment(data.client_secret, {
-				payment_method: {
-				  card: elements.getElement(CardNumberElement),
-				  billing_details: {
-				    name: shippingDetail.name,
-            phone: `+977 ${shippingDetail.phone}`,
-				    email: shippingDetail.email,
-				   	address: {
-              state: shippingDetail.province,
-              city: shippingDetail.city,
-              line1: shippingDetail.address,
-            }
-				  },
-				},
-			});	
+    // confirm the payment on the client
+    const {paymentIntent, error: stripeError} = await stripe.confirmCardPayment(data.client_secret, {
+      payment_method: {
+        card: elements.getElement(CardNumberElement),
+        billing_details: {
+          name: shippingDetail.name,
+          phone: `+977 ${shippingDetail.phone}`,
+          email: shippingDetail.email,
+          address: {
+            state: shippingDetail.province,
+            city: shippingDetail.city,
+            line1: shippingDetail.address,
+          }
+        },
+      },
+    });	
 
-			if(stripeError){
-				setPaymentLoading(false);
-				payBtn.current.disabled = false;
-				toast.error(stripeError.message);	
-        return
-			}
+    if(stripeError){
+      setPaymentLoading(false);
+      payBtn.current.disabled = false;
+      toast.error(stripeError.message);	
+      return;
+    }
 
-			if(paymentIntent && paymentIntent.status === 'succeeded'){
-				toast.success('Payment successful');
-        dispatch(clearCart());
-				localStorage.removeItem('cartItems');	
-				localStorage.removeItem('orderDetail');	
-				localStorage.removeItem('shippingDetail');
+    if(paymentIntent && paymentIntent.status === 'succeeded'){
+      toast.success('Payment successful');
+      dispatch(clearCart());
+      localStorage.removeItem('cartItems');	
+      localStorage.removeItem('orderDetail');	
+      localStorage.removeItem('shippingDetail');
 
-				orderData.paymentDetail = {
-		      id: paymentIntent.id,
-		      status: paymentIntent.status,
-		    };
+      orderData.paymentDetail = {
+        id: paymentIntent.id,
+        status: paymentIntent.status,
+      };
+    }
 
-		    dispatch(createOrder(orderData));
-		    setPaymentLoading(false);
-        handleStepChange(activeStep + 1);
-			}
+    dispatch(createOrder(orderData));
+    setPaymentLoading(false);
+    handleStepChange(activeStep + 1);
 	};
+
+  useEffect(() => {
+    if(message){
+      toast.success(message);
+      clearMessage();
+    }
+
+    if(error){
+      toast.error(error);
+      clearError();
+    }
+  }, [error, message]); 
 
   return (
     <div className='paymentContainer'>
@@ -117,7 +129,7 @@ const Payment = ({activeStep, handleStepChange, orderTotal}) => {
 
         <Divider className="divider">
             <button onClick={() => handleStepChange(activeStep - 1)}>Back</button>
-            <button onClick={handlePayment} ref={payBtn} disabled={!stripe}>{paymentLoading ? 'Processing...' : 'Pay'}</button>
+            <button onClick={handlePayment} ref={payBtn} disabled={!stripe || !name}>{paymentLoading ? 'Processing...' : 'Pay'}</button>
         </Divider>
 
     </div>

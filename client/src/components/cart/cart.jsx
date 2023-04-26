@@ -11,7 +11,7 @@ export default function Cart({ toggleDrawer }) {
     const { cartItems } = useSelector(state => state.cart);
     const { isAuthenticated } = useSelector(state => state.user);
 
-    const orderSubtotal = cartItems.reduce((accumulator, item) => accumulator + item.price, 0);
+    const orderSubtotal = cartItems.reduce((accumulator, item) => accumulator + item.artPrice, 0);
 
     return (
         <>
@@ -25,10 +25,10 @@ export default function Cart({ toggleDrawer }) {
                     {cartItems[0] && cartItems.map((item, index) => {
                         return (
                             <li key={index}>
-                                <img src={item.image} alt='artPic' />
+                                <img src={item.artImage} alt='artPic' />
                                 <div>
-                                    <p>{item.name}</p>
-                                    <p>Rs {item.price}</p>
+                                    <p>{item.artName}</p>
+                                    <p>Rs {item.artPrice}</p>
                                 </div>
                                 <i className="fa-regular fa-trash-can" onClick={() => dispatch(deleteFromCart(item))}></i>
                             </li>
