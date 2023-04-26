@@ -14,7 +14,7 @@ const sendEmailFromSite = ({sender, receiver, subject, message}) => {
 		from: `Vis Art <${sender}>`,
         to: receiver,
         subject: subject,
-		text: message,
+		html: message,
 		replyTo: 'noreply@example.com',
       }, (err, info) => {
 		if(err) console.log("Failed" + err)

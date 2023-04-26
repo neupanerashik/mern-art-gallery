@@ -63,7 +63,7 @@ const Register = () => {
           </label>
 
           <label>
-              <p>Register as Creator? Then select your role.</p>
+              <p>Are you a Creator? If not leave it unselected.</p>
               <select name="role" value={user.role} onChange={handleChange}>
                 <option value="" disabled>Role</option>
                 <option value='painter'>Painter</option>

@@ -64,7 +64,7 @@ const Detail = () => {
   // handle place bid
   const handlePlaceBid = (e) => {
     e.preventDefault();
-    if(bidAmount < artwork?.estimatedValueFrom) return toast.warning(`The bidding price should be bigger than the lower estimated value of Rs ${artwork?.estimatedValueFrom}`);
+    if(bidAmount <= artwork?.estimatedValueFrom) return toast.warning(`The bidding price should be bigger than the lower estimated value of Rs ${artwork?.estimatedValueFrom}`);
     dispatch(placeBid({bidAmount, artId: artwork?._id, bidder: myData?._id})).then(() => dispatch(readArtwork(id)))
     setBidAmount('');
   }
@@ -134,7 +134,7 @@ const Detail = () => {
             <div className='description'>{artwork.description}</div>
 
             <div className="buttons">
-              {artwork?.isAuctionItem && <div className='price'>Bidding: Rs {artwork.price}</div>}
+              {artwork?.isAuctionItem && <div className='price'>Top Bid: {artwork?.bids?.length ? `Rs ${highestBid.bidAmount}` : "No bids"}</div>}
               
               {!artwork?.isAuctionItem && <div className='price'>Rs {artwork.price}</div>}
 
@@ -142,9 +142,12 @@ const Detail = () => {
                 <i className="fa-regular fa-heart"></i>
               </button>
 
-              <button onClick={handleAddToCart}>
-                <i className={cartItems.find(item => item.artId === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
-              </button>
+              {
+                !artwork?.isAuctionItem && 
+                <button onClick={handleAddToCart}>
+                  <i className={cartItems.find(item => item.artId === artwork._id) ? "fa fa-check" : "fa-solid fa-cart-shopping"} aria-hidden="true"></i>
+                </button>
+              }
 
               <Share />
             </div>
@@ -170,7 +173,7 @@ const Detail = () => {
                 <div className='option'>
                   <div>Current Bid</div>
                   <div>
-                    <p>Rs {highestBid.bidAmount}</p>
+                    <p>{artwork?.bids?.length ? `Rs ${highestBid.bidAmount}` : "No bids"}</p>
                     <p>{artwork?.bids?.length} {artwork?.bids?.length === 1 ? 'bid' : 'bids'}</p>
                   </div>
                 </div>

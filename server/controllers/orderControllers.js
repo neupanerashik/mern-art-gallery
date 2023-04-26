@@ -25,11 +25,25 @@ export const newOrder = catchAsyncError(async(req, res, next) => {
     const orderItemIds = order.orderItems.map(item => item.artId);
     await Art.updateMany({_id: {$in: orderItemIds}}, {artStatus: 'sold'});
 
-     // send download link for images
+     // send download link for images: `${req.protocol}://${req.get('host')}/password/reset/${token}`
     for (const item of orderItems) {
         if (item.artCategory === "photography") {
             const art = await Art.findById(item.artId);
-            const message = `Your order #${order._id} has been placed successfully. Thank you for buying art from us. You can download your image from this link:\n${art.images[0].original_image_url}`;
+            const DownloadImageLink = 
+            `<div style="height: 100px; background-color: #f0f0f0; font-family: Times New Roman; color: black; text-align: center; padding: 25px; ">
+                <p style="font-size: 16px;">Click on the button to download the image.</p>
+                <a href="http://localhost:3000/download-image/${item.artId}"
+                    style="
+                    background-color: #4CAF50; 
+                    color: white; 
+                    padding: 10px 20px; 
+                    border: none; 
+                    cursor: pointer; 
+                    border-radius: 5px; 
+                    text-decoration: none;"
+                >Click</a>
+            </div>`;
+            const message = `Thank you for buying art from us. You can download your image from this link:\n\n${DownloadImageLink}`;
             sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: shippingDetail.email, subject: "Photography Art Download Link", message});
         }
     }

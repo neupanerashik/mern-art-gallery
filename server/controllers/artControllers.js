@@ -33,7 +33,7 @@ export const createArt = catchAsyncError(async (req, res, next) => {
         for (const image of artImages) {
             try {
                 const extname = image.originalname.split(".")[1];
-                const watermarkedImage = await sharp(image.buffer).composite([{input: watermarkImageBuffer, gravity: 'northeast'}]).toBuffer();
+                const watermarkedImage = await sharp(image.buffer).composite([{input: watermarkImageBuffer, gravity: 'southwest'}]).toBuffer();
 
                 const originalImageUri = `data:image/${extname};base64,${image.buffer.toString("base64")}`;
                 const watermarkedImageUri = `data:image/${extname};base64,${watermarkedImage.toString("base64")}`;

@@ -59,13 +59,15 @@
 }
 
 .registerContainer > .registerForm > label > p{
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 100;
 }
 
 .registerContainer > .registerForm > label > select{
     margin-left: auto;
-    padding: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.75rem;
 }
 
 .registerContainer > .registerForm > label > button{

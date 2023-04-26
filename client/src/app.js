@@ -29,6 +29,8 @@ import Dashboard from './components/admin/dashboard/dashboard';
 import OrderList from './components/admin/orderList/orderList';
 import Error from './components/layout/error/error';
 import Checkout from './components/checkout/checkout';
+import Auctions from './components/auction/auction';
+import Download from './components/arts/download';
 
 // redux store
 import store from './store.js';
@@ -36,7 +38,6 @@ import store from './store.js';
 // react toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Auctions from './components/auction/auction';
 
 function App() {
   // const dispatch = useDispatch();
@@ -61,6 +62,7 @@ function App() {
         <Route exact path='/arts' element={<Arts />} />
         <Route exact path='/arts/:type' element={<Arts />} />
         <Route exact path='/arts/search' element={<Arts />} />
+        <Route exact path='/download-image/:id' element={<Download />} />
         <Route exact path='/password/forget' element={<ForgetPassword />} />
         <Route exact path='/password/reset/:token' element={<ResetPassword />} />
         <Route exact path='/password/change' element={<ChangePassword />} />

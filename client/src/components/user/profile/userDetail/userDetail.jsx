@@ -157,7 +157,7 @@ const UserDetail = () => {
 
         {/* donation */}
         <h1>Donation Setup - Khalti 
-          <Tooltip title={<span style={{ fontSize: '1rem' }}>Please create khalti merchant account and save the provided secret and public keys corctly!</span>} placement="top-start">
+          <Tooltip title={<span style={{ fontSize: '1rem' }}>Please create khalti merchant account and save the correct secret and public keys.</span>} placement="top-start">
             <i className="fa-solid fa-circle-info" style={{marginLeft: '1rem'}}></i>
           </Tooltip>
         </h1>

@@ -8,6 +8,7 @@ import { clearError as clearProfileError, clearMessage as clearProfileMessage } 
 
 // import css and components
 import './card.css'
+import { Image } from 'antd';
 
 const Card = ({art, title, style}) => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Card = ({art, title, style}) => {
       toast.warn('The artwork is already sold.')
       return;
     }
+
     dispatch(addToCart({
       artId: art._id, 
       artName: art.name, 
@@ -30,8 +32,7 @@ const Card = ({art, title, style}) => {
       artCategory: art.category, 
       artImage: art.images[0].original_image_url,
       artCreator: art.creator,
-    })
-  )
+    }))
   }
 
   // handle add to likes
@@ -51,6 +52,7 @@ const Card = ({art, title, style}) => {
       const foundLike = myData.likes.find(item => item.artId.toString() === art._id.toString());
       setHasLiked(foundLike !== undefined);
     }
+
   }, [myData, art._id]);
 
   // useEffect
@@ -70,7 +72,7 @@ const Card = ({art, title, style}) => {
     <div className="cardContainer" style={style}>
       {art?.artStatus === 'sold' && <div className="artStatus">Sold</div>}  
       <div className='itemImage'>
-        <img src={art.images[0].original_image_url} alt='itemPic' />
+        <Image src={art.images[0].watermarked_image_url} />
       </div>
 
       <div className='itemInfo'>
@@ -91,10 +93,9 @@ const Card = ({art, title, style}) => {
 
         <button onClick={() => navigate(`/art/${art._id}`)}>
           <i className="fa-regular fa-eye"></i>
-          <span>View</span>
+          <span>View Detail</span>
         </button>
 
-        
         <button onClick={handleAddToLikes} className={hasLiked ? "liked" : ""}>
           <i className={hasLiked ? "fa-solid fa-check" : "fa-regular fa-heart"}></i>
           <span>{hasLiked ? "Liked" : "Like"}</span>
