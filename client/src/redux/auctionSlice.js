@@ -14,6 +14,17 @@ export const placeBid = createAsyncThunk('placeBid', async (bidData, {rejectWith
     }
 })
 
+// findHighestBidder
+export const findHighestBidder = createAsyncThunk('findHighestBidder', async (artId, {rejectWithValue}) => {  
+    try {
+        const {data, status} = await axios.get(`/api/v1/auction/highest-bidder?artId=${artId}`);
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+})
+
 
 export const auctionSlice = createSlice({
     name: 'auction',

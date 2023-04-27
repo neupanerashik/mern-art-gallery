@@ -14,7 +14,8 @@ import {
     addToLikes,
     removeFromLikes,
     getReviews,
-    placeBid
+    placeBid,
+    findHighestBidder
 } from "../controllers/artControllers.js";
 
 const router = express.Router();
@@ -25,6 +26,7 @@ router.route('/art/:id').get(readArt)
 router.route('/arts/recommendations').get(getRecommendations)
 router.route('/art/:id/reviews').get(getReviews)
 router.route('/artworks/:id').get(getUserArtworks)
+router.route('/auction/highest-bidder').get(findHighestBidder);
 
 // registered users route
 router.route('/likes/add').post(isAuthenticated, addToLikes)

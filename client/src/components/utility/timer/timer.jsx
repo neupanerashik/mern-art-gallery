@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-function Timer({ endDate }) {
+function Timer({ endDate, artwork, handleTimerEnd }) {
   const [timeLeft, setTimeLeft] = useState("");
 
   useMemo(() => {
@@ -10,6 +10,7 @@ function Timer({ endDate }) {
         const nowMs = Date.now();
         if (endDateMs <= nowMs) {
           clearInterval(interval);
+          handleTimerEnd(artwork._id);
           setTimeLeft("Time has ended");
         } else {
           const timeLeftMs = endDateMs - nowMs;
@@ -25,7 +26,7 @@ function Timer({ endDate }) {
 
       return () => clearInterval(interval);
     }
-  }, [endDate]);
+  }, [endDate, artwork?._id, handleTimerEnd]);
 
   return <div>{timeLeft}</div>;
 }

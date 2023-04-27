@@ -231,7 +231,6 @@ export const getUserArtworks = catchAsyncError(async (req, res, next) => {
 export const addToLikes = catchAsyncError(async (req, res, next) => {
     const {artId, artName, artPrice, artCategory, artImage} = req.body;
     const user = await User.findById(req.user.id);
-    const art = await Art.findById(artId);
     const isLiked = user.likes.find(like => like.artId.toString() === artId.toString());
     if(isLiked) return next(new ErrorHandler("Already liked!", 409));
 
@@ -268,6 +267,7 @@ export const placeBid = catchAsyncError(async (req, res, next) => {
     const {bidAmount, artId, bidder} = req.body;
     const art = await Art.findById(artId);
 
+    if(bidder === art.creator.toString()) return next(new ErrorHandler(`You cannot bid on your own auction.`));
     if(!bidAmount || bidAmount === '') return next(new ErrorHandler(`Please provide bidding amount.`));
     if(bidAmount <= art.estimatedValueFrom) return next(new ErrorHandler(`The bidding price should be bigger than the lower estimated value of Rs ${art.estimatedValueFrom}`));
     
@@ -293,3 +293,34 @@ export const placeBid = catchAsyncError(async (req, res, next) => {
         art
     });
 })
+
+
+// find highest bidder
+export const findHighestBidder = catchAsyncError(async (req, res, next) => {
+    const { artId } = req.query;
+    const art = Art.findById(artId);
+
+    if(!art) return next(new ErrorHandler("Artwork not found."));
+    const highestBid = art.bids.reduce((acc, bid) => {
+        if (bid.bidAmount > acc.bidAmount) {
+            return bid;
+        }
+        return acc;
+    }, art.bids[0]);
+
+    const highestBidder = await User.findById(highestBid.bidder);
+    const artOwner = await User.findById(art.creator); 
+
+    // send email to winner
+    const winnerMessage = `Congratulations ${highestBidder.name}. You are the winner of the auction of the art titled ${art.name} with the bidding amount of ${highestBid.bidAmount}.\n
+    You will be notified of further acqirement procedure very shortly. You can also contact art owner in the email address ${artOwner.email} for more information.`;
+    sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: highestBidder.email, subject: "Announcement of bid winner", message: winnerMessage});
+
+    // send email to owner
+    const ownerMessage = `Hello ${artOwner.name}. Your artwork titled ${art.name} has been auctioned successfully with the highest bidding price of ${highestBid.bidAmount} from ${highestBidder.name}.\n
+    You can contact auction winner with this email ${highestBidder.email} and proceed for further steps. Thank you!`;
+    sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: artOwner.email, subject: "Announcement of bid winner", message: ownerMessage});
+
+    // Update artStatus of all orderItems to 'sold'
+    await Art.updateOne({_id: art._id}, {artStatus: 'sold'});
+});

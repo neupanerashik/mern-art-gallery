@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice';
-import { placeBid, clearError as clearAuctionError, clearMessage as clearAuctionMessage } from '../../redux/auctionSlice';
+import { placeBid, clearError as clearAuctionError, clearMessage as clearAuctionMessage, findHighestBidder } from '../../redux/auctionSlice';
 import { addToLikes, readArtwork } from '../../redux/artSlice';
 import { toast } from 'react-toastify';
 
@@ -20,6 +20,7 @@ const Detail = () => {
   const [hasLiked, setHasLiked] = useState(false);
   const [bidAmount, setBidAmount] = useState('')
   const [highestBid, setHighestBid] = useState({})
+  const [timerEnded, setTimerEnded] = useState(false);
 
   const {artwork} = useSelector(state => state.art);
   const {cartItems} = useSelector(state => state.cart);
@@ -33,6 +34,7 @@ const Detail = () => {
       toast.warn('The artwork is already sold.')
       return;
     }
+
     dispatch(addToCart({
         artId: artwork._id, 
         artName: artwork.name, 
@@ -64,14 +66,29 @@ const Detail = () => {
   // handle place bid
   const handlePlaceBid = (e) => {
     e.preventDefault();
+
+    // disable when time ends
+    if(timerEnded){
+      toast.warn('The time of the auction has already ended!');
+      return;
+    }
+
     if(bidAmount <= artwork?.estimatedValueFrom) return toast.warning(`The bidding price should be bigger than the lower estimated value of Rs ${artwork?.estimatedValueFrom}`);
     dispatch(placeBid({bidAmount, artId: artwork?._id, bidder: myData?._id})).then(() => dispatch(readArtwork(id)))
     setBidAmount('');
   }
 
+  // handle timer end
+  const handleTimerEnd = (artId) => {
+    setTimerEnded(true);
+    dispatch(findHighestBidder(artId));
+  };
+
+
   useEffect(() => {
     dispatch(readArtwork(id))
   }, [dispatch, id])
+
 
   useEffect(() => {
     if (myData && myData.likes && artwork && artwork._id) {
@@ -84,6 +101,7 @@ const Detail = () => {
         setHighestBid(highestBid)
     }
   }, [myData, artwork]);
+
 
   useEffect(() => {
     if(auctionMessage){
@@ -159,7 +177,7 @@ const Detail = () => {
                 <div className='option'>
                   <div>Auction Ends In</div>
                   <div>
-                    {artwork && artwork.endDate && <Timer endDate={artwork.endDate} />}
+                    {artwork && artwork.endDate && <Timer endDate={artwork.endDate} artwork={artwork} handleTimerEnd={handleTimerEnd} />}
                   </div>
                 </div>
 
