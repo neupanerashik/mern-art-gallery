@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-// import css
+// import css and image
 import './hero.css'
+import heroImage from '../../assets/images/paint.jpg'
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -23,13 +24,19 @@ const Hero = () => {
       }
     }
   };
+
+  const heroStyle = {  
+    backgroundImage: `url(${heroImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: "center",
+    backgroundRepeat: 'no-repeat',
+  }
   
 
   return (
-
     <>
-        <div className='heroContainer'>
-          <h2>Find the arts and support the independent artists.</h2>
+        <div className='heroContainer' style={heroStyle}>
+          <p>Discover a world of creativity and expression with our online marketplace<br /> for paintings, drawings, sculptures, and more!</p>
           <form>
             <input type='text' placeholder='Search...' onChange={e => setKeyword(e.target.value)} value={keyword} onKeyDown={handleSearch} />
             <button onClick={handleSearch}>

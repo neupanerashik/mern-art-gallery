@@ -6,6 +6,7 @@ import { Chat } from '../models/chatModel.js';
 import sendEmail from '../utility/sendEmail.js';
 import { Message } from '../models/messageModel.js';
 import ErrorHandler from '../utility/errorHandler.js'
+import { Subscriber } from "../models/subscriberModel.js";
 import catchAsyncError from '../utility/catchAsyncError.js'
 import sendEmailFromSite from "../utility/sendEmailFromSite.js";
 
@@ -240,34 +241,6 @@ export const deleteAccount = catchAsyncError(async (req, res, next) => {
 });
 
 
-//subscriber
-export const subscribe = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.user.id);
-    user.subscribed = !user.subscribed;
-    user.subscribedAt = Date.now();
-    await user.save();
-
-    res.status(200).json({
-        success: true,
-        message: 'Subscribed successfully. You will now receive notifications on your email directly!'
-    });
-});
-
-
-//subscriber
-export const unsubscribe = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.user.id);
-    user.subscribed = !user.subscribed;
-    user.subscribedAt = undefined;
-    await user.save();
-
-    res.status(200).json({
-        success: true,
-        message: 'Unubscribed successfully. You will not receive notifications on your email from now on!'
-    });
-});
-
-
 // send mail from contact
 export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
     const {name, email, subject, message} = req.body;
@@ -278,3 +251,23 @@ export const sendMailFromContact = catchAsyncError(async (req, res, next) => {
         message: `Email sent.`
     })
 });
+
+
+//subscribe
+export const subscribe = async (req, res, next) => {
+	try{
+		const { email } = req.body;
+		await Subscriber.create({email});
+
+		res.status(201).json({
+			success: true,
+			message: 'Subscrption registered successfully!'
+		});
+	}
+    catch(err){
+		if (err.code == "11000")
+			return next(new ErrorHandler("Email is already subscribed.", 400));
+		else 
+			return next(new ErrorHandler(err.message, err.code));
+	}
+}

@@ -1,96 +1,52 @@
-.subscribeSection{
+.subscribeContainer{
     width: 100%;
     padding: 5rem 0;
     border-bottom: 1px solid #ededed;
-}
-
-.subscribeSection > .subscribeContainer{
     display: flex;
 }
 
-.subscribeSection > .subscribeContainer > div{
-    position: relative;
-}
-
-.subscribeSection > .subscribeContainer > div:first-child{
-    width: 65%;
-    margin-right: 0.5rem;
-}
-
-.subscribeSection > .subscribeContainer > div:last-child{
-    width: 35%;
-}
-
-.subscribeSection > .subscribeContainer > div > img{
-    height: 25rem;
+.subscribeContainer > form{
+    height: 100%;
     width: 100%;
-    object-fit: cover;
-}
-
-.subscribeSection > .subscribeContainer > div > div{
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    bottom: 1rem;
-    right: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 3rem;
-    font-size: 3rem;
-    font-weight: bolder;
-    text-align: center;
-    color: white;
-    text-shadow: -2px 2px 2px black;
-    border: 1px solid #b2beb5;
-}
-
-.subscribeSection > .subscribeContainer > div:last-child > div{
-    display: flex;
-    flex-direction: column;
     font-size: 1.5rem;
     text-shadow: none;
 }
 
-.subscribeSection > .subscribeContainer > div:last-child > div > h2{
+.subscribeContainer > form > h2{
     margin-bottom: 1rem;
     font-weight: bolder;
 }
 
-.subscribeSection > .subscribeContainer > div:last-child > div > input{
-    width: 75%;
-    margin: 1rem 0;
-    padding: 1rem 0;
+.subscribeContainer > form > p{
     text-align: center;
 }
 
-.subscribeSection > .subscribeContainer > div:last-child > div > button{
+.subscribeContainer > form > input{
+    width: 30%;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    text-align: center;
+    border-radius: 0.5rem;
+    transition: 0.25s ease;
+}
+
+.subscribeContainer > form > input:focus::placeholder{
+    opacity: 0;
+}
+
+.subscribeContainer > form > button{
     padding: 1rem 2.5rem;
     font-size: 1.25rem;
-    background-color: red;
-    color: white;
     border-radius: 5rem;
+    color: white;
+    background-color: red;
+    cursor: pointer;
 }
 
-.subscribeSection > .subscribeContainer > div:last-child > div > button:hover{
+.subscribeContainer > form > button:hover{
     background-color: rgb(179, 7, 7);
     transition: all 0.2s;
-}
-
-/******************** Media Query ********************/
-
-/* large tablet screen */
-@media (max-width: 992px) {
-    .subscribeSection > .subscribeContainer{
-        flex-direction: column;
-    }
-
-    .subscribeSection > .subscribeContainer > div:first-child{
-        display: none;
-    }
-
-    .subscribeSection > .subscribeContainer > div{
-        min-width: 100%;
-    }
 }

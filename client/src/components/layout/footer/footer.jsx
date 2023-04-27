@@ -8,16 +8,18 @@ import './footer.css'
 const footerLinks = [
   {title: 'pages', subLinks: ['home', 'about', 'contact']},
   {title: 'categories', subLinks: ['painting', 'photography', 'drawing', 'sculpture', 'digital']},
-  {title: 'Company', subLinks: ['terms of use', 'privacy policy', 'copyright policy', 'faq']},
-  {title: 'Support', subLinks: ['Troubleshooting', 'Report a bug']},
-  {title: 'Some Topic', subLinks: ['Link', 'Link', 'Link', 'Link']},
+  {title: 'company', subLinks: ['terms of use', 'privacy policy', 'copyright policy', 'faq']},
+  {title: 'support', subLinks: ['Troubleshooting', 'Report a bug']},
+  {title: 'contact', subLinks: ['viasrt@gmail.com', '061-233456', 'Pokhara 7, Masbar']},
 ];
 
 const Footer = () => {
   return (
     <>
       <div className='footerContainer'>
-        <div className="footerLinks">
+        <div  className='footerTop'>Vis Art Gallery</div>
+
+        {/* <div className="footerLinks">
             {
               footerLinks.map((link, index) => {
                 return(
@@ -30,13 +32,13 @@ const Footer = () => {
                 )
               })
             }
+        </div> */}
 
-        </div>
 
         <div className='footerBottom' >
           <div className="footerCopyright">
-            <p>VA <span>VisArt Gallery</span></p>
-            <p>&#x00A9; 2023 VisArt. All Rights Reserved.</p>
+            {/* <p><span>VisArt Gallery</span></p> */}
+            <p><span>&#x00A9; 2023 VisArt. All Rights Reserved.</span></p>
           </div>
 
           <div className='footerSocial'>
@@ -45,7 +47,6 @@ const Footer = () => {
               <li><Link to="#"><i className="fa-brands fa-facebook facebook"></i></Link></li>
               <li><Link to="#"><i className="fa-brands fa-instagram instagram"></i></Link></li>
               <li><Link to="#"><i className="fa-brands fa-twitter twitter"></i></Link></li>
-              <li><Link to="#"><i className="fa-brands fa-facebook-messenger messanger"></i></Link></li>
             </ul>
           </div>
           

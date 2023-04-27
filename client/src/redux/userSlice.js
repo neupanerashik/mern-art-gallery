@@ -101,6 +101,19 @@ export const getOrdersReceived = createAsyncThunk('getOrdersReceived', async (_,
     }
 })
 
+// subscribe
+export const subscribe = createAsyncThunk('subscribe', async (email, {rejectWithValue}) => {
+    try {
+        const { data, status } = await axios.post('/api/v1/subscribe', {email}, {
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (status >= 300) {return rejectWithValue(data)};
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
+})
+
 export const userSlice = createSlice({
   name: 'user',
   
@@ -193,6 +206,7 @@ export const userSlice = createSlice({
         state.ordersMade = [];
     })
 
+
     //orders received
     builder.addCase(getOrdersReceived.pending, (state, action) => {
         state.isLoading = true;
@@ -203,6 +217,19 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.ordersReceived = [];
     })
+
+
+    // subscribe
+    builder.addCase(subscribe.pending, (state, action) => {
+        state.isLoading = true;
+    }).addCase(subscribe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message;
+    }).addCase(subscribe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload.message;
+    })
+
 
     // register user, login user
     builder.addMatcher(isAnyOf(registerUser.pending, loginUser.pending), (state) => {
@@ -218,7 +245,6 @@ export const userSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload.message;
     })
-
   }
 })
 

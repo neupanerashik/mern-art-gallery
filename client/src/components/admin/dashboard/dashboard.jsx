@@ -9,6 +9,7 @@ import Widgets from './widget.jsx'
 import NewUsers from './newUsers'
 import RecentOrders from './recentOrders'
 import TopSellers from './topSellers'
+import Skeleton from '../../utility/skeleton/skeleton'
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Dashboard = () => {
   
 
   if (isLoading || !barData.length) {
-    return <div style={{padding: '5rem 0', fontSize: '1.5rem'}}>Loading...</div>;
+    return <Skeleton style={{height: "30vh", width: "100%", marginTop: '1rem'}} />;
   }
 
   return (

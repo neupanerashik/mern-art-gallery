@@ -1,37 +1,54 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { clearError, clearMessage, subscribe } from '../../redux/userSlice'
 
 // import css
 import './subscribe.css'
 
 // import images
-import paint from '../../assets/images/paint.jpg'
-import buddha from '../../assets/images/buddha.jpg'
+import paintPic from '../../assets/images/pencils.jpg'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
+const subscribeStyle = {
+  backgroundImage: `url(${paintPic})`,
+  backgroundSize: 'cover',
+  backgroundPosition: "center",
+  backgroundRepeat: 'no-repeat',
+}
 
 const Subscribe = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+
+  const { message, error } = useSelector(state => state.user);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if(email==='') return toast.warn('Fill up the email field first!');
+    dispatch(subscribe(email));
+  }
+
+  useEffect(() => {
+		if(error){
+			toast.error(error)
+			dispatch(clearError());
+		}
+
+		if(message){
+			toast.success(message)
+			dispatch(clearMessage());
+		}
+	}, [dispatch, error, message])
+
   return (
-    <>
-        <section className='subscribeSection'>
-            <div className="subscribeContainer">             
-                <div>
-                  <img src={buddha} alt="pic" />
-                  <div>
-                    <p> Why you should subscribe us ?</p>
-                  </div>
-                </div>
-                
-                <div>
-                  <img src={paint} alt="pic" />
-                  <div>
-                    <h2>Subscribe Us</h2>
-                    <p>Register to our newsletter and get <br/> notified about exciting deals!</p>
-                    <input type="email" placeholder="your@email.com" required />
-                    <button type='button'>Subscribe</button>
-                  </div>
-                </div>
-            </div>
-        </section>
-    </>
+    <div className='subscribeContainer'style={subscribeStyle} >
+      <form>
+        <h2>Subscribe Us</h2>
+        <p>Register to our newsletter and get <br/> notified about exciting deals!</p>
+        <input type="email" placeholder="youremail@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <button type='button' onClick={handleSubscribe}>Subscribe</button>
+      </form>
+    </div>
   )
 }
 
