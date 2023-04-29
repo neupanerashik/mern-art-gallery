@@ -31,6 +31,7 @@ import Error from './components/layout/error/error';
 import Checkout from './components/checkout/checkout';
 import Auctions from './components/auction/auction';
 import Download from './components/arts/download';
+import Company from './components/layout/company/company';
 
 // redux store
 import store from './store.js';
@@ -55,6 +56,7 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/help/about' element={<About />} />
         <Route exact path='/help/contact' element={<Contact />} />
+        <Route exact path='/help/company' element={<Company />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/art/:id' element={<Detail />} />

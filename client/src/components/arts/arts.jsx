@@ -11,7 +11,7 @@ const Arts = () => {
     const {type} = useParams();
     const location = useLocation();
     const dispatch = useDispatch();
-    const [category, setCategory] = useState(type || '');
+    const [category, setCategory] = useState(type ?? '');
     const [minPrice, handleMinPrice] = useState('');
     const [maxPrice, handleMaxPrice] = useState('');
     const [sortByPrice, setSortByPrice] = useState('');
@@ -24,6 +24,10 @@ const Arts = () => {
     if (keyword === null) keyword = '';
 
     const toggleFilters = () => {setShowFilters(!showFilters)}
+
+    useEffect(() => {
+        setCategory(type ?? '');
+    }, [type]);
     
     useEffect(() => { 
         dispatch(getAllArts({keyword, category, maxPrice, minPrice, sortByPrice }))

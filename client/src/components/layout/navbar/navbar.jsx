@@ -17,10 +17,9 @@ import logo from '../../../assets/logo/logo.png'
 // menu
 const menus = [
   {title: 'home'},
-  {title: 'auction'},
   {title: 'arts'},
-  {title: 'help', subMenu: ['about', 'contact']},
-
+  {title: 'auction'},
+  {title: 'help', subMenu: ['about', 'contact', 'company']},
 ];
 
 const Navbar = ({user, isAuthenticated}) => {

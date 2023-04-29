@@ -52,11 +52,12 @@
 	animation-iteration-count: 3;
 }
 
-.ordersContainer > .ordersMade > .noOrders
+.ordersContainer > .ordersMade > .noOrders,
 .ordersContainer > .ordersReceived > .noOrders{
-    height: 25rem;
+    height: 10rem;
+    padding: 1rem;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: grid;
     place-items: center;
     border: 1px solid #ededed;

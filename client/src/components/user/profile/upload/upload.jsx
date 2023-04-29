@@ -21,10 +21,10 @@ const Upload = () => {
     const [isAuctionItem, setIsAuctionItem] = useState(false);
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
-    const [estimatedValueFrom, setEstimatedValueFrom] = useState("");
-    const [estimatedValueTo, setEstimatedValueTo] = useState("");
-    const [selectedDate, setSelectedDate] = useState("");
-    const [selectedTime, setSelectedTime] = useState("");
+    const [estimatedValueFrom, setEstimatedValueFrom] = useState('');
+    const [estimatedValueTo, setEstimatedValueTo] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTime, setSelectedTime] = useState('');
 
 
     const handleImageChange = (e) => {
@@ -51,6 +51,7 @@ const Upload = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(images.length < 1) {return toast.warn("You must include image of you artwork as well.")};
         const myForm = new FormData();
         myForm.append('name', name);
         myForm.append('price', price);

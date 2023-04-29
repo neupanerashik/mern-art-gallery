@@ -89,10 +89,10 @@ const ArtList = () => {
               return (
                 <tr key={index}>
                   <td><img src={art.images[0].original_image_url} alt="artPic" /></td>
-                  <td>{art.name}</td>
+                  <td>{art.name} {art.isAuctionItem && "(Auction Item)"}</td>
                   <td>{art._id}</td>
                   <td>Rs {art.price}</td>
-                  <td>{art.discount} %</td>
+                  <td>{art.discount ? art.discount : 0} %</td>
                   <td>{art.category}</td>
                   <td>{moment(art.uploadedAt).format('YYYY-MM-DD')}</td>
                   { (myData?._id === art.creator || myData?.role === 'admin') &&

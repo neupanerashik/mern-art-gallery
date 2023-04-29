@@ -59,7 +59,7 @@ export const createArt = catchAsyncError(async (req, res, next) => {
 
     res.status(201).json({
         success: true,
-        message: "Product uploaded successfully!",
+        message: "Artwork uploaded successfully!",
         art
     });
 });
@@ -67,7 +67,7 @@ export const createArt = catchAsyncError(async (req, res, next) => {
 
 // read all products
 export const readArts = catchAsyncError(async (req, res, next) => {
-    const features = new ArtApiFeatures(Art.find(), req.query).search().sort().filterByPrice().limitFields();
+    const features = new ArtApiFeatures(Art.find(), req.query).search().sort().filterByPrice();
     const arts = await features.query;
 
     res.status(200).json({

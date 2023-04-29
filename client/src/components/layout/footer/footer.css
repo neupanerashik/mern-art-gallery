@@ -8,12 +8,6 @@
     align-items: center;
 }
 
-/******************* Footer Top *******************/
-.footerContainer > .footerTop{
-    margin-bottom: 4rem;
-    font-size: 2.5rem;
-}
-
 /******************* Footer Links *******************/
 
 .footerContainer > .footerLinks{
@@ -24,7 +18,6 @@
 
 .footerContainer > .footerLinks > div{
     flex: 1 1 auto;
-    text-align: center;
 }
 
 .footerContainer > .footerLinks > div > h2{
@@ -59,11 +52,6 @@
 .footerContainer > .footerBottom > .footerCopyright > p{
     font-size: 1.25rem;
     font-weight: bolder;
-}
-
-.footerContainer > .footerBottom > .footerCopyright > p:first-child{
-    margin-bottom: 0.5rem;
-    font-family: 'Major Mono Display', monospace;
 }
 
 .footerContainer > .footerBottom > .footerSocial{

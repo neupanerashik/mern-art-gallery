@@ -27,7 +27,7 @@
 .artList > header > select{
     margin-left: 1rem;
     padding: 1rem;
-    border: none;
+    border: 1px solid #ededed;
 }
 
 /******************** User List ********************/
@@ -75,7 +75,7 @@
 .artList > .noArts{
     height: 25rem;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: grid;
     place-items: center;
     border: 1px solid #ededed;

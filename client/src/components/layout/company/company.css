@@ -1,0 +1,36 @@
+.companyContainer{
+    padding: 5rem;
+    background-color: #f0f0f0;
+}
+
+.companyContainer > div{
+    margin-bottom: 2rem;
+}
+
+.companyContainer > div:last-child{
+    margin-bottom: 0;
+}
+
+.companyContainer > div > h2{
+    margin-bottom: 1rem;
+}
+
+.companyContainer > div > p,
+.companyContainer > div > ol > li > p {
+    font-size: 1.25rem;
+    text-align: justify;
+}
+
+.companyContainer > div > ol{
+    padding-left: 1rem;
+}
+
+/* accordion */
+.companyContainer > div > div{
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.companyContainer > div > div:last-child{
+    margin-bottom: 0;
+}
