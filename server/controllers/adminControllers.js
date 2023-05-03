@@ -46,7 +46,7 @@ export const getStats = catchAsyncError(async (req, res, next) => {
     let topSellingArtists = allOrders.reduce((accumulator, order) => {
         order.orderItems.forEach((item) => {
             const { artCreator, artPrice }  = item;
-            const artistId = artCreator.toString();
+            const artistId = artCreator._id.toString();
 
             if(!accumulator[artistId]){
                 accumulator[artistId] = {artist: item.artCreator.name, role: item.artCreator.role, total_sales: 0}
