@@ -36,6 +36,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 </span>
 
 <br/>
+  
 <span>
 <h4>Recommendation Page</h4>
 <img width="100%" alt="recommendation" src="https://user-images.githubusercontent.com/71174333/236187826-16ad81b1-42a1-415b-b2af-4fbef1348fa4.jpg">
@@ -43,6 +44,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
   
 
 <br/>  
+  
 <span>
 <h4>Arts Page</h4>
 <img width="100%" alt="arts" src="https://user-images.githubusercontent.com/71174333/236189338-e8fbd69d-55fa-41f0-9f93-15dc8a498b3e.jpg">
@@ -50,6 +52,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 
 
 <br/>
+  
 <span>
 <h4>Detail Page</h4>
 <img width="100%" alt="detail" src="https://user-images.githubusercontent.com/71174333/236190075-eba952b5-cc85-41cc-a297-e680ee28de1b.jpg">
