@@ -4,6 +4,7 @@ Welcome to the Art Gallery E-commerce Platform! This platform is designed for ar
 In addition to the e-commerce functionality, this platform also allows artists and creators to receive donations from Khalti who want to support their work. This platform is easy to use and navigate, with a user-friendly interface and secure payment options.
 
 <br>
+
 ## Features
 Here are some of the key features of the Art Gallery E-commerce Platform:
 - Browse and Purchase Art
@@ -18,6 +19,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 - Responsive Design
 
 <br>
+
 ## Tech Stack
 **Client:** React, Redux Toolkit, Material UI, Axios, Khalti Checkout Web, Socket IO
 
