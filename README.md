@@ -26,6 +26,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 **Server:** Node, Express, Cloudinary, JSON Web Token, Nodemailer, Sharp, Stripe, Socket IO
 
 <br>
+
 ## Demo
 <div>
   
