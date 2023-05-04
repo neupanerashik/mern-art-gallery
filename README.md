@@ -79,11 +79,13 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 <h4>Profile Page</h4>
 <img width="100%" alt="profile" src="https://user-images.githubusercontent.com/71174333/236191121-e5e43f8a-9d32-42aa-a95d-728014f8418f.jpg">
 </span> 
-  
+
+<br />
+<br />
 </div>
 
-<br>
-<br>
- ## Features
-Here are some of the key features of the Art Gallery E-commerce Platform:                                                                                                                                          <br>
-## Thank you for your visit 🙏
+<br />
+<br />
+
+                                                                                                                                           
+## **Thank you for your visit 🙏**
