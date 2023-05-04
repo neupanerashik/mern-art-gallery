@@ -84,4 +84,4 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 
 <br>
 <br>                                                                                                                                         <br>
-### Thank You 🙏
+## Thank you for your visit 🙏
