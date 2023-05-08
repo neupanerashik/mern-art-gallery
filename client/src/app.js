@@ -33,19 +33,30 @@ import Auctions from './components/auction/auction';
 import Download from './components/arts/download';
 import Company from './components/layout/company/company';
 
-// redux store
-import store from './store.js';
-
 // react toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// redux store
+import store from './store.js';
+
 function App() {
-  // const dispatch = useDispatch();
   const { user, isAuthenticated} = useSelector(state => state.user);
 
   useEffect(() => {
    store.dispatch(getMyProfile())
+  }, []);
+
+  useEffect(() => {
+    function handleContextMenu(event) {
+      event.preventDefault();
+    }
+
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
   }, []);
 
   return (

@@ -15,6 +15,7 @@
     left: 1rem;
     color: white;
     background-color: #2d3448;
+    z-index: 50;
 }
 
 /******************** Card Image ********************/
@@ -25,19 +26,31 @@
     overflow: hidden;
 }
 
-.cardContainer > .itemImage > div.ant-image{
+.cardContainer > .itemImage > .watermark{
     height: 100%;
     width: 100%;
 }
 
-.cardContainer > .itemImage > div.ant-image > img.ant-image-img{
+.cardContainer > .itemImage > .watermark > div.ant-image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cardContainer > .itemImage > .watermark > div.ant-image > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cardContainer > .itemImage > .itemImage > div.ant-image > img.ant-image-img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     cursor: pointer;
 }
 
-.cardContainer > .itemImage:hover > div.ant-image > img.ant-image-img{
+.cardContainer > .itemImage:hover > .watermark > div.ant-image > img.ant-image-img{
     transform: scale(1.1);
     transition: transform 1s ease-in-out;
 }

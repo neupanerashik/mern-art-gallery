@@ -2,11 +2,11 @@ import nodemailer from "nodemailer"
 
 const sendEmailFromSite = ({sender, receiver, subject, message}) => {
 	const transporter = nodemailer.createTransport({
-	  service: 'gmail',
-	  auth: {
-	    user: process.env.EMAIL_ADDRESS,
-	    pass: process.env.APP_PASSWORD
-	  }
+		service: 'gmail',
+		auth: {
+			user: process.env.EMAIL_ADDRESS,
+			pass: process.env.APP_PASSWORD
+		}
 	});
 
 	// send mail with defined transport object

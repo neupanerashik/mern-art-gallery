@@ -19,6 +19,7 @@
     margin-right: 0.5rem;
     font-size: 2rem;
 	cursor: pointer;
+    color: gold;
 }
 
 .reviewDialogContainer > div > div > .reviewDialogContent > .rating > i:last-child{

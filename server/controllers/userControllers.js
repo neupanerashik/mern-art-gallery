@@ -24,8 +24,11 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
      // create chat
     const customerServiceRep = await User.find({role: 'csr'});
     await Chat.create({participants: [customerServiceRep[0]._id.toString(), user._id.toString()]});
-
-    res.cookie('jwt', token, {maxAge: 7*24*60*60*1000, httpOnly: true, sameSite: true}); //{secure: true}
+    
+    // set SameSite attribute to "none" for HTTPS, "lax" for HTTP
+    const sameSite = req.secure ? 'none' : 'lax'; 
+    res.cookie('jwt', token, {maxAge: 7*24*60*60*1000, httpOnly: true, sameSite: sameSite, secure: req.secure});
+    
     res.status(201).json({
         success: true,
         message: 'Successfully registered!',
@@ -44,8 +47,11 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
     const passwordMatch = await user.comparePassword(password);
     if(!passwordMatch) return next(new ErrorHandler("Invalid email or password!", 400));
     const token = await user.createJwtToken(expiresIn);
+
+    // set SameSite attribute to "none" for HTTPS, "lax" for HTTP
+    const sameSite = req.secure ? 'none' : 'lax'; 
+    res.cookie('jwt', token, {maxAge: remember ? 30*24*60*60*1000 : 7*24*60*60*1000, httpOnly: true, sameSite: sameSite, secure: req.secure});
 	
-    res.cookie('jwt', token, {maxAge: remember ? 30*24*60*60*1000 : 7*24*60*60*1000, httpOnly: true, sameSite: true}); //{secure: true}
     res.status(200).json({
         success: true,
         message: 'Successfully logged in!',
@@ -56,7 +62,14 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
 // logout user
 export const logoutUser = catchAsyncError(async (req, res) => {
-    res.cookie("jwt", null, {maxAge: -1000})
+    console.log("jwt", req.cookies.jwt)
+
+    // Node.js way
+    // res.clearCookie('jwt');
+
+    // Express way
+    res.cookie("jwt", null, {maxAge: -1000, sameSite: "none", secure: true});
+
 	res.status(200).send({
 		success: true,
 		message: "Successfully logged out!"

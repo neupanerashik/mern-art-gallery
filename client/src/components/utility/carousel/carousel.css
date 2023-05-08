@@ -15,7 +15,12 @@
     position: relative;
 }
 
-.carouselContainer > .carouselSlide > img{
+.carouselContainer > .carouselSlide > .watermark {
+    height: 100%;
+    width: 100%;
+}
+
+.carouselContainer > .carouselSlide > .watermark > img{
     height: 100%;
     width: 100%;
     object-fit: cover;

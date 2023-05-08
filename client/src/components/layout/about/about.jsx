@@ -28,22 +28,22 @@ const About = () => {
 
             <div className="missions">
                 <h1>Our Mission</h1>
+
+                <p>
+                We also To fill the gap between artists and buyers in the Nepali market using online platform.
+                </p>
+                <br/>
+
+                <p>
+                Our mission is also create a commercial web platform where artists can showcase their work and monetize them.
+                </p>
+                <br/>
+                
                 <p>
                 Our mission is to create a web platform where visual artists can
-                showcase their work and monetize their content
-                </p>
-                <p>
-                and also to make it possible for the users to browse the available
+                showcase their work and monetize their content and also to make it possible for the users to browse the available
                 artworks, pay and download or order the artwork.
-                </p>
-                <p>
-                Our mission is to create a web platform where visual artists can
-                showcase their work and monetize their content
-                </p>
-                <p>
-                and also to make it possible for the users to browse the available
-                artworks, pay and download or order the artwork.
-                </p>
+                </p>                
             </div>
 
             <div className="services">

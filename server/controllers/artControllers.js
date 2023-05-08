@@ -1,8 +1,8 @@
 import fs from 'fs';
+import url from 'url';
 import path from 'path';
 import sharp from 'sharp';
 import cloudinary from 'cloudinary'
-import { fileURLToPath } from 'url';
 import { Art } from "../models/artModel.js";
 import { User } from "../models/userModel.js";
 import catchAsyncError from "../utility/catchAsyncError.js";
@@ -11,7 +11,7 @@ import ArtApiFeatures from "../utility/artApiFeatures.js";
 
 
 // configuring __filename and __dirname in ES Module
-const __filename = fileURLToPath(import.meta.url);
+const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // create art

@@ -135,6 +135,10 @@
     font-size: 1.25rem;
 }
 
+.reviewsContainer > .reviews > .review > .reviewer > .rating > i{
+    color: gold;
+}
+
 .reviewsContainer > .reviews > .review > .reviewer > .rating > i:not(:last-child){
     margin-right: 0.5rem;
 }

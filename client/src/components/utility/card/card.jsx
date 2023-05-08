@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { Image, Watermark } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/cartSlice';
@@ -8,7 +9,6 @@ import { clearError as clearProfileError, clearMessage as clearProfileMessage } 
 
 // import css and components
 import './card.css'
-import { Image } from 'antd';
 
 const Card = ({art, title, style}) => {
   const navigate = useNavigate();
@@ -72,7 +72,9 @@ const Card = ({art, title, style}) => {
     <div className="cardContainer" style={style}>
       {art?.artStatus === 'sold' && <div className="artStatus">Sold</div>}  
       <div className='itemImage'>
-        <Image src={art.images[0].watermarked_image_url} />
+        <Watermark className="watermark" content={['Visart', 'Copyright Reserved']}>
+          <Image src={art.images[0].watermarked_image_url} />
+        </Watermark>
       </div>
 
       <div className='itemInfo'>

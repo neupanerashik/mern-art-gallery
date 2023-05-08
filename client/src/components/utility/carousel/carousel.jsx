@@ -1,7 +1,9 @@
+import { Watermark } from 'antd';
 import {useState, useEffect, useRef} from 'react'
 
 // import css
 import './carousel.css'
+import logo from "../../../assets/logo/logo.png"
 
 const Carousel = ({images, style}) => {
 
@@ -33,8 +35,11 @@ const Carousel = ({images, style}) => {
   return (
     <div className='carouselContainer' style={style}>
       <div className="carouselSlide">
-        {images && <img src={images[currentIndex].watermarked_image_url} alt="art-img" ref={carouselImgRef}/>}
-        {/* {images && <a className='downloadBtn' href={`${images[currentIndex].url}`}><i className="fa-solid fa-up-right-and-down-left-from-center"></i></a>} */}
+        {images && 
+          <Watermark className='watermark' content={['Visart', 'Copyright Reserved']}>
+            <img src={images[currentIndex].watermarked_image_url} alt="art-img" ref={carouselImgRef}/>
+          </Watermark>
+        }
       </div>
 
       {images && images.length > 1 && 

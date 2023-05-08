@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, NavLink, useNavigate} from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { logoutUser } from '../../../redux/userSlice';
 import Drawer from '@mui/material/Drawer';
@@ -40,7 +40,8 @@ const Navbar = ({user, isAuthenticated}) => {
     e.preventDefault();
     dispatch(logoutUser());
     navigate('/');
-    toast.success("Logged out successfully!");
+    // toast.success("Logged out successfully!");
+    alert("Logged out successfully!");
   };
 
   return (

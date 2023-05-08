@@ -35,6 +35,7 @@
 .ordersContainer > .ordersMade > table > tbody > tr > td,
 .ordersContainer > .ordersReceived > table > tbody > tr > td{
     padding: 1rem;
+    font-size: 1.25rem;
     background-color: white;
     border-bottom: 1px solid #ededed;
 }

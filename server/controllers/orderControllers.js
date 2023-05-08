@@ -25,7 +25,15 @@ export const newOrder = catchAsyncError(async(req, res, next) => {
     const orderItemIds = order.orderItems.map(item => item.artId);
     await Art.updateMany({_id: {$in: orderItemIds}}, {artStatus: 'sold'});
 
-     // send download link for images: `${req.protocol}://${req.get('host')}/password/reset/${token}`
+    // send email notification 
+    const message = 
+    `<div style="height: 100px; background-color: #f0f0f0; font-family: Times New Roman; color: black; text-align: center; padding: 25px; ">
+        <p style="font-size: 16px;">Thank you ${shippingDetail.name} for making order using our site. We will notify you again when the order is shipped.</p>
+    </div>`;
+    
+    sendEmailFromSite({sender: process.env.EMAIL_ADDRESS, receiver: shippingDetail.email, subject: "Order Confirmed", message});
+
+    // send download link for images: `${req.protocol}://${req.get('host')}/password/reset/${token}`
     for (const item of orderItems) {
         if (item.artCategory === "photography") {
             const art = await Art.findById(item.artId);

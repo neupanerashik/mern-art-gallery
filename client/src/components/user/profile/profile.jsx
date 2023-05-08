@@ -78,7 +78,7 @@ const Profile = () => {
                     </div>
 
                     <div className="name">{userData && userData.name}</div>
-                    <div className="role">{userData && userData.role}</div>
+                    <div className="role">{userData && userData.role} (role)</div>
                     <div className="email">{userData && userData.email}</div>
                     
 
@@ -121,7 +121,7 @@ const Profile = () => {
                             roles.includes(myData.role) && 
                             <NavLink to='orders'>Orders</NavLink>
                         }
-                        {myData && userData._id === myData._id && <NavLink to='upload'>Upload</NavLink>}
+                        {myData && userData._id === myData._id && myData?.role!=="user" &&  <NavLink to='upload'>Upload</NavLink>}
                     </nav>
 
                     <Outlet />
