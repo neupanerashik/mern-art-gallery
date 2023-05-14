@@ -22,8 +22,8 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
     const token = await user.createJwtToken();
     
      // create chat
-    const customerServiceRep = await User.find({role: 'csr'});
-    await Chat.create({participants: [customerServiceRep[0]._id.toString(), user._id.toString()]});
+    const admin = await User.find({role: 'admin'});
+    await Chat.create({participants: [admin[0]._id.toString(), user._id.toString()]});
     
     // set SameSite attribute to "none" for HTTPS, "lax" for HTTP
     const sameSite = req.secure ? 'none' : 'lax'; 

@@ -73,7 +73,7 @@ const Card = ({art, title, style}) => {
       {art?.artStatus === 'sold' && <div className="artStatus">Sold</div>}  
       <div className='itemImage'>
         <Watermark className="watermark" content={['Visart', 'Copyright Reserved']}>
-          <Image src={art.images[0].watermarked_image_url} />
+          <img src={art.images[0].watermarked_image_url} alt="product-pic" />
         </Watermark>
       </div>
 

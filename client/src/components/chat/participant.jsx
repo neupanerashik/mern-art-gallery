@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import useFetch from '../../hooks/useFetch.js'
 
 // import css and components
 import './participant.css'
 
-const Participant = ({chat, currentChat, onlineUsers, messageNotification}) => {
+const Participant = ({chat, currentChat, onlineUsers}) => {
     const [online, setOnline] = useState(false);
 
     const { myData } = useSelector(state => state.user);
@@ -29,10 +29,9 @@ const Participant = ({chat, currentChat, onlineUsers, messageNotification}) => {
             <div className={(currentChat !== null && chat._id.toString() === currentChat._id.toString()) ? "avatar active" : "avatar"}>
                 {data?.user?.avatar ? <img src={data.user.avatar.url} alt='user' /> : <i className="fa-solid fa-user"></i>}
             </div>
-            <div className={data?.user?.role === 'csr' ? "name csr" : "name"}>{isLoading ? 'Loading...' : (data?.user?.role === "csr") ? "Customer Service" : data?.user?.name}</div>
+            <div className={data?.user?.role === 'csr' ? "name csr" : "name"}>{isLoading ? 'Loading...' : (data?.user?.role === "admin") ? "Admin" : data?.user?.name}</div>
             <div className={online ? "status online" : "status"}></div>
 
-            {/* {messageNotification.length > 0 && <div><i className="fa-solid fa-circle-exclamation"></i></div>} */}
         </div>
     )
 }
