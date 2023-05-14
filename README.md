@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 7c5d17b97c9712f86400c480305fabfe6a5aca62
 # MERN Art Gallery E-commerce Platform
 Welcome to the Art Gallery E-commerce Platform! This platform is designed for art enthusiasts and collectors who want to browse and purchase various forms of art, including paintings, sculptures, and more. The platform also includes an auction feature where users can bid on unique and rare pieces of art.
 In addition to the e-commerce functionality, this platform also allows artists and creators to receive donations from Khalti who want to support their work. This platform is easy to use and navigate, with a user-friendly interface and secure payment options.
