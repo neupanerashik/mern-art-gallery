@@ -59,11 +59,11 @@ const Login = (props) => {
           </label>
 
           <label>
-            <input type="email" placeholder="Email" value={email}  onChange={e=>setEmail(e.target.value)} autoComplete="off" required/>
+            <input type="email" placeholder="Email" value={email}  onChange={e=>setEmail(e.target.value)} autoComplete="new-password" required/>
           </label>
 
           <label>
-            <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="off" required/>
+            <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="new-password" required/>
           </label>
 
           <label className='moreOptions'>

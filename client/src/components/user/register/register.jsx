@@ -47,19 +47,19 @@ const Register = () => {
           </label>
 
           <label>
-            <input type="text" name="name" value={user.name} placeholder='Name' autoComplete="off" onChange={handleChange} required />
+            <input type="text" name="name" value={user.name} placeholder='Name' autoComplete="new-password"  onChange={handleChange} required />
           </label>
 
           <label>
-            <input type="email" name="email" value={user.email} placeholder="Email" autoComplete="off" onChange={handleChange} required/>
+            <input type="email" name="email" value={user.email} placeholder="Email" autoComplete="new-password"  onChange={handleChange} required/>
           </label>
 
           <label>
-            <input type="password" name="password" value={user.password} placeholder="Create Password" autoComplete="off" onChange={handleChange} required/>
+            <input type="password" name="password" value={user.password} placeholder="Create Password" autoComplete="new-password"  onChange={handleChange} required/>
           </label>
 
           <label>
-            <input type="password" name="confirmPassword" value={user.confirmPassword} placeholder="Confirm Password" autoComplete="off" onChange={handleChange} required/>
+            <input type="password" name="confirmPassword" value={user.confirmPassword} placeholder="Confirm Password" autoComplete="new-password"  onChange={handleChange} required/>
           </label>
 
           <label>
