@@ -76,6 +76,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
                                                                                                                                             
 <span>
 <h4>Profile Page</h4>
-<img width="100%" alt="profile" src="https://user-images.githubusercontent.com/71174333/236191121-e5e43f8a-9d32-42aa-a95d-728014f8418f.jpg">
+![Screenshot 2023-05-15 193318](https://github.com/YogendraRana/mern-art-gallery/assets/71174333/c9c149e3-5c47-4da4-97be-55a7d71ba48b)
 </span> 
-</div>                                                                                                                                      
+</div>                                                                                                                
+                      
