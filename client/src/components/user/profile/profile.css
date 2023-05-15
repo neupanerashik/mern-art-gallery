@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #b2beb5;
+    border-radius: 50%;
     position: relative;
 }
 
@@ -22,14 +23,20 @@
     position: absolute;
     height: 2.5rem;
     width: 2.5rem;
+    padding: 0.25rem;
     border-radius: 50%;
-    bottom: -1rem;
-    right: -1rem;
-    border: 1px solid #b2beb5;
+    bottom: 1rem;
+    right: 1rem;
     display: grid;
     place-items: center;
     background-color: white;
     cursor: pointer;
+}
+
+.profileSection > .profileCard > .avatar > label > i{
+    border: 1px solid #b2beb5;
+    border-radius: 50%;
+    padding: 0.5rem;
 }
 
 .profileSection > .profileCard > .avatar > label > input{

@@ -74,7 +74,6 @@ const Profile = () => {
                         }
                         {userData && userData.avatar && userData.avatar.url !== "" && <img src={userData.avatar.url} alt='avatar' />}
                         {userData && !userData.avatar && userData.name && Object.keys(userData).length !== 0 && <p>{userData.name[0]}</p>}
-
                     </div>
 
                     <div className="name">{userData && userData.name}</div>
