@@ -8,7 +8,7 @@ In addition to the e-commerce functionality, this platform also allows artists a
 Here are some of the key features of the Art Gallery E-commerce Platform:
 - Browse and Purchase Art
 - Auctions
-- Donations
+- Donations with Khalti
 - Live Messaging
 - User Accounts
 - Search and Filter
