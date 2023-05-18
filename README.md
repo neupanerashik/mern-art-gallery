@@ -9,7 +9,7 @@ Here are some of the key features of the Art Gallery E-commerce Platform:
 - Browse and Purchase Art
 - Auctions
 - Donations
-- Live Messanging
+- Live Messaging
 - User Accounts
 - Search and Filter
 - Stripe Payment
