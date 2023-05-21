@@ -17,7 +17,7 @@ export const getUserProfile = createAsyncThunk('getProfile', async (id, { reject
 // update profile
 export const updateProfile = createAsyncThunk('updateProfile', async (profileData, { rejectWithValue, dispatch }) => {
     try {
-        const { data, status } = await axios.put('/api/v1/profile/update', profileData, {
+        const { data, status } = await axios.put(`/api/v1/profile/update`, profileData, {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
         });
@@ -34,7 +34,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (profileDat
 // update profile
 export const updateAvatar = createAsyncThunk('updateAvatar', async (avatar, { rejectWithValue, dispatch }) => {
     try {
-        const { data, status } = await axios.put('/api/v1/profile/avatar/update', avatar, {
+        const { data, status } = await axios.put(`/api/v1/profile/avatar/update`, avatar, {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
         });

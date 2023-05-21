@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit'
 // register user
 export const registerUser = createAsyncThunk('registerUser', async (registerData, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.post('/api/v1/register', registerData, {headers: {'Content-Type': 'application/json'}});
+        const { data, status } = await axios.post(`/api/v1/register`, registerData, {headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -16,7 +16,7 @@ export const registerUser = createAsyncThunk('registerUser', async (registerData
 // get my profile
 export const getMyProfile = createAsyncThunk('getMyProfile', async (_, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.get('/api/v1/profile/me', {withCredentials: true});
+        const { data, status } = await axios.get(`/api/v1/profile/me`, {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -28,7 +28,7 @@ export const getMyProfile = createAsyncThunk('getMyProfile', async (_, { rejectW
 // login user
 export const loginUser = createAsyncThunk('loginUser', async (loginData, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.post('/api/v1/login', loginData, {headers: {'Content-Type': 'application/json'}});
+        const { data, status } = await axios.post(`/api/v1/login`, loginData, {headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk('loginUser', async (loginData, { rejec
 // logout user
 export const logoutUser = createAsyncThunk('logoutUser', async (_, { rejectWithValue }) => {
     try {
-        const { data, status } = await axios.get('/api/v1/logout', {withCredentials: true});
+        const { data, status } = await axios.get(`/api/v1/logout`, {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -66,7 +66,7 @@ export const deleteAccount = createAsyncThunk('deleteAccount', async (userId, { 
 
 export const createOrder = createAsyncThunk('createOrder', async (orderData,  {rejectWithValue}) => {
     try{
-        const {data, status} = await axios.post('/api/v1/order/new', {orderData}, {
+        const {data, status} = await axios.post(`/api/v1/order/new`, {orderData}, {
             withCredentials: true,
             headers: {'Content-Type': 'application/json'}
         });
@@ -81,7 +81,7 @@ export const createOrder = createAsyncThunk('createOrder', async (orderData,  {r
 // get orders made
 export const getOrdersMade = createAsyncThunk('getOrdersMade', async (_, {rejectWithValue}) => {
     try {
-        const { data, status } = await axios.get('/api/v1/orders/made', {withCredentials: true});
+        const { data, status } = await axios.get(`/api/v1/orders/made`, {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -93,7 +93,7 @@ export const getOrdersMade = createAsyncThunk('getOrdersMade', async (_, {reject
 // get orders received
 export const getOrdersReceived = createAsyncThunk('getOrdersReceived', async (_, {rejectWithValue}) => {
     try {
-        const { data, status } = await axios.get('/api/v1/orders/received', {withCredentials: true});
+        const { data, status } = await axios.get(`/api/v1/orders/received`, {withCredentials: true});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -104,7 +104,7 @@ export const getOrdersReceived = createAsyncThunk('getOrdersReceived', async (_,
 // subscribe
 export const subscribe = createAsyncThunk('subscribe', async (email, {rejectWithValue}) => {
     try {
-        const { data, status } = await axios.post('/api/v1/subscribe', {email}, {
+        const { data, status } = await axios.post(`/api/v1/subscribe`, {email}, {
             headers: {'Content-Type': 'application/json'}
         });
         if (status >= 300) {return rejectWithValue(data)};

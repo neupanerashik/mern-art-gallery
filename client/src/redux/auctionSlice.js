@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const placeBid = createAsyncThunk('placeBid', async (bidData, {rejectWithValue}) => {
     try {
-        const {data, status} = await axios.post('/api/v1/auction/bid', bidData, {
+        const {data, status} = await axios.post(`/api/v1/auction/bid`, bidData, {
             withCredentials: true,
             headers: {'Content-Type': 'application/json'}
         }); 

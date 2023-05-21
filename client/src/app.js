@@ -7,7 +7,10 @@ import { getMyProfile } from './redux/userSlice';
 import './app.css';
 import Navbar from './components/layout/navbar/navbar';
 import Footer from './components/layout/footer/footer.jsx';
-import Home from './components/home/home.jsx'
+import Home from './components/layout/home/home.jsx'
+import Contact from './components/layout/contact/contact';
+import About from './components/layout/about/about';
+import Company from './components/layout/company/company';
 import Login from './components/user/login/login.jsx'
 import Register from './components/user/register/register.jsx'
 import Detail from './components/arts/detail.jsx';
@@ -21,17 +24,14 @@ import UserDetail from './components/user/profile/userDetail/userDetail';
 import Likes from './components/user/profile/likes/likes';
 import Upload from './components/user/profile/upload/upload';
 import Orders from './components/user/profile/orders/orders';
-import Contact from './components/layout/contact/contact';
-import About from './components/layout/about/about';
 import AdminLayout from './components/admin/adminLayout';
 import UserList from './components/admin/userList/userList';
 import Dashboard from './components/admin/dashboard/dashboard';
 import OrderList from './components/admin/orderList/orderList';
-import Error from './components/layout/error/error';
+import Error from './components/error/error';
 import Checkout from './components/checkout/checkout';
 import Auctions from './components/auction/auction';
 import Download from './components/arts/download';
-import Company from './components/layout/company/company';
 
 // react toastify
 import { ToastContainer } from 'react-toastify';

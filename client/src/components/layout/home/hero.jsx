@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 // import css and image
 import './hero.css'
-import heroImage from '../../assets/images/paint.jpg'
+import heroImage from '../../../assets/images/paint.jpg'
 
 const Hero = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useFetch from '../../hooks/useFetch'
+import useFetch from '../../../hooks/useFetch'
 
 // import css
 import './home.css'
@@ -9,7 +9,7 @@ import Hero from './hero'
 import Category from './category'
 import Recommendation from './recommendation'
 import Subscribe from './subscribe'
-import Slider from '../utility/slider/slider'
+import Slider from '../../utility/slider/slider'
 
 const Home = () => {
   const { data } = useFetch('/arts/recommendations');

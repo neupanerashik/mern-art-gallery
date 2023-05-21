@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import useFetch from '../../hooks/useFetch.js'
+import useFetch from '../../../hooks/useFetch.js'
 
 // import css and components
 import './recommendation.css'
-import Card from '../utility/card/card'
-import Bubbles from '../utility/bubbles/bubbles'
+import Card from '../../utility/card/card'
+import Bubbles from '../../utility/bubbles/bubbles'
 import { toast } from 'react-toastify'
 
 const recommendations = ['New Arrivals', "Highest Rated"]

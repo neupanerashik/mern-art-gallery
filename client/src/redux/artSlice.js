@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // upload product
 export const uploadArt = createAsyncThunk('uploadArt', async(productData, {rejectWithValue}) => {
     try{
-        const { data, status} = await axios.post('/api/v1/art/upload', productData, {
+        const { data, status} = await axios.post(`/api/v1/art/upload`, productData, {
             headers: {'Content-Type': 'multipart/form-data'},
             withCredentials: true
         });
@@ -58,7 +58,7 @@ export const deleteArt = createAsyncThunk('deleteArt', async (artId, {rejectWith
 // add to likes
 export const addToLikes = createAsyncThunk('addToLikes', async (artData, { rejectWithValue, dispatch }) => {
     try {
-        const { data, status } = await axios.post('/api/v1/likes/add', artData, {withCredentials: true, headers: {'Content-Type': 'application/json'}});
+        const { data, status } = await axios.post(`/api/v1/likes/add`, artData, {withCredentials: true, headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         dispatch(updateMyData(data.user));
         return data;
@@ -71,7 +71,7 @@ export const addToLikes = createAsyncThunk('addToLikes', async (artData, { rejec
 // remove from likes
 export const removeFromLikes = createAsyncThunk('removeFromLikes', async (artId, { rejectWithValue, dispatch }) => {
     try {
-        const { data, status } = await axios.delete('/api/v1/likes/remove', { 
+        const { data, status } = await axios.delete(`/api/v1/likes/remove`, { 
             data: {artId},
             withCredentials: true, 
             headers: {'Content-Type': 'application/json'}
@@ -89,7 +89,7 @@ export const removeFromLikes = createAsyncThunk('removeFromLikes', async (artId,
 // create review 
 export const createReview = createAsyncThunk('createReview', async (reviewData,  {rejectWithValue, dispatch}) => {
 	try{
-		const {data, status} = await axios.put('/api/v1/art/review', reviewData, {headers: {'Content-Type': 'application/json'}})
+		const {data, status} = await axios.put(`/api/v1/art/review`, reviewData, {headers: {'Content-Type': 'application/json'}})
         if (status >= 300) {return rejectWithValue(data)};
         return data;
 	}catch(err){

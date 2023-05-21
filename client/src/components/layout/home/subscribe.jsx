@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { clearError, clearMessage, subscribe } from '../../redux/userSlice'
+import { clearError, clearMessage, subscribe } from '../../../redux/userSlice'
 
 // import css
 import './subscribe.css'
 
 // import images
-import paintPic from '../../assets/images/pencils.jpg'
+import paintPic from '../../../assets/images/pencils.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 

@@ -27,7 +27,7 @@ export const getChatMessages = createAsyncThunk('getChatMessages', async (chatId
 
 export const sendMessage = createAsyncThunk('sendMessage', async (message, {rejectWithValue}) => {
     try {
-        const {data, status} = await axios.post('/api/v1/message/new', message, {withCredentials: true, headers: {'Content-Type': 'application/json'}});
+        const {data, status} = await axios.post(`/api/v1/message/new`, message, {withCredentials: true, headers: {'Content-Type': 'application/json'}});
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (error) {

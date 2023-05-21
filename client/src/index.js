@@ -9,7 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
 (async () => {
-  const res = await fetch('/api/v1/stripe-publishable-key');
+  const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/stripe-publishable-key`);
   const data = await res.json()
   const stripePromise = loadStripe(data.stripePK)
 

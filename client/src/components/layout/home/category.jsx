@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom'
 import './category.css'
 
 // import images
-import painting from '../../assets/images/painting.jpg'
-import photography from '../../assets/images/photography.jpg'
-import sculpture from '../../assets/images/sculpture.jpg'
-import drawing from '../../assets/images/drawing.jpg'
-import digital from '../../assets/images/digital.jpg'
+import painting from '../../../assets/images/painting.jpg'
+import photography from '../../../assets/images/photography.jpg'
+import sculpture from '../../../assets/images/sculpture.jpg'
+import drawing from '../../../assets/images/drawing.jpg'
+import digital from '../../../assets/images/digital.jpg'
 
 // component
 function CategoryItem (props) {

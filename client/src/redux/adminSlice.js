@@ -26,7 +26,7 @@ export const deleteUser = createAsyncThunk('deleteUser', async (userId, { reject
 //getAllOrders thunk
 export const getAllOrders = createAsyncThunk('admin/getAllOrders', async (_, {rejectWithValue}) => {
     try {
-        const {data, status} = await axios.get('/api/v1/admin/orders');
+        const {data, status} = await axios.get(`/api/v1/admin/orders`);
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     } catch (err) {
@@ -64,7 +64,7 @@ export const deleteOrder = createAsyncThunk('admin/deleteOrder', async (orderId,
 // getStats thunk
 export const getStats = createAsyncThunk('admin/getStats', async (_, {rejectWithValue}) => {
     try{
-        const {data, status} = await axios.get('/api/v1/admin/stats');
+        const {data, status} = await axios.get(`/api/v1/admin/stats`);
         if (status >= 300) {return rejectWithValue(data)};
         return data;
     }catch (err){

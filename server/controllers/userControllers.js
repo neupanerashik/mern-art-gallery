@@ -27,7 +27,13 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
     
     // set SameSite attribute to "none" for HTTPS, "lax" for HTTP
     const sameSite = req.secure ? 'none' : 'lax'; 
-    res.cookie('jwt', token, {maxAge: 7*24*60*60*1000, httpOnly: true, sameSite: sameSite, secure: req.secure});
+    res.cookie('jwt', token, {
+        maxAge: 7*24*60*60*1000, 
+        httpOnly: true, 
+        sameSite: sameSite, 
+        secure: req.secure,
+        domain: 'localhost'
+    });
     
     res.status(201).json({
         success: true,
@@ -50,7 +56,13 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
     // set SameSite attribute to "none" for HTTPS, "lax" for HTTP
     const sameSite = req.secure ? 'none' : 'lax'; 
-    res.cookie('jwt', token, {maxAge: remember ? 30*24*60*60*1000 : 7*24*60*60*1000, httpOnly: true, sameSite: sameSite, secure: req.secure});
+    res.cookie('jwt', token, {
+        maxAge: remember ? 30*24*60*60*1000 : 7*24*60*60*1000, 
+        httpOnly: true, 
+        sameSite: sameSite, 
+        secure: req.secure,
+        domain: 'localhost'
+    });
 	
     res.status(200).json({
         success: true,
@@ -62,8 +74,6 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
 // logout user
 export const logoutUser = catchAsyncError(async (req, res) => {
-    console.log("jwt", req.cookies.jwt)
-
     // Node.js way
     // res.clearCookie('jwt');
 
